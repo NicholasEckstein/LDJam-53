@@ -33,6 +33,9 @@ public class GameManager : SingletonBase<GameManager>
     private GameObject m_loadingUI;
 
     [SerializeField]
+    private GameObject m_gameUI;
+
+    [SerializeField]
     private float m_loadingScreenDelayTime = 0.5f;
 
     [Header("Dialogue")]
@@ -57,6 +60,13 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private AudioClip m_descentMusic;
 
+    [SerializeField]
+    private AudioClip m_playerHitSFX;
+
+    [SerializeField]
+    private AudioClip m_playerDeadSFX;
+
+
     private PhaseSubSection m_currentSubPhase;
     private PlayerController m_playerController;
 
@@ -74,6 +84,9 @@ public class GameManager : SingletonBase<GameManager>
     public string IntroDialogue { get => m_introDialogueNode; }
     public float MusicVolume { get => m_musicVolume; }
     public float SFXVolume { get => m_sfxVolume; }
+    public GameObject GameUI { get => m_gameUI; }
+    public AudioClip PlayerDeadSFX { get => m_playerDeadSFX; }
+    public AudioClip PlayerHitSFX { get => m_playerHitSFX; }
 
     protected override void Awake()
     {

@@ -5,11 +5,18 @@ using UnityEngine;
 public class PlayPhase : GamePhase
 {
     private bool m_initialized;
+    private GameUI m_gameUI;
 
     public override bool Initialize()
     {
         if(GameManager.Instance.PlayerController == null)
             GameManager.Instance.CreatePlayer();
+
+        m_gameUI = GameManager.OpenUI<GameUI>(GameManager.Instance.GameUI);
+        if(m_gameUI != null)
+        {
+            m_gameUI.Init();
+        }
 
         if (!LoadingUI.IsClosing)
         {
@@ -33,6 +40,8 @@ public class PlayPhase : GamePhase
     {
         if (GameManager.Instance.PlayerController != null)
             GameManager.Instance.DestroyPlayer();
+
+        GameManager.CloseUI(m_gameUI);
 
         return true;
     }

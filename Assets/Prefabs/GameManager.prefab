@@ -44,3 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a08c925825792f43bb5017d96140db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerPrefab: {fileID: 8378621006104947618, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
+  m_cameraController: {fileID: 0}
+  m_mainMenu: {fileID: 312652919677441327, guid: 87c74c91de34c174db3bbbf9196d6931, type: 3}
+  m_levelSelect: {fileID: 312652919677441327, guid: 1fc8108f89690ba4cb73d750ada9cd88, type: 3}
+  m_loadingUI: {fileID: 312652919677441327, guid: 656220be229a58745af7ced50b842d47, type: 3}
+  m_gameUI: {fileID: 312652919677441327, guid: 593c9334870182946a827fbe235f7b09, type: 3}
+  m_loadingScreenDelayTime: 0.5
+  m_dialogueRunner: {fileID: 0}
+  m_introDialogueNode: Intro
+  m_musicVolume: 0.5
+  m_sfxVolume: 0.5
+  m_mainMenuMusic: {fileID: 8300000, guid: 36ac1aa9f4bcb514ca21ad40788ce288, type: 3}
+  m_descentMusic: {fileID: 8300000, guid: 40008c942c1644d448ac2b48181f5d6e, type: 3}
+  m_playerHitSFX: {fileID: 8300000, guid: eb5cdc0956858d340a5e6e6a5877b918, type: 3}
+  m_playerDeadSFX: {fileID: 8300000, guid: 4d02d318d838b984eac872cbed5ff5f4, type: 3}

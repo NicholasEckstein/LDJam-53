@@ -65,6 +65,16 @@ public class PlayerController : MonoBehaviour
 		m_currHorizontalSpeed = 0.0f;
 	}
 
+    private void OnEnable()
+    {
+		Health.OnDead += OnDead;
+    }
+
+    private void OnDisable()
+    {
+		Health.OnDead -= OnDead;
+	}
+
 	public bool GetIsMoving
 	{
 		get
@@ -184,7 +194,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void OnDead(Health health)
+	void OnDead()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
