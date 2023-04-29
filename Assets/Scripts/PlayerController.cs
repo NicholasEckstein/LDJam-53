@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 		}
 		else // not moving. Decelerate speed to zero
 		{
-			controlForceToUse = -Mathf.Sign(m_rigidbody.velocity.x) * m_accelToUse;
+			controlForceToUse = -System.Math.Sign(m_rigidbody.velocity.x) * m_accelToUse;
 		}
 
 		float jumpForce = 0.0f;
@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
 		if (grounded)
 		{
 			jumpForce = -m_rigidbody.velocity.y;
+
+			m_rigidbody.gravityScale = 0.0f;
 
 			if (jump)
 			{
@@ -108,16 +110,23 @@ public class PlayerController : MonoBehaviour
 			//force player to jump
 			jumpForce = -m_rigidbody.velocity.y + m_jumpForce;
 		}
-		// else // else if falling
-		// {
-		//	physics system should be applying gravity automatically
-		// }
+		else // else if falling
+		{
+			m_rigidbody.gravityScale = 1.0f;
+		}
 
 		m_rigidbody.AddForce(new Vector2(controlForceToUse, jumpForce));
 
 		// Clamp the velocity to the maximum speed
 		float clampedVelocityX = Mathf.Clamp(m_rigidbody.velocity.x, -m_maxSpeed, m_maxSpeed);
 		float fallVelocityX = Mathf.Clamp(m_rigidbody.velocity.y, -m_maxFallSpeed, m_maxFallSpeed);
+
+		// If velocity is basically zero, just set it to zero
+		if (Mathf.Abs(clampedVelocityX) < EPSILON)
+			clampedVelocityX = 0.0f;
+		if (Mathf.Abs(fallVelocityX) < EPSILON)
+			fallVelocityX = 0.0f;
+
 		m_rigidbody.velocity = new Vector2(clampedVelocityX, fallVelocityX);
 	}
 }
