@@ -6,16 +6,28 @@ public class PlayPhase : GamePhase
 {
     private bool m_initialized;
     private GameUI m_gameUI;
+    private int m_levelIndex;
+
+    public PlayPhase(int a_levelIndex)
+    {
+        m_levelIndex = a_levelIndex;
+    }
 
     public override bool Initialize()
     {
         if(GameManager.Instance.PlayerController == null)
             GameManager.Instance.CreatePlayer();
 
-        m_gameUI = GameManager.OpenUI<GameUI>(GameManager.Instance.GameUI);
-        if(m_gameUI != null)
+        if (GameManager.Instance.CurrentLevel == null)
+            GameManager.Instance.LoadLevel(m_levelIndex);
+
+        if (m_gameUI == null)
         {
-            m_gameUI.Init();
+            m_gameUI = GameManager.OpenUI<GameUI>(GameManager.Instance.GameUI);
+            if (m_gameUI != null)
+            {
+                m_gameUI.Init();
+            } 
         }
 
         if (!LoadingUI.IsClosing)
@@ -32,8 +44,7 @@ public class PlayPhase : GamePhase
 
     public override void Start()
     {
-        //TODO: some kind of delay or *player input* before player starts falling
-        GameManager.Instance.PlayerController.EnableGravity(true);
+       GameManager.Instance.PlayerController.EnableGravity(true);
     }
 
     public override bool Uninitialize()

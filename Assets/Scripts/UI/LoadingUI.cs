@@ -42,7 +42,12 @@ public class LoadingUI : UIPrefab
         if (m_inst != null)
             m_inst = null;
 
-        m_inst = GameManager.OpenUI<LoadingUI>(GameManager.Instance.LoadingUI);
+        Transform parent = null;
+        var overlayCanvas = GameObject.FindGameObjectWithTag("OverlayCanvas");
+        if (overlayCanvas != null)
+            parent = overlayCanvas.transform;
+
+        m_inst = GameManager.OpenUI<LoadingUI>(GameManager.Instance.LoadingUI, parent);
     }
 
     public static void CloseLoadingScreen(float a_delay = 0, Action a_onLoadingScreenClose = null)

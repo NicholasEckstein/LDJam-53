@@ -32,6 +32,7 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private GameObject m_levelSelect;
 
+
     [SerializeField]
     private GameObject m_loadingUI;
 
@@ -72,6 +73,7 @@ public class GameManager : SingletonBase<GameManager>
 
     private PhaseSubSection m_currentSubPhase;
     private PlayerController m_playerController;
+    private LevelInstance m_currentLevel;
 
     public AudioClip MainMenuMusic { get => m_mainMenuMusic; }
     public GamePhase CurrentPhase { get; private set; }
@@ -90,6 +92,7 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject GameUI { get => m_gameUI; }
     public AudioClip PlayerDeadSFX { get => m_playerDeadSFX; }
     public AudioClip PlayerHitSFX { get => m_playerHitSFX; }
+    public LevelInstance CurrentLevel { get => m_currentLevel; }
 
     protected override void Awake()
     {
@@ -194,6 +197,30 @@ public class GameManager : SingletonBase<GameManager>
             m_cameraController.enabled = false;
         }
     }
+
+    public void LoadLevel(int a_index)
+    {
+        if (a_index > m_levels.Count - 1)
+            return;
+
+        var obj = Instantiate(m_levels[a_index]);
+
+        if(obj != null)
+        {
+            var comp = obj.GetComponent<LevelInstance>();
+            if(comp != null)
+            {
+                m_currentLevel = comp;
+                PlayerController.transform.position = m_currentLevel.PlayerStartLocation;
+            }
+        }
+    }
+
+    public bool IsValidLevel(int a_index)
+    {
+        return a_index >= 0 && a_index < m_levels.Count;
+    }
+
 
     public static T OpenUI<T>(GameObject a_uiObj, Transform a_parent = null)
     {
