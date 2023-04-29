@@ -45,8 +45,14 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Audio")]
 
+    [SerializeField, Range(0, 1)]
+    private float m_musicVolume;
+
+    [SerializeField, Range(0, 1)]
+    private float m_sfxVolume = 0.5f;
+
     [SerializeField]
-    private AudioClip m_mainMenuMusic;
+    private AudioClip m_mainMenuMusic = 0.5f;
 
     [SerializeField]
     private AudioClip m_descentMusic;
@@ -66,6 +72,8 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip DescentMusic { get => m_descentMusic; }
     public DialogueRunner DialogueRunner { get => m_dialogueRunner; }
     public string IntroDialogue { get => m_introDialogueNode; }
+    public float MusicVolume { get => m_musicVolume; }
+    public float SFXVolume { get => m_sfxVolume; }
 
     protected override void Awake()
     {

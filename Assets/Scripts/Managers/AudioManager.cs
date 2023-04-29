@@ -9,6 +9,9 @@ public class AudioManager : SingletonBase<AudioManager>
     {
         m_musicSource = gameObject.AddComponent<AudioSource>();
         m_sfxSource = gameObject.AddComponent<AudioSource>();
+
+        m_musicSource.volume = GameManager.Instance.MusicVolume;
+        m_sfxSource.volume = GameManager.Instance.SFXVolume;
     }
 
     public void PlayMusic(AudioClip a_audioClip, bool a_restartTrackOnPlay = true, bool a_loop = true)
