@@ -119,11 +119,11 @@ MonoBehaviour:
   m_collider: {fileID: 4078745377024907886}
   m_controlAccelerationWhenFalling: 10
   m_controlAccelerationWhenGrounded: 10
-  m_controlDecelerationWhenFalling: 10
-  m_controlDecelerationWhenGrounded: 10
+  m_controlDecelerationWhenFalling: 1
+  m_controlDecelerationWhenGrounded: 1
   m_maxMoveSpeedInAir: 10
   m_maxMoveSpeedOnGround: 10
-  m_jumpForce: 200
+  m_jumpForce: 1000
   m_maxFallSpeed: 10
   m_groundCheckDistance: 0.1
   m_topBottomCheckSize: {x: 0.8, y: 0.1}
@@ -133,22 +133,7 @@ MonoBehaviour:
     m_Bits: 256
   m_enemiesLayers:
     serializedVersion: 2
-    m_Bits: 640
-  m_onRegionEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: OnTargetEnteredRegion
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+    m_Bits: 128
   m_currentDownCollisionCount: 0
   m_currentRightCollisionCount: 0
   m_currentLeftCollisionCount: 0

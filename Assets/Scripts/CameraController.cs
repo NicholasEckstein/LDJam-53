@@ -18,7 +18,12 @@ public class CameraController : MonoBehaviour
 	[SerializeField] Vector3 m_offset;
 	[SerializeField] bool m_clampX;
 	[SerializeField] bool m_clampY;
-	[SerializeField] Rect m_cameraConstraints;
+	[SerializeField] float m_viewWidth;
+
+	private void Start()
+	{
+		m_camera.orthographicSize = (m_viewWidth / m_camera.aspect) * 0.5f;
+	}
 
 	private void FixedUpdate()
 	{
@@ -39,26 +44,10 @@ public class CameraController : MonoBehaviour
 			   m_followSpeedByDistance.Evaluate(distance) * Time.deltaTime);
 		}
 
-		//Vector2 cameraHalfSize = new Vector2(
-		//	Mathf.Clamp(m_camera.orthographicSize * m_camera.aspect, float.MaxValue, m_cameraConstraints.size.x),
-		//	Mathf.Clamp(m_camera.orthographicSize, 0.0f, m_cameraConstraints.size.y));
-
-		//newPos.x = Mathf.Clamp(newPos.x,
-		//	m_cameraConstraints.xMin + cameraHalfSize.x,
-		//	m_cameraConstraints.xMax - cameraHalfSize.x);
-
-		//newPos.y = Mathf.Clamp(newPos.y,
-		//	m_cameraConstraints.yMin + cameraHalfSize.y,
-		//	m_cameraConstraints.yMax - cameraHalfSize.y);
-
-		//if (m_clampX)
-		//{
-		//	newPos.x = m_cameraConstraints.center.x;
-		//}
-		//if (m_clampY)
-		//{
-		//	newPos.y = m_cameraConstraints.center.y;
-		//}
+		if (m_clampX)
+			newPos.x = transform.position.x + m_offset.x;
+		if (m_clampY)
+			newPos.y = transform.position.y + m_offset.y;
 
 		transform.position = newPos;
 	}
@@ -66,12 +55,5 @@ public class CameraController : MonoBehaviour
 	public void SetTarget(Transform a_target)
 	{
 		m_target = a_target;
-	}
-
-	public void OnTargetEnteredRegion(CameraConstraintData cameraConstraintData)
-	{
-		m_cameraConstraints = cameraConstraintData.rect;
-		m_clampX = cameraConstraintData.xClamp;
-		m_clampY = cameraConstraintData.yClamp;
 	}
 }

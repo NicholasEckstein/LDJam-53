@@ -1,10 +1,9 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-
-[System.Serializable]
-class RegionEnteredEvent : UnityEvent<CameraConstraintData> { }
+using Yarn.Unity.Editor;
 
 public class PlayerController : MonoBehaviour
 {
@@ -37,9 +36,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private LayerMask m_groundLayers;
 	[SerializeField] private LayerMask m_enemiesLayers;
 
-	[Header("Events")]
-	[SerializeField] RegionEnteredEvent m_onRegionEntered;
-
 	//Data
 	float m_currHorizontalSpeed;
 
@@ -57,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
 	Vector2 m_velocity = Vector2.zero;
 
+	Coroutine m_currentJumpRoutine = null;
+
 	float horizontalInput = 0.0f;
 	bool jump = false;
 
@@ -73,6 +71,13 @@ public class PlayerController : MonoBehaviour
 	private void OnDisable()
 	{
 		Health.OnDead -= OnDead;
+	}
+
+	IEnumerator DoJumpRoutine()
+	{
+		EnableGravity(false);
+		yield return new WaitForSeconds(0.5f);
+		EnableGravity(true);
 	}
 
 	public bool GetIsMoving
@@ -218,6 +223,10 @@ public class PlayerController : MonoBehaviour
 			if (jump)
 			{
 				m_velocity.y += m_jumpForce;
+
+				if (m_currentJumpRoutine != null)
+					StopCoroutine(m_currentJumpRoutine);
+				StartCoroutine(DoJumpRoutine());
 			}
 		}
 		else if (standingOnEnemy)
@@ -264,11 +273,6 @@ public class PlayerController : MonoBehaviour
 	void OnDead()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-	}
-
-	void OnEnteredRegion(CameraConstraintData cameraConstraintData)
-	{
-		m_onRegionEntered.Invoke(cameraConstraintData);
 	}
 
 	public void EnableGravity(bool a_enable)

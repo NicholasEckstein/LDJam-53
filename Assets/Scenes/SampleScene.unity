@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.98, z: -10}
+  m_LocalPosition: {x: 0.5, y: 3.98, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17a3c2fbdc246c4ea87fa7395078ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
+  m_camera: {fileID: 963194227}
   m_target: {fileID: 257103406}
   m_clampCameraToTarget: 0
   m_followSpeedByDistance:
@@ -317,12 +317,7 @@ MonoBehaviour:
   m_offset: {x: 0, y: 0, z: -10}
   m_clampX: 1
   m_clampY: 0
-  m_cameraConstraints:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  m_viewWidth: 52
 --- !u!1001 &1520541003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -331,8 +326,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 80526151520174332, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
+      propertyPath: m_jumpForce
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 80526151520174332, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
       propertyPath: m_enemiesLayers.m_Bits
       value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 80526151520174332, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
+      propertyPath: m_controlDecelerationWhenFalling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 80526151520174332, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
+      propertyPath: m_controlDecelerationWhenGrounded
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2236449949622054620, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
       propertyPath: m_LinearDrag
