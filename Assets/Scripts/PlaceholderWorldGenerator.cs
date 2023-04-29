@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlaceholderWorldGenerator : MonoBehaviour
 {
 	[Header("References")]
-	[SerializeField] GameObject m_platformPrefab;
+	[SerializeField] Platform m_platformPrefab;
+	[SerializeField] Sprite[] m_platformSprites;
 
 	[Header("Settings")]
 	[SerializeField] float m_minVerticalDistanceBetweenPlatforms;
@@ -20,7 +21,17 @@ public class PlaceholderWorldGenerator : MonoBehaviour
 
 		for (; yPos >= -m_levelHeight;)
 		{
-			GameObject platform = Instantiate(m_platformPrefab);
+			Platform platform = Instantiate(m_platformPrefab);
+
+			if (m_platformSprites.Length == 0)
+				return;
+
+			// Choose a random sprite from the array
+			int randomIndex = Random.Range(0, m_platformSprites.Length);
+			Sprite randomSprite = m_platformSprites[randomIndex];
+
+			platform.SetPlatformSprite(randomSprite);
+
 			platform.transform.position = new Vector3(
 				Random.Range(-0.5f, 0.5f) * m_levelWidth,
 				yPos,
