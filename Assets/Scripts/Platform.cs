@@ -11,7 +11,7 @@ public class Platform : MonoBehaviour
 	[SerializeField] float m_breakDelay = 0.2f;
 	[SerializeField] float m_damage = 0.0f;
 
-	bool m_breakable;
+	[SerializeField] bool m_breakable;
 
 	Vector2[] m_colliderPoints = new Vector2[4];
 

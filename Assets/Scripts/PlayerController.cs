@@ -238,6 +238,9 @@ public class PlayerController : MonoBehaviour
 		if (m_currentRightCollisionCount > 0 && m_velocity.x > 0.0f ||
 			m_currentLeftCollisionCount > 0 && m_velocity.x < 0.0f)
 			m_velocity.x = 0.0f;
+		if (m_currentTopCollisionCount > 0 && m_velocity.y > 0.0f ||
+			m_currentDownCollisionCount > 0 && m_velocity.y < 0.0f)
+			m_velocity.y = 0.0f;
 
 		// If velocity is basically zero, just set it to zero
 		if (Mathf.Abs(m_velocity.x) < EPSILON)
