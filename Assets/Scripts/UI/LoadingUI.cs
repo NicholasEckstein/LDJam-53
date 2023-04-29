@@ -45,7 +45,7 @@ public class LoadingUI : UIPrefab
         m_inst = GameManager.OpenUI<LoadingUI>(GameManager.Instance.LoadingUI);
     }
 
-    public static void CloseLoadingScreen(float a_delay, Action a_onLoadingScreenClose = null)
+    public static void CloseLoadingScreen(float a_delay = 0, Action a_onLoadingScreenClose = null)
     {
         if (m_inst != null)
         {

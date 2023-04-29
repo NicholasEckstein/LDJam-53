@@ -11,8 +11,14 @@ public class AudioManager : SingletonBase<AudioManager>
         m_sfxSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public void PlayMusic(AudioClip a_audioClip, bool a_loop = true)
+    public void PlayMusic(AudioClip a_audioClip, bool a_restartTrackOnPlay = true, bool a_loop = true)
     {
+        if (!a_restartTrackOnPlay)
+        {
+            if (m_musicSource.clip == a_audioClip)
+                return;
+        }
+
         m_musicSource.clip = a_audioClip;
         m_musicSource.loop = a_loop;
         m_musicSource.Play();

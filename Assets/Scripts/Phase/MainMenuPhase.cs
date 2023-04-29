@@ -39,12 +39,12 @@ public class MainMenuPhase : GamePhase
         if (m_mainMenuUI == null)
             m_mainMenuUI = GameManager.OpenUI<MainMenuUI>(GameManager.Instance.MainMenuUI);
 
-        AudioManager.Instance.PlayMusic(GameManager.Instance.MainMenuMusic);
         m_initialized = true;
     }
 
     public override void Start()
     {
+        AudioManager.Instance.PlayMusic(GameManager.Instance.MainMenuMusic, false);
     }
 
     public override bool Uninitialize()

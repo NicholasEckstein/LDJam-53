@@ -8,6 +8,9 @@ public class LevelSelectUI : UIPrefab
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
+            if (GameManager.Instance.DialogueRunner.IsDialogueRunning)
+                return;
+
             LoadingUI.ShowLoadingScreen();
             GameManager.Instance.SetNextPhase(new PlayPhase());
         }
