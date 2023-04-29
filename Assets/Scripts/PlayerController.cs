@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] Rigidbody2D m_rigidbody;
 	[SerializeField] Health m_health;
 	[SerializeField] BoxCollider2D m_collider;
+	[SerializeField] Animator m_animator;
+	[SerializeField] SpriteRenderer m_playerSprite;
 
 	[Header("Control Settings")]
 	[SerializeField] float m_controlAccelerationWhenFalling;
@@ -58,8 +60,9 @@ public class PlayerController : MonoBehaviour
 
 	float horizontalInput = 0.0f;
 	bool jump = false;
+	bool m_isRunning = false;
 
-	private void Awake()
+    private void Awake()
 	{
 		m_currHorizontalSpeed = 0.0f;
 	}
@@ -118,6 +121,26 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		horizontalInput = Input.GetAxis("Horizontal");
+
+		if (GetIsGrounded)
+		{
+			if (horizontalInput != 0)
+			{
+				m_isRunning = true;
+				m_animator.SetTrigger("tRunStart");
+			}
+			else if (horizontalInput == 0)
+			{
+				m_isRunning = false;
+				m_animator.SetTrigger("tIdle");
+			}
+
+			m_animator.SetBool("bRunning", m_isRunning);
+		}
+
+		if (m_playerSprite != null)
+			m_playerSprite.flipX = horizontalInput < 0;
+		
 		jump = Input.GetButton("Jump");
 	}
 
@@ -225,6 +248,8 @@ public class PlayerController : MonoBehaviour
 			{
 				m_velocity.y += m_jumpVelocity;
 
+				m_animator.SetTrigger("tJump");
+
 				if (m_currentJumpRoutine != null)
 					StopCoroutine(m_currentJumpRoutine);
 				StartCoroutine(DoJumpRoutine());
@@ -238,6 +263,7 @@ public class PlayerController : MonoBehaviour
 		else // else if falling
 		{
 			m_velocity.y = m_rigidbody.velocity.y;
+			m_animator.SetTrigger("tFalling");
 		}
 
 		// Clamp the velocity to the maximum speed
