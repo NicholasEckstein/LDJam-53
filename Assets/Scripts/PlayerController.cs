@@ -24,10 +24,11 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float m_maxMoveSpeedInAir;
 	[SerializeField] float m_maxMoveSpeedOnGround;
 	[Space]
-	[SerializeField] float m_jumpForce;
+	[SerializeField] float m_jumpVelocity = 10.0f;
 
 	[Header("Physics Settings")]
 	[SerializeField] float m_maxFallSpeed;
+	[SerializeField] float m_gravityScale = 3.0f;
 
 	[Header("Ground Settings")]
 	[SerializeField] float m_groundCheckDistance;
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
 			Vector2 unsignedDir = new Vector2(Mathf.Abs(direction.x), Mathf.Abs(direction.y));
 			Vector2 boxCastSize =
-				m_collider.bounds.size * new Vector2(unsignedDir.y, unsignedDir.x) +
+				m_collider.bounds.size * new Vector2(unsignedDir.y, unsignedDir.x) * 0.8f +
 				new Vector2(0.1f, 0.1f) * unsignedDir;
 
 			Color cachedCol = Gizmos.color;
@@ -222,7 +223,7 @@ public class PlayerController : MonoBehaviour
 
 			if (jump)
 			{
-				m_velocity.y += m_jumpForce;
+				m_velocity.y += m_jumpVelocity;
 
 				if (m_currentJumpRoutine != null)
 					StopCoroutine(m_currentJumpRoutine);
@@ -232,7 +233,7 @@ public class PlayerController : MonoBehaviour
 		else if (standingOnEnemy)
 		{
 			//force player to jump
-			jumpForce = -m_rigidbody.velocity.y + m_jumpForce;
+			jumpForce = -m_rigidbody.velocity.y + m_jumpVelocity;
 		}
 		else // else if falling
 		{
@@ -241,7 +242,7 @@ public class PlayerController : MonoBehaviour
 
 		// Clamp the velocity to the maximum speed
 		m_velocity.x = Mathf.Clamp(m_velocity.x, -maxSpeedToUse, maxSpeedToUse);
-		m_velocity.y = Mathf.Clamp(m_velocity.y, -m_maxFallSpeed, m_maxFallSpeed);
+		m_velocity.y = Mathf.Clamp(m_velocity.y, -m_maxFallSpeed, float.MaxValue);//dont clamp up velocity to allow for faster jumps
 
 		// Stop collision
 		if (m_currentRightCollisionCount > 0 && m_velocity.x > 0.0f ||
@@ -279,7 +280,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (a_enable)
 		{
-			m_rigidbody.gravityScale = 1.0f;
+			m_rigidbody.gravityScale = m_gravityScale;
 		}
 		else
 		{

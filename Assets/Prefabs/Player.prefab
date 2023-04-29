@@ -119,12 +119,13 @@ MonoBehaviour:
   m_collider: {fileID: 4078745377024907886}
   m_controlAccelerationWhenFalling: 10
   m_controlAccelerationWhenGrounded: 10
-  m_controlDecelerationWhenFalling: 1
+  m_controlDecelerationWhenFalling: 0.2
   m_controlDecelerationWhenGrounded: 1
   m_maxMoveSpeedInAir: 10
   m_maxMoveSpeedOnGround: 10
-  m_jumpForce: 1000
+  m_jumpVelocity: 20
   m_maxFallSpeed: 10
+  m_gravityScale: 3
   m_groundCheckDistance: 0.1
   m_topBottomCheckSize: {x: 0.8, y: 0.1}
   m_leftRightCheckSize: {x: 0.1, y: 0.8}
