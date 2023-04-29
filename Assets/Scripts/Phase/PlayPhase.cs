@@ -52,6 +52,9 @@ public class PlayPhase : GamePhase
         if (GameManager.Instance.PlayerController != null)
             GameManager.Instance.DestroyPlayer();
 
+        if (GameManager.Instance.CurrentLevel != null)
+            GameManager.Instance.DestroyLevel();
+
         GameManager.CloseUI(m_gameUI);
 
         return true;

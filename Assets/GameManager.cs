@@ -216,6 +216,12 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
+    public void DestroyLevel()
+    {
+        Destroy(m_currentLevel.gameObject);
+        m_currentLevel = null;
+    }
+
     public bool IsValidLevel(int a_index)
     {
         return a_index >= 0 && a_index < m_levels.Count;
