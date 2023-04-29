@@ -19,6 +19,9 @@ public class GameManager : SingletonBase<GameManager>
     private GameObject m_playerPrefab;
 
     [SerializeField]
+    private List<GameObject> m_levels;
+
+    [SerializeField]
     private CameraController m_cameraController;
 
     [Header("UI")]
