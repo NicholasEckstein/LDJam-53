@@ -5,36 +5,40 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-	[SerializeField] private Sprite[] m_platformSprites;
+	[SerializeField] PolygonCollider2D m_collider;
+	[SerializeField] SpriteRenderer m_renderer;
 
-	private PolygonCollider2D m_collider;
-
-	[SerializeField]
+	Vector2[] m_colliderPoints = new Vector2[4];
 
 	private void Start()
 	{
-		m_collider = GetComponent<PolygonCollider2D>();
-		SetRandomShape();
+		UpdateCollider();
 	}
 
-	private void SetRandomShape()
+	public void SetPlatformSprite(Sprite sprite)
 	{
-		if (m_platformSprites.Length == 0)
-			return;
-
-		// Choose a random sprite from the array
-		int randomIndex = Random.Range(0, m_platformSprites.Length);
-		Sprite randomSprite = m_platformSprites[randomIndex];
-
-		List<Vector2> points = new List<Vector2>();
-		randomSprite.GetPhysicsShape(0, points);
-		if (randomSprite.GetPhysicsShapeCount() > 0)
-		{
-			m_collider.SetPath(0, points);
-		}
-
 		// Update the platform sprite to match the collider shape
-		GetComponent<SpriteRenderer>().sprite = randomSprite;
+		m_renderer.sprite = sprite;
+
+		// Update collider to match sprite size
+		UpdateCollider();
+	}
+
+	void UpdateCollider()
+	{
+		Sprite sprite = m_renderer.sprite;
+
+		Vector2 halfSize = m_renderer.size * 0.5f;
+
+		m_colliderPoints[0] = new Vector2(halfSize.x, halfSize.y);
+		m_colliderPoints[1] = new Vector2(halfSize.x, -halfSize.y);
+		m_colliderPoints[2] = new Vector2(-halfSize.x, -halfSize.y);
+		m_colliderPoints[3] = new Vector2(-halfSize.x, halfSize.y);
+
+		if (sprite.GetPhysicsShapeCount() > 0)
+		{
+			m_collider.SetPath(0, m_colliderPoints);
+		}
 	}
 
 	public void DestroyPlatform(float delay)

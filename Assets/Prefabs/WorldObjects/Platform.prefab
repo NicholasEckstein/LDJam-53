@@ -111,10 +111,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.21484375, y: -0.27148438}
-      - {x: -0.21484375, y: 0.22851562}
-      - {x: 0.1953125, y: 0.22851562}
-      - {x: 0.1953125, y: -0.27148438}
+    - - {x: 1.0634766, y: 0.46289062}
+      - {x: 1.0634766, y: -0.46289062}
+      - {x: -1.0634766, y: -0.46289062}
+      - {x: -1.0634766, y: 0.46289062}
 --- !u!114 &3106877977138156967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,12 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f256d95704ed5546a91f49e47922c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_platformSprites:
-  - {fileID: -1311173276, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: -2012921402, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: -295628953, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: 161569687, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: -1746302744, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: -1840417036, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: -936042838, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
-  - {fileID: -1029621882, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  m_collider: {fileID: 7346746486955390944}
+  m_renderer: {fileID: 7346746486955390945}
