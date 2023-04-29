@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7346746486955390945}
   - component: {fileID: 7346746486955390944}
   - component: {fileID: 3106877977138156967}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,3 +129,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 7346746486955390944}
   m_renderer: {fileID: 7346746486955390945}
+  m_breakDelay: 0.2
+  m_damage: 0

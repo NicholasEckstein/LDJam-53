@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
 		m_currentHealth = m_maxHealth;
 	}
 
+	public float ChangeHealthBy(float amount) => ChangeHealthBy(amount, true);
 	public float ChangeHealthBy(float amount, bool notify)
 	{
 		return SetHealthTo(m_currentHealth + amount, notify);

@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
 	[SerializeField] PolygonCollider2D m_collider;
 	[SerializeField] SpriteRenderer m_renderer;
+	[SerializeField] float m_breakDelay = 0.2f;
+	[SerializeField] float m_damage = 0.0f;
+
+	bool m_breakable;
 
 	Vector2[] m_colliderPoints = new Vector2[4];
 
@@ -15,8 +20,13 @@ public class Platform : MonoBehaviour
 		UpdateCollider();
 	}
 
-	public void SetPlatformSprite(Sprite sprite)
+	public void SetPlatformSprite(Sprite sprite, bool breakable, float damage)
 	{
+		m_damage = damage;
+
+		m_breakable = breakable;
+		m_renderer.color = breakable ? Color.red : Color.white;
+
 		// Update the platform sprite to match the collider shape
 		m_renderer.sprite = sprite;
 
@@ -41,19 +51,21 @@ public class Platform : MonoBehaviour
 		}
 	}
 
-	public void DestroyPlatform(float delay)
+	public void OnPlayerHit()
 	{
-		StartCoroutine(DoDestroy(delay));
+		if (m_breakable)
+			StartCoroutine(DoDestroy());
 	}
 
-	IEnumerator DoDestroy(float delay)
+	IEnumerator DoDestroy()
 	{
-		yield return new WaitForSeconds(delay);
+		yield return new WaitForSeconds(m_breakDelay);
 		Destroy(gameObject);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		collision.gameObject.BroadcastMessage("OnPlatformLand", this, SendMessageOptions.DontRequireReceiver);
+		collision.gameObject.BroadcastMessage("ChangeHealthBy", -m_damage, SendMessageOptions.DontRequireReceiver);
 	}
 }

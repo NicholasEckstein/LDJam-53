@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4046003338232151636}
   - component: {fileID: 4046003338232151638}
   - component: {fileID: 4046003338232151639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ResizablePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,3 +129,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 4046003338232151638}
   m_renderer: {fileID: 4046003338232151636}
+  m_breakDelay: 0.2
+  m_damage: 0

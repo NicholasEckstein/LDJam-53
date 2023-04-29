@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlaceholderWorldGenerator : MonoBehaviour
@@ -7,39 +8,60 @@ public class PlaceholderWorldGenerator : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Platform m_platformPrefab;
 	[SerializeField] Sprite[] m_platformSprites;
-	[SerializeField] Camera m_camera;
 
 	[Header("Settings")]
+	[SerializeField] bool m_generatePlatforms = true;
+	[Space]
 	[SerializeField] float m_minVerticalDistanceBetweenPlatforms;
 	[SerializeField] float m_maxVerticalDistanceBetweenPlatforms;
 	[Space]
-	[SerializeField] float m_levelHeight;
+	[SerializeField] bool m_breakablePlatforms;
+	[SerializeField] BoxCollider2D m_collider;
+	[SerializeField] float m_platformDamage;
+	[Space]
+	[SerializeField] bool m_clampCameraX;
+	[SerializeField] bool m_clampCameraY;
 
 	private void Start()
 	{
-		float yPos = 0.0f;
+		float halfWidth = m_collider.size.x * 0.5f;
 
-		float halfWidth = m_camera.orthographicSize * m_camera.aspect;
-
-		for (; yPos >= -m_levelHeight;)
+		if (m_generatePlatforms)
 		{
-			Platform platform = Instantiate(m_platformPrefab);
+			for (float yPos = 0.0f; yPos >= -m_collider.size.y; yPos -= Random.Range(m_minVerticalDistanceBetweenPlatforms, m_maxVerticalDistanceBetweenPlatforms))
+			{
+				Platform platform = Instantiate(m_platformPrefab);
 
-			if (m_platformSprites.Length == 0)
-				return;
+				if (m_platformSprites.Length == 0)
+					return;
 
-			// Choose a random sprite from the array
-			int randomIndex = Random.Range(0, m_platformSprites.Length);
-			Sprite randomSprite = m_platformSprites[randomIndex];
+				// Choose a random sprite from the array
+				int randomIndex = Random.Range(0, m_platformSprites.Length);
+				Sprite randomSprite = m_platformSprites[randomIndex];
 
-			platform.SetPlatformSprite(randomSprite);
+				platform.SetPlatformSprite(randomSprite, m_breakablePlatforms, m_platformDamage);
 
-			platform.transform.position = new Vector3(
-				Random.Range(-1.0f, 1.0f) * halfWidth,
-				yPos,
-				0.0f);
-
-			yPos -= Random.Range(m_minVerticalDistanceBetweenPlatforms, m_maxVerticalDistanceBetweenPlatforms);
+				platform.transform.position =
+					transform.position +
+					new Vector3(m_collider.offset.x, m_collider.offset.y) +
+					new Vector3(0.0f, m_collider.size.y * 0.5f) +
+					new Vector3(Random.Range(-1.0f, 1.0f) * halfWidth, yPos);
+			}
 		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		collision.gameObject.BroadcastMessage(
+			"OnEnteredRegion",
+			new CameraConstraintData
+			{
+				rect = new Rect(
+					(Vector2)transform.position - m_collider.size * 0.5f,
+					m_collider.size),
+				xClamp = m_clampCameraX,
+				yClamp = m_clampCameraY
+			},
+			SendMessageOptions.DontRequireReceiver);
 	}
 }
