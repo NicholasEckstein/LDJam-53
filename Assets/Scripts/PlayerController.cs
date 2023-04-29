@@ -129,4 +129,16 @@ public class PlayerController : MonoBehaviour
 
 		m_rigidbody.velocity = new Vector2(clampedVelocityX, fallVelocityX);
 	}
+
+	public void EnableGravity(bool a_enable)
+    {
+		if(a_enable)
+        {
+			m_rigidbody.gravityScale = 1.0f;
+		}
+		else
+        {
+			m_rigidbody.gravityScale = 0.0f;
+		}
+	}
 }

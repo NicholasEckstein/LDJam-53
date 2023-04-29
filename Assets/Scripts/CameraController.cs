@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build;
@@ -13,6 +14,9 @@ public class CameraController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (m_target == null)
+			return;
+
 		Vector3 newPos;
 		if (m_clampCameraToTarget)
 		{
@@ -32,5 +36,10 @@ public class CameraController : MonoBehaviour
 		}
 
 		transform.position = newPos;
+	}
+
+	public void SetTarget(Transform a_target)
+	{
+		m_target = a_target;
 	}
 }

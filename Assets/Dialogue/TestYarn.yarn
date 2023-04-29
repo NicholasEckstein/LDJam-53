@@ -1,4 +1,4 @@
-﻿title: Start
+﻿title: Intro
 ---
 Wow!
 My first ever Yarn script in Unity!
@@ -8,4 +8,5 @@ My first ever Yarn script in Unity!
 -> I'm amazed!
 
 Anyway, time to get writing!
+<<set $seenIntro to true>>
 ===
