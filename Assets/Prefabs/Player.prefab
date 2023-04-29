@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8378621006104947618}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -116,22 +116,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 2236449949622054620}
   m_health: {fileID: 6879709919321891675}
-  m_collider: {fileID: 0}
+  m_collider: {fileID: 4078745377024907886}
   m_controlAccelerationWhenFalling: 10
   m_controlAccelerationWhenGrounded: 10
-  m_controlDecelerationWhenFalling: 0
-  m_controlDecelerationWhenGrounded: 0
-  m_maxMoveSpeedInAir: 0
-  m_maxMoveSpeedOnGround: 0
+  m_controlDecelerationWhenFalling: 10
+  m_controlDecelerationWhenGrounded: 10
+  m_maxMoveSpeedInAir: 10
+  m_maxMoveSpeedOnGround: 10
   m_jumpForce: 200
   m_maxFallSpeed: 10
   m_groundCheckDistance: 0.1
-  m_feetPos: {fileID: 0}
-  m_headPos: {fileID: 0}
-  m_leftPos: {fileID: 0}
-  m_rightPos: {fileID: 0}
-  m_topBottomCheckSize: {x: 0, y: 0}
-  m_leftRightCheckSize: {x: 0, y: 0}
+  m_topBottomCheckSize: {x: 0.8, y: 0.1}
+  m_leftRightCheckSize: {x: 0.1, y: 0.8}
   m_groundLayers:
     serializedVersion: 2
     m_Bits: 256
