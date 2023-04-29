@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2969336514811419121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2564036014405620944}
   - component: {fileID: 6326401445353212472}
+  - component: {fileID: 6879709919321891675}
   - component: {fileID: 80526151520174332}
   - component: {fileID: 4078745377024907886}
   - component: {fileID: 2236449949622054620}
@@ -119,6 +120,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6879709919321891675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378621006104947618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1390fded9df294db32fc1ae2eb497c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 3
+  m_secondsOfInvincibleAfterHurt: 1
 --- !u!114 &80526151520174332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,20 +147,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 2236449949622054620}
+  m_health: {fileID: 6879709919321891675}
   m_controlAccelerationWhenFalling: 10
   m_controlAccelerationWhenGrounded: 10
   m_maxSpeed: 10
   m_jumpForce: 10
   m_maxFallSpeed: 10
-  m_groundedSensitivity: 0.1
+  m_groundCheckDistance: 0.1
   m_feetPos: {fileID: 2524419403930374113}
+  m_feetSize: {x: 1, y: 0.1}
   m_groundLayers:
     serializedVersion: 2
     m_Bits: 128
   m_enemiesLayers:
     serializedVersion: 2
     m_Bits: 256
-  m_maxHealth: 0
+  m_platformDestroyDelay: 0
+  m_currentStandingOnCount: 0
 --- !u!61 &4078745377024907886
 BoxCollider2D:
   m_ObjectHideFlags: 0

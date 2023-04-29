@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Yarn.Compiler;
 
 public class PlayerController : MonoBehaviour
 {
 	const float EPSILON = 0.0001f;
 
+	enum PlayerState
+	{
+		FALLING, PLATFORMING
+	}
+
 	[Header("References")]
 	[SerializeField] Rigidbody2D m_rigidbody;
+	[SerializeField] Health m_health;
 
 	[Header("Control Settings")]
 	[SerializeField] float m_controlAccelerationWhenFalling;
@@ -20,24 +28,40 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float m_maxFallSpeed;
 
 	[Header("Ground Settings")]
-	[SerializeField] float m_groundedSensitivity;
+	[SerializeField] float m_groundCheckDistance;
 	[SerializeField] Transform m_feetPos;
+	[SerializeField] Vector2 m_feetSize;
 	[SerializeField] private LayerMask m_groundLayers;
 	[SerializeField] private LayerMask m_enemiesLayers;
 
-	[Header("Player Settings")]
-	[SerializeField] float m_maxHealth;
+	[Header("World Interaction Settings")]
+	[SerializeField] float m_platformDestroyDelay;
 
 	//Data
-	float m_currentHealth;
 	float m_currHorizontalSpeed;
+
+	[SerializeField] RaycastHit2D[] m_currentStandingOn = new RaycastHit2D[3];
+	[SerializeField] int m_currentStandingOnCount;
+
+	PlayerState m_playerState = PlayerState.FALLING;
 
 	float horizontalInput = 0.0f;
 	bool jump = false;
 
+#if UNITY_EDITOR
+	private void OnDrawGizmos()
+	{
+		Color cachedCol = Gizmos.color;
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireCube(m_feetPos.transform.position, m_feetSize);
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireCube(m_feetPos.transform.position + Vector3.down * m_groundCheckDistance, m_feetSize);
+		Gizmos.color = cachedCol;
+	}
+#endif
+
 	private void Awake()
 	{
-		m_currentHealth = m_maxHealth;
 		m_currHorizontalSpeed = 0.0f;
 	}
 
@@ -53,8 +77,12 @@ public class PlayerController : MonoBehaviour
 	{
 		get
 		{
-			RaycastHit2D hit = Physics2D.Raycast(m_feetPos.position, Vector2.down, m_groundedSensitivity, m_groundLayers);
-			return hit.collider != null;
+			for (int i = 0; i < m_currentStandingOnCount; i++)
+			{
+				if (m_currentStandingOn[i] && (m_groundLayers & 1 << m_currentStandingOn[i].collider.gameObject.layer) != 0)
+					return true;
+			}
+			return false;
 		}
 	}
 
@@ -62,8 +90,12 @@ public class PlayerController : MonoBehaviour
 	{
 		get
 		{
-			RaycastHit2D hit = Physics2D.Raycast(m_feetPos.position, Vector2.down, m_groundedSensitivity, m_enemiesLayers);
-			return hit.collider != null;
+			for (int i = 0; i < m_currentStandingOnCount; i++)
+			{
+				if (m_currentStandingOn[i] && (m_enemiesLayers & 1 << m_currentStandingOn[i].collider.gameObject.layer) != 0)
+					return true;
+			}
+			return false;
 		}
 	}
 
@@ -75,6 +107,9 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		m_currentStandingOnCount = Physics2D.BoxCastNonAlloc(
+			m_feetPos.position, m_feetSize, 0f, Vector2.down, m_currentStandingOn, m_groundCheckDistance, m_groundLayers);
+
 		bool grounded = GetIsGrounded;
 		bool standingOnEnemy = GetIsStandingOnEnemy;
 		bool isMoving = GetIsMoving;
@@ -128,6 +163,30 @@ public class PlayerController : MonoBehaviour
 			fallVelocityX = 0.0f;
 
 		m_rigidbody.velocity = new Vector2(clampedVelocityX, fallVelocityX);
+	}
+
+	void OnPlatformLand(Platform platform)
+	{
+		//if we are falling (not platforming)
+		if (m_playerState == PlayerState.FALLING)
+		{
+			//if we're standing on touched platform and didn't just brush against it
+			for (int i = 0; i < m_currentStandingOnCount; i++)
+			{
+				//destroy the platform and take damage
+				if (m_currentStandingOn[i] && (m_groundLayers & 1 << m_currentStandingOn[i].collider.gameObject.layer) != 0)
+				{
+					platform.DestroyPlatform(m_platformDestroyDelay);
+
+					m_health.ChangeHealthBy(-1.0f, true);
+				}
+			}
+		}
+	}
+
+	void OnDead(Health health)
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	public void EnableGravity(bool a_enable)
