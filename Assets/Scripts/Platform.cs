@@ -24,14 +24,6 @@ public class Platform : MonoBehaviour
 		UpdateCollider();
 	}
 
-	public int asd;
-#if UNITY_EDITOR
-	private void OnValidate()
-	{
-		UpdateCollider();
-	}
-#endif
-
 	void UpdateCollider()
 	{
 		Sprite sprite = m_renderer.sprite;

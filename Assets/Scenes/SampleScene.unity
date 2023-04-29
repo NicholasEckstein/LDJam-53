@@ -167,11 +167,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2782fc0f8da7ea47b42ed971c5f30d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_platformPrefab: {fileID: 7346746486955390947, guid: 291fc33fa3e1e8b4f8de9e09c8097d30, type: 3}
-  m_platformSprites: []
+  m_platformPrefab: {fileID: 3106877977138156967, guid: 291fc33fa3e1e8b4f8de9e09c8097d30, type: 3}
+  m_platformSprites:
+  - {fileID: -1311173276, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: -2012921402, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: -295628953, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: 161569687, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: -1746302744, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: -1840417036, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: -936042838, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  - {fileID: -1029621882, guid: f74577c4399552c47bda2a6106b474cf, type: 3}
+  m_camera: {fileID: 963194227}
   m_minVerticalDistanceBetweenPlatforms: 3
   m_maxVerticalDistanceBetweenPlatforms: 10
-  m_levelWidth: 15
   m_levelHeight: 500
 --- !u!4 &257103406 stripped
 Transform:
@@ -256,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 3.98, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -324,7 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2564036014405620944, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.98
       objectReference: {fileID: 0}
     - target: {fileID: 2564036014405620944, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -375,6 +383,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResizablePlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 4046003338232151635, guid: cec4509641b56b442bb782944a099974, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4046003338232151637, guid: cec4509641b56b442bb782944a099974, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -385,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4046003338232151637, guid: cec4509641b56b442bb782944a099974, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9117
+      value: 2.15
       objectReference: {fileID: 0}
     - target: {fileID: 4046003338232151637, guid: cec4509641b56b442bb782944a099974, type: 3}
       propertyPath: m_LocalPosition.z
@@ -418,10 +430,6 @@ PrefabInstance:
     - target: {fileID: 4046003338232151637, guid: cec4509641b56b442bb782944a099974, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046003338232151638, guid: cec4509641b56b442bb782944a099974, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.size
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cec4509641b56b442bb782944a099974, type: 3}

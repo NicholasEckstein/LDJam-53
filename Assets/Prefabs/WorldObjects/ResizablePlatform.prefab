@@ -129,4 +129,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 4046003338232151638}
   m_renderer: {fileID: 4046003338232151636}
-  asd: 2
