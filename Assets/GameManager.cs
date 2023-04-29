@@ -46,13 +46,13 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Audio")]
 
     [SerializeField, Range(0, 1)]
-    private float m_musicVolume;
+    private float m_musicVolume = 0.5f;
 
     [SerializeField, Range(0, 1)]
     private float m_sfxVolume = 0.5f;
 
     [SerializeField]
-    private AudioClip m_mainMenuMusic = 0.5f;
+    private AudioClip m_mainMenuMusic;
 
     [SerializeField]
     private AudioClip m_descentMusic;
