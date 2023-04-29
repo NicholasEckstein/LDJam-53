@@ -194,6 +194,9 @@ public class GameManager : SingletonBase<GameManager>
 
     public static T OpenUI<T>(GameObject a_uiObj, Transform a_parent = null)
     {
+        if (a_uiObj == null)
+            return default(T);
+
         if (a_parent == null)
         {
             var obj = GameObject.FindGameObjectWithTag("MainCanvas");
