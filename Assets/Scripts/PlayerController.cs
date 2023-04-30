@@ -191,6 +191,8 @@ public class PlayerController : MonoBehaviour
 
 		if (targetDistance > EPSILON)
 		{
+			m_animator.SetBool("bDashing", true);
+
 			if (targetDistance < m_dashDistance)
 				Debug.Log("Distance: " + targetDistance);
 			//Shorten dash time if the player is going to hit something and not do a complete dash
@@ -216,6 +218,7 @@ public class PlayerController : MonoBehaviour
 			while (timeSinceStart < dashTime);
 			transform.position = targetPos;
 		}
+		m_animator.SetBool("bDashing", false);
 
 		m_isDashing = false;
 	}
