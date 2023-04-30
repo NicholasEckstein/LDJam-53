@@ -400,7 +400,6 @@ public class PlayerController : MonoBehaviour
 
 						if (!m_isAirborne)
 						{
-							Debug.Log(123);
 							m_animator.SetTrigger("tJump");
 							m_isAirborne = true;
 							m_animator.SetBool("bFalling", m_isAirborne);
