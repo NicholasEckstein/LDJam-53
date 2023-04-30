@@ -363,11 +363,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2564036014405620944, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
   m_PrefabInstance: {fileID: 1520541003}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &257103408 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4078745377024907886, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
-  m_PrefabInstance: {fileID: 1520541003}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &876087904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -739,6 +734,11 @@ MonoBehaviour:
   m_clampX: 1
   m_clampY: 0
   m_viewWidth: 15
+--- !u!61 &1063868283 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 7845397022366856195, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
+  m_PrefabInstance: {fileID: 1520541003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1353379366
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ PrefabInstance:
     - target: {fileID: 80526151520174332, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
       propertyPath: m_collider
       value: 
-      objectReference: {fileID: 257103408}
+      objectReference: {fileID: 1063868283}
     - target: {fileID: 80526151520174332, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
       propertyPath: m_rightPos
       value: 

@@ -61,8 +61,9 @@ public class PlayerController : MonoBehaviour
 	float horizontalInput = 0.0f;
 	bool jump = false;
 	bool m_isRunning = false;
+	bool m_isAirborne = false;
 
-    private void Awake()
+	private void Awake()
 	{
 		m_currHorizontalSpeed = 0.0f;
 	}
@@ -82,6 +83,13 @@ public class PlayerController : MonoBehaviour
 		EnableGravity(false);
 		yield return new WaitForSeconds(0.5f);
 		EnableGravity(true);
+
+		if (m_isAirborne)
+        {
+			m_animator.SetTrigger("tFall");
+		}
+
+		yield return null;
 	}
 
 	public bool GetIsMoving
@@ -122,7 +130,7 @@ public class PlayerController : MonoBehaviour
 	{
 		horizontalInput = Input.GetAxis("Horizontal");
 
-		if (GetIsGrounded)
+		if (GetIsGrounded || !jump)
 		{
 			if (horizontalInput != 0)
 			{
@@ -142,6 +150,7 @@ public class PlayerController : MonoBehaviour
 			m_playerSprite.flipX = horizontalInput < 0;
 		
 		jump = Input.GetButton("Jump");
+		m_animator.SetBool("bJumping", !GetIsGrounded);
 	}
 
 	public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
@@ -248,7 +257,12 @@ public class PlayerController : MonoBehaviour
 			{
 				m_velocity.y += m_jumpVelocity;
 
-				m_animator.SetTrigger("tJump");
+				if (!m_isAirborne)
+				{
+					m_animator.SetTrigger("tJump");
+					m_isAirborne = true;
+					m_animator.SetBool("bFalling", m_isAirborne);
+				}
 
 				if (m_currentJumpRoutine != null)
 					StopCoroutine(m_currentJumpRoutine);
@@ -262,8 +276,7 @@ public class PlayerController : MonoBehaviour
 		}
 		else // else if falling
 		{
-			m_velocity.y = m_rigidbody.velocity.y;
-			m_animator.SetTrigger("tFalling");
+			m_velocity.y = m_rigidbody.velocity.y;		
 		}
 
 		// Clamp the velocity to the maximum speed
@@ -293,7 +306,11 @@ public class PlayerController : MonoBehaviour
 		for (int i = 0; i < m_currentDownCollisionCount; i++)
 		{
 			if (m_currentDownCollisions[i].collider.gameObject == platform.gameObject)
+			{
 				platform.OnPlayerHit();
+				m_isAirborne = false;
+				m_animator.SetBool("bFalling", m_isAirborne);
+			}
 		}
 	}
 
