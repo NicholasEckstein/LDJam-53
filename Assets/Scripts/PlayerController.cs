@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Rigidbody2D m_rigidbody;
 	[SerializeField] Health m_health;
-	[SerializeField] BoxCollider2D m_collider;
+	[SerializeField] CapsuleCollider2D m_collider;
 	[SerializeField] Animator m_animator;
 	[SerializeField] Animator m_rightDashAnimatior;
 	[SerializeField] Animator m_leftDashAnimatior;

@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 3090248857543139520}
   - component: {fileID: 227404585433187652}
   - component: {fileID: 670717800578488635}
-  - component: {fileID: 7845397022366856195}
+  - component: {fileID: 5794864070520235222}
   m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Player
@@ -316,8 +316,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!61 &7845397022366856195
-BoxCollider2D:
+--- !u!70 &5794864070520235222
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -330,18 +330,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.7916667, y: 1.8333334}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.7916667, y: 1.8333334}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!1 &7297869902177789384
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rigidbody: {fileID: 2236449949622054620}
   m_health: {fileID: 6879709919321891675}
-  m_collider: {fileID: 7845397022366856195}
+  m_collider: {fileID: 5794864070520235222}
   m_animator: {fileID: 670717800578488635}
   m_rightDashAnimatior: {fileID: 5455020076615344685}
   m_leftDashAnimatior: {fileID: 7692685271669444092}
@@ -543,6 +533,11 @@ MonoBehaviour:
   m_enemiesLayers:
     serializedVersion: 2
     m_Bits: 128
+  m_currentDownCollisionCount: 0
+  m_currentRightCollisionCount: 0
+  m_currentLeftCollisionCount: 0
+  m_currentTopCollisionCount: 0
+  m_dashCollisionsAllocCount: 0
 --- !u!50 &2236449949622054620
 Rigidbody2D:
   serializedVersion: 4
