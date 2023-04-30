@@ -48,6 +48,9 @@ public class GameManager : SingletonBase<GameManager>
     private GameObject m_pauseMenuUI;
 
     [SerializeField]
+    private GameObject m_introUI;
+
+    [SerializeField]
     private float m_loadingScreenDelayTime = 0.5f;
 
     [Header("Dialogue")]
@@ -132,6 +135,7 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject PauseMenuUI { get => m_pauseMenuUI; }
     //public ShakeCamera CameraShake { get => m_cameraShake; }
     public CameraController CameraController { get => m_cameraController; }
+    public GameObject IntroUI { get => m_introUI; }
 
     protected override void Awake()
     {
@@ -143,7 +147,7 @@ public class GameManager : SingletonBase<GameManager>
         NextPhase = null;
         m_currentSubPhase = PhaseSubSection.None;
 
-        SetCurrentPhase(new MainMenuPhase(null));
+        SetCurrentPhase(new IntroPhase());
     }
 
     private void Update()

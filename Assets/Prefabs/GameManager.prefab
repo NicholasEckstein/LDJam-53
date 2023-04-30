@@ -54,6 +54,7 @@ MonoBehaviour:
   m_gameUI: {fileID: 312652919677441327, guid: 593c9334870182946a827fbe235f7b09, type: 3}
   m_postGameUI: {fileID: 312652919677441327, guid: 80107f54ea0f5204fab0575e4a2dcf0b, type: 3}
   m_pauseMenuUI: {fileID: 312652919677441327, guid: fcbaeae09e6cfde4d82a0e2114d10b55, type: 3}
+  m_introUI: {fileID: 312652919677441327, guid: 4f7fdb61b64db5c43a340e9bce348659, type: 3}
   m_loadingScreenDelayTime: 0.45
   m_dialogueRunner: {fileID: 0}
   m_introDialogueNode: Note

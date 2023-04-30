@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class IntroPhase : GamePhase
 {
+    public override bool Initialize()
+    {
+        GameManager.OpenUI<GameIntroUI>(GameManager.Instance.IntroUI);
+        return true;
+    }
+
     public override void Start()
     {
     }
