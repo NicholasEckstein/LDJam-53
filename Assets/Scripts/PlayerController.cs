@@ -173,6 +173,13 @@ public class PlayerController : MonoBehaviour
 			m_playerSprite.flipX = horizontalInput < 0;
 
 		jump = Input.GetButton("Jump");
+
+		if(jump)
+        {
+			AudioManager.Instance.PlaySFX(GameManager.Instance.JumpSFX);
+        }
+
+
 		m_animator.SetBool("bJumping", !GetIsGrounded);
 	}
 
@@ -262,6 +269,7 @@ public class PlayerController : MonoBehaviour
 				m_currentDashRoutine = StartCoroutine(DoDashRoutine());
 
 				m_velocity.x = m_dashVelocity * dashInput;
+				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
 				maxSpeedToUse = float.MaxValue;
 			}
 			else
@@ -357,6 +365,7 @@ public class PlayerController : MonoBehaviour
 				platform.OnPlayerHit();
 				m_isAirborne = false;
 				m_animator.SetBool("bFalling", m_isAirborne);
+				AudioManager.Instance.PlaySFX(GameManager.Instance.LandSFX);
 			}
 		}
 	}

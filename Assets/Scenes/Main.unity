@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -331,13 +331,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
-      propertyPath: m_playerHitSFX
+      propertyPath: m_landSFX
       value: 
-      objectReference: {fileID: 8300000, guid: eb5cdc0956858d340a5e6e6a5877b918, type: 3}
+      objectReference: {fileID: 8300000, guid: 38b7ae0d41e98a0469401b832706e8d5, type: 3}
     - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
-      propertyPath: m_playerDeadSFX
+      propertyPath: m_ascentMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 4d02d318d838b984eac872cbed5ff5f4, type: 3}
+      objectReference: {fileID: 8300000, guid: 097ef424f0a125e478aa63bbba10dcbf, type: 3}
     - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
       propertyPath: m_dialogueRunner
       value: 
@@ -346,14 +346,6 @@ PrefabInstance:
       propertyPath: m_cameraController
       value: 
       objectReference: {fileID: 2062543408}
-    - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
-      propertyPath: m_levels.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
-      propertyPath: m_levels.Array.data[0]
-      value: 
-      objectReference: {fileID: 6611741264320714174, guid: 36cba6e72d325fc43807e1c1db7fe013, type: 3}
     - target: {fileID: 936008533854177151, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
       propertyPath: m_Name
       value: GameManager

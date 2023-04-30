@@ -65,11 +65,22 @@ public class GameManager : SingletonBase<GameManager>
     private AudioClip m_descentMusic;
 
     [SerializeField]
+    private AudioClip m_ascentMusic;
+
+    [SerializeField]
     private AudioClip m_playerHitSFX;
 
     [SerializeField]
     private AudioClip m_playerDeadSFX;
 
+    [SerializeField]
+    private AudioClip m_dashSFX;
+
+    [SerializeField]
+    private AudioClip m_jumpSFX;
+
+    [SerializeField]
+    private AudioClip m_landSFX;
 
     private PhaseSubSection m_currentSubPhase;
     private PlayerController m_playerController;
@@ -78,13 +89,13 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip MainMenuMusic { get => m_mainMenuMusic; }
     public GamePhase CurrentPhase { get; private set; }
     public GamePhase NextPhase { get; private set; }
-
     public GameObject MainMenuUI { get => m_mainMenu; }
     public GameObject LoadingUI { get => m_loadingUI; }
     public GameObject LevelSelect { get => m_levelSelect; }
     public PlayerController PlayerController { get => m_playerController; }
     public float LoadingScreenDelayTime { get => m_loadingScreenDelayTime; }
     public AudioClip DescentMusic { get => m_descentMusic; }
+    public AudioClip AscentMusic { get => m_ascentMusic; }
     public DialogueRunner DialogueRunner { get => m_dialogueRunner; }
     public string IntroDialogue { get => m_introDialogueNode; }
     public float MusicVolume { get => m_musicVolume; }
@@ -93,6 +104,9 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip PlayerDeadSFX { get => m_playerDeadSFX; }
     public AudioClip PlayerHitSFX { get => m_playerHitSFX; }
     public LevelInstance CurrentLevel { get => m_currentLevel; }
+    public AudioClip DashSFX { get => m_dashSFX; }
+    public AudioClip JumpSFX { get => m_jumpSFX; }
+    public AudioClip LandSFX { get => m_landSFX; }
 
     protected override void Awake()
     {

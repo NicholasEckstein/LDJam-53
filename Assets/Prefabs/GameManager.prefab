@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerPrefab: {fileID: 8378621006104947618, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
-  m_levels: []
+  m_levels:
+  - {fileID: 6611741264320714174, guid: 36cba6e72d325fc43807e1c1db7fe013, type: 3}
   m_cameraController: {fileID: 0}
   m_mainMenu: {fileID: 312652919677441327, guid: 87c74c91de34c174db3bbbf9196d6931, type: 3}
   m_levelSelect: {fileID: 312652919677441327, guid: 1fc8108f89690ba4cb73d750ada9cd88, type: 3}
@@ -60,3 +61,5 @@ MonoBehaviour:
   m_descentMusic: {fileID: 8300000, guid: 40008c942c1644d448ac2b48181f5d6e, type: 3}
   m_playerHitSFX: {fileID: 8300000, guid: eb5cdc0956858d340a5e6e6a5877b918, type: 3}
   m_playerDeadSFX: {fileID: 8300000, guid: 4d02d318d838b984eac872cbed5ff5f4, type: 3}
+  m_dashSFX: {fileID: 8300000, guid: adc0cdfc52e52844e86860a753030316, type: 3}
+  m_jumpSFX: {fileID: 8300000, guid: cf50f00594e7d6c4c94887fa49509a35, type: 3}
