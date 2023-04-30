@@ -1,5 +1,7 @@
 using System.Collections;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Unity.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -52,19 +54,19 @@ public class PlayerController : MonoBehaviour
 	float m_currHorizontalSpeed;
 
 	RaycastHit2D[] m_currentDownCollisions = new RaycastHit2D[3];
-	int m_currentDownCollisionCount;
+	[SerializeField, ReadOnly] int m_currentDownCollisionCount;
 
 	RaycastHit2D[] m_currentRightCollisions = new RaycastHit2D[3];
-	int m_currentRightCollisionCount;
+	[SerializeField, ReadOnly] int m_currentRightCollisionCount;
 
 	RaycastHit2D[] m_currentLeftCollisions = new RaycastHit2D[3];
-	int m_currentLeftCollisionCount;
+	[SerializeField, ReadOnly] int m_currentLeftCollisionCount;
 
 	RaycastHit2D[] m_currentTopCollisions = new RaycastHit2D[3];
-	int m_currentTopCollisionCount;
+	[SerializeField, ReadOnly] int m_currentTopCollisionCount;
 
 	RaycastHit2D[] m_dashCollisionsAlloc = new RaycastHit2D[3];
-	int m_dashCollisionsAllocCount;
+	[SerializeField, ReadOnly] int m_dashCollisionsAllocCount;
 
 	Vector2 m_velocity = Vector2.zero;
 
