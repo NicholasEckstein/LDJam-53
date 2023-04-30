@@ -72,11 +72,11 @@ public class PlayerController : MonoBehaviour
 	bool m_isRunning = false;
 	bool m_isAirborne = false;
 	bool m_inputEnabled = true;
-    private Coroutine m_damageCR;
+	private Coroutine m_damageCR;
 
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
 
-    private void Awake()
+	private void Awake()
 	{
 		m_currHorizontalSpeed = 0.0f;
 	}
@@ -93,10 +93,11 @@ public class PlayerController : MonoBehaviour
 		Health.OnTakeDamage -= OnTakeDamage;
 	}
 
-    IEnumerator DoJumpRoutine()
+	IEnumerator DoJumpRoutine()
 	{
 		EnableGravity(false);
-		yield return new WaitForSeconds(0.5f);
+		float startJumpTime = Time.time;
+		yield return new WaitUntil(() => Time.time - startJumpTime >= 0.5f || m_currentTopCollisionCount > 0);
 		EnableGravity(true);
 
 		if (m_isAirborne)
@@ -156,9 +157,9 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-    public Health Health { get => m_health; }
+	public Health Health { get => m_health; }
 
-    public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
+	public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
 	{
 		Vector2 castOrigin =
 			(Vector2)transform.position +
@@ -405,8 +406,8 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-    private IEnumerator ResetCR()
-    {
+	private IEnumerator ResetCR()
+	{
 		var phase = GameManager.Instance.CurrentPhase as PlayPhase;
 		if (phase != null)
 		{
@@ -431,11 +432,10 @@ public class PlayerController : MonoBehaviour
 		GameManager.Instance.SetNextPhase(new PostGamePhase(false));
 	}
 
-
 	private void OnTakeDamage()
 	{
-		if(m_damageCR != null)
-        {
+		if (m_damageCR != null)
+		{
 			StopCoroutine(m_damageCR);
 			m_damageCR = null;
 			m_playerSprite.color = Color.white;
@@ -448,9 +448,8 @@ public class PlayerController : MonoBehaviour
 		m_outsideForcesToApplyNextUpdate += knockback;
 	}
 
-
 	private IEnumerator TakeDamageCR()
-    {
+	{
 		var c = m_playerSprite.color;
 		m_playerSprite.color = Color.red;
 		yield return new WaitForSeconds(m_health.SecondsOfInvincibleAfterHurt * 0.15f);
