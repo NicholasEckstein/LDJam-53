@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,5 +63,10 @@ public class PlayPhase : GamePhase
 
     public override void Update()
     {
+    }
+
+    public void EnableTimer()
+    {
+        m_gameUI.EnableTimer(true);
     }
 }
