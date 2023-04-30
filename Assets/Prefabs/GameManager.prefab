@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerPrefab: {fileID: 8378621006104947618, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
+  m_levels: []
   m_cameraController: {fileID: 0}
   m_mainMenu: {fileID: 312652919677441327, guid: 87c74c91de34c174db3bbbf9196d6931, type: 3}
   m_levelSelect: {fileID: 312652919677441327, guid: 1fc8108f89690ba4cb73d750ada9cd88, type: 3}
@@ -52,7 +53,7 @@ MonoBehaviour:
   m_gameUI: {fileID: 312652919677441327, guid: 593c9334870182946a827fbe235f7b09, type: 3}
   m_loadingScreenDelayTime: 0.5
   m_dialogueRunner: {fileID: 0}
-  m_introDialogueNode: Intro
+  m_introDialogueNode: Note
   m_musicVolume: 0.5
   m_sfxVolume: 0.5
   m_mainMenuMusic: {fileID: 8300000, guid: 36ac1aa9f4bcb514ca21ad40788ce288, type: 3}
