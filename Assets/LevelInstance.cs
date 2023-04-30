@@ -65,7 +65,7 @@ public class LevelInstance : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        GameManager.Instance.PlayerController.EnableInput(false);
+        GameManager.Instance.PlayerController.EnableInput(true);
 
         //Activate timer
         var phase = GameManager.Instance.CurrentPhase as PlayPhase;
