@@ -24,6 +24,9 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private CameraController m_cameraController;
 
+    [SerializeField]
+    private ShakeCamera m_cameraShake;
+
     [Header("UI")]
 
     [SerializeField]
@@ -127,6 +130,7 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip LoseMusic { get => m_lostMusic; }
     public GameObject PostGameUI { get => m_postGameUI; }
     public GameObject PauseMenuUI { get => m_pauseMenuUI; }
+    public ShakeCamera CameraShake { get => m_cameraShake; }
 
     protected override void Awake()
     {

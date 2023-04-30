@@ -46,6 +46,7 @@ public class Health : MonoBehaviour
 			{
 				OnTakeDamage?.Invoke();
 				m_bloodFXAnim.SetTrigger("tBlood");
+				GameManager.Instance.CameraShake.AddTrauma(.25f, .25f);
 				//BroadcastMessage("OnTakeDamage", this, SendMessageOptions.DontRequireReceiver);
 
 				if (m_currentInvinceRoutine != null)

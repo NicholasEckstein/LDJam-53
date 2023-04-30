@@ -331,6 +331,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
+      propertyPath: m_cameraShake
+      value: 
+      objectReference: {fileID: 2062543409}
+    - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
       propertyPath: m_dialogueRunner
       value: 
       objectReference: {fileID: 1537363362}
