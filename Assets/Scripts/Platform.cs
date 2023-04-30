@@ -9,7 +9,7 @@ public class Platform : MonoBehaviour
 	[SerializeField] PolygonCollider2D m_collider;
 	[SerializeField] SpriteRenderer m_renderer;
 	[SerializeField] float m_breakDelay = 0.2f;
-	[SerializeField] float m_damage = 0.0f;
+	[SerializeField] float m_damage = 1.0f;
 
 	[SerializeField] bool m_breakable;
 
@@ -65,7 +65,7 @@ public class Platform : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		collision.gameObject.BroadcastMessage("OnPlatformLand", this, SendMessageOptions.DontRequireReceiver);
-		collision.gameObject.BroadcastMessage("ChangeHealthBy", -m_damage, SendMessageOptions.DontRequireReceiver);
+		collision.transform.root.BroadcastMessage("OnPlatformLand", this, SendMessageOptions.DontRequireReceiver);
+		collision.transform.root.BroadcastMessage("ChangeHealthBy", -m_damage, SendMessageOptions.DontRequireReceiver);
 	}
 }

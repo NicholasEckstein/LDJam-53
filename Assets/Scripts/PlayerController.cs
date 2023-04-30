@@ -399,6 +399,16 @@ public class PlayerController : MonoBehaviour
 
 	public void EnableInput(bool a_enable)
 	{
-		m_inputEnabled = a_enable;
+		if (a_enable)
+		{
+			m_inputEnabled = true;
+			m_rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+		}
+		else
+		{
+			m_inputEnabled = false;
+			m_rigidbody.velocity = Vector3.zero;
+			m_rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+		}
 	}
 }
