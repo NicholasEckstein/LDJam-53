@@ -525,7 +525,8 @@ public class PlayerController : MonoBehaviour
 	{
 		var c = m_playerSprite.color;
 		m_playerSprite.color = Color.red;
-		yield return new WaitForSeconds(m_health.SecondsOfInvincibleAfterHurt * 0.15f);
+		const float bloodAnimTime = 0.15f;
+		yield return new WaitForSeconds(bloodAnimTime);
 		m_playerSprite.color = c;
 	}
 
