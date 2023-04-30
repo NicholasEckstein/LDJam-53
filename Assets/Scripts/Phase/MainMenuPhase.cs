@@ -15,7 +15,7 @@ public class MainMenuPhase : GamePhase
     //Will keep running if false
     public override bool Initialize()
     {
-        if(m_previousPhase != null && m_previousPhase is LevelSelectPhase || m_previousPhase is PlayPhase)
+        if(m_previousPhase != null && m_previousPhase is not IntroPhase)
         {
             if (!LoadingUI.IsClosing)
             {
