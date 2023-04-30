@@ -10,15 +10,15 @@ public class Health : MonoBehaviour
 	public static Action OnHealed;
 
 	[SerializeField] float m_maxHealth;
-	float m_currentHealth;
+	[SerializeField] float m_currentHealth;
 
 	[SerializeField] float m_secondsOfInvincibleAfterHurt = 1.0f;
 
 	public float MaxHealth { get => m_maxHealth; }
 	public float CurrentHealth { get => m_currentHealth; }
-    public float SecondsOfInvincibleAfterHurt { get => m_secondsOfInvincibleAfterHurt; }
+	public float SecondsOfInvincibleAfterHurt { get => m_secondsOfInvincibleAfterHurt; }
 
-    bool m_canTakeDamage = true;
+	bool m_canTakeDamage = true;
 	Coroutine m_currentInvinceRoutine = null;
 
 	private void Awake()
@@ -32,13 +32,14 @@ public class Health : MonoBehaviour
 		return SetHealthTo(m_currentHealth + amount, notify);
 	}
 
-	public float SetHealthTo(float amount, bool notify)
+	public float SetHealthTo(float newHealth, bool notify)
 	{
-		float newHealth = amount;
+		float oldHealth = m_currentHealth;
+		m_currentHealth = newHealth;
 
 		if (notify)
 		{
-			if (newHealth < m_currentHealth)//Took Damage
+			if (newHealth < oldHealth)//Took Damage
 			{
 				OnTakeDamage?.Invoke();
 				//BroadcastMessage("OnTakeDamage", this, SendMessageOptions.DontRequireReceiver);
@@ -53,19 +54,18 @@ public class Health : MonoBehaviour
 					OnDead?.Invoke();
 					//BroadcastMessage("OnDead", this, SendMessageOptions.DontRequireReceiver);
 				}
-                else
-                {
+				else
+				{
 					AudioManager.Instance.PlaySFX(GameManager.Instance.PlayerHitSFX);
 				}
 			}
-			else if (newHealth > m_currentHealth)//Healed
+			else if (newHealth > oldHealth)//Healed
 			{
 				OnHealed?.Invoke();
 				//BroadcastMessage("OnHealed", this, SendMessageOptions.DontRequireReceiver);
 			}
 		}
 
-		m_currentHealth = newHealth;
 		return newHealth;
 	}
 

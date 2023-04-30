@@ -58,7 +58,7 @@ public class GameUI : UIPrefab
 
     public void OnTakeDamage()
     {
-        var currHealth = GameManager.Instance.PlayerController.Health.CurrentHealth - 1;
+        var currHealth = GameManager.Instance.PlayerController.Health.CurrentHealth;
         for (int i = 0; i < m_hearts.Count; i++)
         {
             if (m_hearts[i] == null)

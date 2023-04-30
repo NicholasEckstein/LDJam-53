@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float m_jumpVelocity = 10.0f;
 	[Space]
 	[SerializeField] float m_dashVelocity = 10.0f;
+	[Space]
+	[SerializeField] float m_dashCooldown = 1.0f;
 
 	[Header("Physics Settings")]
 	[SerializeField] float m_maxFallSpeed;
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour
 	bool m_isAirborne = false;
 	bool m_inputEnabled = true;
 	private Coroutine m_damageCR;
+	float m_timeUntilNextDash = 0.5f;
 
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
 
@@ -221,7 +224,14 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
+		UpdateCooldowns();
+
 		UpdateInput();
+	}
+
+	void UpdateCooldowns()
+	{
+		m_timeUntilNextDash -= Time.deltaTime;
 	}
 
 	void UpdateInput()
@@ -229,7 +239,7 @@ public class PlayerController : MonoBehaviour
 		if (m_inputEnabled)
 		{
 			horizontalInput = Input.GetAxis("Horizontal");
-			dashInput = Input.GetAxis("Dash");
+			dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetAxis("Dash") : 0.0f;
 
 			if (GetIsGrounded || !jump)
 			{
@@ -290,6 +300,8 @@ public class PlayerController : MonoBehaviour
 				m_velocity.x = m_dashVelocity * dashInput;
 				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
 				maxSpeedToUse = float.MaxValue;
+
+				m_timeUntilNextDash = m_dashCooldown;
 			}
 			else
 			{
