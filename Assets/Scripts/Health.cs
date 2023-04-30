@@ -9,6 +9,9 @@ public class Health : MonoBehaviour
 	public static Action OnDead;
 	public static Action OnHealed;
 
+	[SerializeField]
+	private Animator m_bloodFXAnim;
+
 	[SerializeField] float m_maxHealth;
 	[SerializeField] float m_currentHealth;
 
@@ -21,7 +24,7 @@ public class Health : MonoBehaviour
 	bool m_canTakeDamage = true;
 	Coroutine m_currentInvinceRoutine = null;
 
-	private void Awake()
+    private void Awake()
 	{
 		m_currentHealth = m_maxHealth;
 	}
@@ -42,6 +45,7 @@ public class Health : MonoBehaviour
 			if (newHealth < oldHealth)//Took Damage
 			{
 				OnTakeDamage?.Invoke();
+				m_bloodFXAnim.SetTrigger("tBlood");
 				//BroadcastMessage("OnTakeDamage", this, SendMessageOptions.DontRequireReceiver);
 
 				if (m_currentInvinceRoutine != null)

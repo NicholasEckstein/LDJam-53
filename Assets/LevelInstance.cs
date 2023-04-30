@@ -55,7 +55,7 @@ public class LevelInstance : MonoBehaviour
 	private void OnCollectableObtained()
 	{
 		AudioManager.Instance.PlaySFX(GameManager.Instance.GrabSFX);
-		Destroy(m_collectable.gameObject);
+		Destroy(m_collectable.transform.parent.gameObject);
 		GameManager.Instance.PlayerController.EnableInput(false);
 		GameManager.Instance.DialogueRunner.StartDialogue("Intro");
 		StartCoroutine(DialogueWaitCR());
