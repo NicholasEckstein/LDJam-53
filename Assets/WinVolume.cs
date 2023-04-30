@@ -13,14 +13,16 @@ public class WinVolume : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             win = true;
-            StartCoroutine(LoseCR());
+            StartCoroutine(WinCR());
         }
     }
 
 
-    private IEnumerator LoseCR()
+    private IEnumerator WinCR()
     {
         yield return new WaitForSeconds(1.5f);
+        PlayerPrefs.SetInt(GameManager.Level1Str, GameManager.LevelComplete);
+        PlayerPrefs.SetInt(GameManager.Level2Str, GameManager.LevelUnlocked);
         LoadingUI.ShowLoadingScreen();
         GameManager.Instance.SetNextPhase(new PostGamePhase(win));
     }

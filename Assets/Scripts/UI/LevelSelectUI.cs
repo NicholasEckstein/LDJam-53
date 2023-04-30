@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,22 @@ public class LevelSelectUI : UIPrefab
     [SerializeField]
     private List<Image> m_levels;
 
+    [SerializeField]
+    private Image m_lockedLevelImage;
+
 
     private int m_levelSelected = 0;
 
     private void Awake()
     {
+        InitLevelUnlocks();
         EnableSelectForLevel(m_levelSelected);
+    }
+
+    private void InitLevelUnlocks()
+    {
+        var i = PlayerPrefs.GetInt(GameManager.Level2Str, -1);
+        m_lockedLevelImage.gameObject.SetActive(i != GameManager.LevelUnlocked);
     }
 
     private void Update()
@@ -28,12 +39,11 @@ public class LevelSelectUI : UIPrefab
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            LoadingUI.ShowLoadingScreen();
-
             if (GameManager.Instance.IsValidLevel(m_levelSelected))
+            {
+                LoadingUI.ShowLoadingScreen();
                 GameManager.Instance.SetNextPhase(new PlayPhase(m_levelSelected));
-            else
-                Debug.LogWarning("Not valid level. Might be missing a prefab in GameManager");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -52,7 +62,7 @@ public class LevelSelectUI : UIPrefab
 
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (m_levelSelected < m_levels.Count)
+            if (m_levelSelected < m_levels.Count - 1)
                 m_levelSelected += 1;
 
             EnableSelectForLevel(m_levelSelected);
