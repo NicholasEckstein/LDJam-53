@@ -16,9 +16,15 @@ public class CameraController : MonoBehaviour
 	[SerializeField] bool m_clampCameraToTarget;
 	[SerializeField] AnimationCurve m_followSpeedByDistance;
 	[SerializeField] Vector3 m_offset;
-	[SerializeField] bool m_clampX;
-	[SerializeField] bool m_clampY;
 	[SerializeField] float m_viewWidth;
+
+	[Space]
+	[SerializeField] bool m_clampX;
+	[SerializeField] float m_xToClampTo;
+
+	[Space]
+	[SerializeField] bool m_clampY;
+	[SerializeField] float m_yToClampTo;
 
 	private void Start()
 	{
@@ -45,9 +51,9 @@ public class CameraController : MonoBehaviour
 		}
 
 		if (m_clampX)
-			newPos.x = transform.position.x + m_offset.x;
+			newPos.x = m_xToClampTo;
 		if (m_clampY)
-			newPos.y = transform.position.y + m_offset.y;
+			newPos.y = m_yToClampTo;
 
 		transform.position = newPos;
 	}
