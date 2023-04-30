@@ -390,7 +390,29 @@ public class PlayerController : MonoBehaviour
 	{
 		var level = GameManager.Instance.CurrentLevel;
 		if (level != null && !level.IsDescending)
+		{
 			StartCoroutine(LoseCR());
+		}
+		else
+		{
+			EnableInput(false);
+			StartCoroutine(ResetCR());
+		}
+	}
+
+    private IEnumerator ResetCR()
+    {
+		var phase = GameManager.Instance.CurrentPhase as PlayPhase;
+		if (phase != null)
+		{
+			phase.ReloadLevel();
+		}
+
+		m_health.SetHealthTo(m_health.MaxHealth, false);
+
+		transform.position = GameManager.Instance.CurrentLevel.PlayerStartLocation;
+		yield return new WaitForSeconds(1f);
+		EnableInput(true);
 	}
 
 	private IEnumerator LoseCR()
@@ -447,7 +469,11 @@ public class PlayerController : MonoBehaviour
 		{
 			m_inputEnabled = false;
 			m_rigidbody.velocity = Vector3.zero;
-			m_rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+			m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+			m_animator.SetTrigger("tIdle");
+			m_animator.SetBool("bJumping", false);
+			m_animator.SetBool("bRunning", false);
+			m_animator.SetBool("bFalling", false);
 		}
 	}
 }

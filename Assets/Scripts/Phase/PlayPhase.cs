@@ -69,4 +69,11 @@ public class PlayPhase : GamePhase
     {
         m_gameUI.EnableTimer(true);
     }
+
+    public void ReloadLevel()
+    {
+        GameManager.Instance.DestroyLevel();
+        GameManager.Instance.LoadLevel(m_levelIndex);
+        m_gameUI.ResetHeartUI();
+    }
 }

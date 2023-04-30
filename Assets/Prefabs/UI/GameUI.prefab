@@ -96,7 +96,7 @@ MonoBehaviour:
   - {fileID: 7715785958643640125}
   - {fileID: 7800321436713441761}
   - {fileID: 6620609126053648590}
-  m_damagedHeartSprite: {fileID: 21300000, guid: 3e24cdfad32e00149b99bbda5f5d147c, type: 3}
+  m_heartSprite: {fileID: 21300000, guid: be794d4cfd84dd44f887a44c3e121c5d, type: 3}
 --- !u!1 &400710389052651207
 GameObject:
   m_ObjectHideFlags: 0

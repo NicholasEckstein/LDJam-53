@@ -13,7 +13,7 @@ public class GameUI : UIPrefab
     private List<Image> m_hearts;
 
     [SerializeField]
-    private Sprite m_damagedHeartSprite;
+    private Sprite m_heartSprite;
     private bool m_timerActive;
     private Coroutine m_loseCR;
     private float m_timer;
@@ -79,6 +79,17 @@ public class GameUI : UIPrefab
         m_timerText.gameObject.SetActive(a_enable);
         m_timer = GameManager.Instance.CurrentLevel.TimeToAscend;
         m_timerActive = true;
+    }
+
+    public void ResetHeartUI()
+    {
+        for (int i = 0; i < m_hearts.Count; i++)
+        {
+            m_hearts[i].sprite = m_heartSprite;
+            var c = m_hearts[i].color;
+            c.a = 1;
+            m_hearts[i].color = c;
+        }
     }
 
     private IEnumerator LoseCR()
