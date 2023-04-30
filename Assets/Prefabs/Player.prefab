@@ -200,8 +200,8 @@ MonoBehaviour:
   m_playerSprite: {fileID: 227404585433187652}
   m_controlAccelerationWhenFalling: 10
   m_controlAccelerationWhenGrounded: 10
-  m_controlDecelerationWhenFalling: 0.2
-  m_controlDecelerationWhenGrounded: 1
+  m_controlDecelerationWhenFalling: 10
+  m_controlDecelerationWhenGrounded: 10
   m_maxMoveSpeedInAir: 10
   m_maxMoveSpeedOnGround: 10
   m_jumpVelocity: 20
