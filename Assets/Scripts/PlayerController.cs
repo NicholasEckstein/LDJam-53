@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float m_jumpVelocity = 10.0f;
 
 	[Header("Dash Settings")]
+	[SerializeField] bool m_smoothDash = true;
 	[SerializeField] float m_dashTimeLength = 0.2f;
 	[SerializeField] float m_dashDistance = 5.0f;
 	[SerializeField] float m_dashCooldown = 1.0f;
@@ -119,6 +120,7 @@ public class PlayerController : MonoBehaviour
 		m_velocity = Vector2.zero;
 
 		Vector3 targetPos = (Vector2)m_collider.bounds.center + new Vector2(direction * m_dashDistance, 0f);
+		float targetDistance = m_dashDistance;
 
 		float colliderHalfWidth = m_collider.bounds.size.x * 0.5f;
 
@@ -127,32 +129,40 @@ public class PlayerController : MonoBehaviour
 		if (m_dashCollisionsAllocCount > 0)
 		{
 			//get nearest collision
-			float lastNearestDistance = Mathf.Abs(targetPos.x - transform.position.x);
 			for (int i = 0; i < m_dashCollisionsAllocCount; ++i)
 			{
 				Vector2 pos = m_dashCollisionsAlloc[0].point - new Vector2(System.Math.Sign(direction) * colliderHalfWidth, 0.0f);
 				float distance = Mathf.Abs(pos.x - transform.position.x);
-				if (distance < lastNearestDistance)
+				if (distance < targetDistance)
 				{
 					targetPos = pos;
-					lastNearestDistance = distance;
+					targetDistance = distance;
 				}
 			}
 		}
 
+		//Shorten dash time if the player is going to hit something and not do a complete dash
+		float percentOfFullDash = targetDistance / m_dashDistance;
+		float dashTime = m_dashTimeLength * percentOfFullDash;
+
 		Vector3 startPos = transform.position;
 		float startTime = Time.time;
-		float percent;
+		float timeSinceStart;
 		do
 		{
-			float timeSinceStart = Time.time - startTime;
-			percent = timeSinceStart / m_dashTimeLength;
+			timeSinceStart = Time.time - startTime;
+
+			float percent = timeSinceStart / dashTime;
+
+			//Smooth out acceleration and deceleration while still 
+			if (m_smoothDash)
+				percent = Mathf.SmoothStep(0.0f, 1.0f, percent);
 
 			transform.position = Vector3.Lerp(startPos, targetPos, percent);
 
 			yield return null;
 		}
-		while (percent <= 1.0f);
+		while (timeSinceStart < dashTime);
 		transform.position = targetPos;
 
 		m_isDashing = false;

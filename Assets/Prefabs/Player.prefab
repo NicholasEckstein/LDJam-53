@@ -206,6 +206,7 @@ MonoBehaviour:
   m_maxMoveSpeedInAir: 10
   m_maxMoveSpeedOnGround: 10
   m_jumpVelocity: 21
+  m_smoothDash: 1
   m_dashTimeLength: 0.1
   m_dashDistance: 5
   m_dashCooldown: 0.2
