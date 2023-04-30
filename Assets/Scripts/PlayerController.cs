@@ -1,5 +1,7 @@
 using System.Collections;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Unity.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -52,19 +54,19 @@ public class PlayerController : MonoBehaviour
 	float m_currHorizontalSpeed;
 
 	RaycastHit2D[] m_currentDownCollisions = new RaycastHit2D[3];
-	int m_currentDownCollisionCount;
+	[SerializeField, ReadOnly] int m_currentDownCollisionCount;
 
 	RaycastHit2D[] m_currentRightCollisions = new RaycastHit2D[3];
-	int m_currentRightCollisionCount;
+	[SerializeField, ReadOnly] int m_currentRightCollisionCount;
 
 	RaycastHit2D[] m_currentLeftCollisions = new RaycastHit2D[3];
-	int m_currentLeftCollisionCount;
+	[SerializeField, ReadOnly] int m_currentLeftCollisionCount;
 
 	RaycastHit2D[] m_currentTopCollisions = new RaycastHit2D[3];
-	int m_currentTopCollisionCount;
+	[SerializeField, ReadOnly] int m_currentTopCollisionCount;
 
 	RaycastHit2D[] m_dashCollisionsAlloc = new RaycastHit2D[3];
-	int m_dashCollisionsAllocCount;
+	[SerializeField, ReadOnly] int m_dashCollisionsAllocCount;
 
 	Vector2 m_velocity = Vector2.zero;
 
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
 
-    public bool GetIsMoving
+	public bool GetIsMoving
 	{
 		get
 		{
@@ -187,31 +189,33 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		if (targetDistance < m_dashDistance)
-			Debug.Log("Distance: " + targetDistance);
-		//Shorten dash time if the player is going to hit something and not do a complete dash
-		float percentOfFullDash = targetDistance / m_dashDistance;
-		float dashTime = m_dashTimeLength * percentOfFullDash;
-
-		Vector3 startPos = transform.position;
-		float startTime = Time.time;
-		float timeSinceStart;
-		do
+		if (targetDistance > EPSILON)
 		{
-			timeSinceStart = Time.time - startTime;
+			if (targetDistance < m_dashDistance)
+				Debug.Log("Distance: " + targetDistance);
+			//Shorten dash time if the player is going to hit something and not do a complete dash
+			float percentOfFullDash = targetDistance / m_dashDistance;
+			float dashTime = m_dashTimeLength * percentOfFullDash;
 
-			float percent = timeSinceStart / dashTime;
+			Vector3 startPos = transform.position;
+			float startTime = Time.time;
+			float timeSinceStart;
+			do
+			{
+				timeSinceStart = Time.time - startTime;
 
-			//Smooth out acceleration and deceleration while still 
-			if (m_smoothDash)
-				percent = Mathf.SmoothStep(0.0f, 1.0f, percent);
+				float percent = timeSinceStart / dashTime;
 
-			transform.position = Vector3.Lerp(startPos, targetPos, percent);
+				//Smooth out acceleration and deceleration while still 
+				if (m_smoothDash)
+					percent = Mathf.SmoothStep(0.0f, 1.0f, percent);
+				transform.position = Vector3.Lerp(startPos, targetPos, percent);
 
-			yield return null;
+				yield return null;
+			}
+			while (timeSinceStart < dashTime);
+			transform.position = targetPos;
 		}
-		while (timeSinceStart < dashTime);
-		transform.position = targetPos;
 
 		m_isDashing = false;
 	}
