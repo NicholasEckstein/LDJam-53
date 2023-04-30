@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHealth: 3
+  m_currentHealth: 0
   m_secondsOfInvincibleAfterHurt: 1
 --- !u!114 &80526151520174332
 MonoBehaviour:
@@ -205,7 +206,9 @@ MonoBehaviour:
   m_maxMoveSpeedInAir: 10
   m_maxMoveSpeedOnGround: 10
   m_jumpVelocity: 21
-  m_dashVelocity: 10
+  m_dashTimeLength: 0.1
+  m_dashDistance: 5
+  m_dashCooldown: 0.2
   m_maxFallSpeed: 25
   m_gravityScale: 8
   m_boxcastWidth: 0.05
@@ -218,10 +221,6 @@ MonoBehaviour:
   m_enemiesLayers:
     serializedVersion: 2
     m_Bits: 128
-  m_currentDownCollisionCount: 0
-  m_currentRightCollisionCount: 0
-  m_currentLeftCollisionCount: 0
-  m_currentTopCollisionCount: 0
 --- !u!50 &2236449949622054620
 Rigidbody2D:
   serializedVersion: 4
