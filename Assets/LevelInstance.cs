@@ -48,6 +48,7 @@ public class LevelInstance : MonoBehaviour
     private void OnCollectableObtained()
     {
         Destroy(m_collectable.gameObject);
+        GameManager.Instance.PlayerController.EnableInput(false);
         GameManager.Instance.DialogueRunner.StartDialogue("Intro");
         StartCoroutine(DialogueWaitCR());
     }
@@ -63,6 +64,8 @@ public class LevelInstance : MonoBehaviour
         AudioManager.Instance.PlayMusic(GameManager.Instance.AscentMusic);
 
         yield return new WaitForSeconds(2);
+
+        GameManager.Instance.PlayerController.EnableInput(false);
 
         //Activate timer
         var phase = GameManager.Instance.CurrentPhase as PlayPhase;
