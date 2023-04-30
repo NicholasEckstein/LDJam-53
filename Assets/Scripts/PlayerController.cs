@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
 	float horizontalInput = 0.0f;
 	float dashInput = 0.0f;
-	bool jump = false;
+	float m_jumpInput = 0.0f;
 	bool m_isRunning = false;
 	bool m_isAirborne = false;
 	bool m_inputEnabled = true;
@@ -80,6 +81,56 @@ public class PlayerController : MonoBehaviour
 	float m_timeUntilNextDash = 0.5f;
 
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
+
+	public bool GetIsMoving
+	{
+		get
+		{
+			return Mathf.Abs(horizontalInput) > EPSILON;
+		}
+	}
+
+	public bool GetIsJumping
+	{
+		get
+		{
+			return Mathf.Abs(m_jumpInput) > EPSILON;
+		}
+	}
+
+	public bool GetIsTryingToDash
+	{
+		get
+		{
+			return Mathf.Abs(dashInput) > EPSILON;
+		}
+	}
+
+	public bool GetIsGrounded
+	{
+		get
+		{
+			for (int i = 0; i < m_currentDownCollisionCount; i++)
+			{
+				if (m_currentDownCollisions[i] && (m_groundLayers & 1 << m_currentDownCollisions[i].collider.gameObject.layer) != 0)
+					return true;
+			}
+			return false;
+		}
+	}
+
+	public bool GetIsStandingOnEnemy
+	{
+		get
+		{
+			for (int i = 0; i < m_currentDownCollisionCount; i++)
+			{
+				if (m_currentDownCollisions[i] && (m_enemiesLayers & 1 << m_currentDownCollisions[i].collider.gameObject.layer) != 0)
+					return true;
+			}
+			return false;
+		}
+	}
 
 	private void Awake()
 	{
@@ -102,7 +153,7 @@ public class PlayerController : MonoBehaviour
 	{
 		EnableGravity(false);
 		float startJumpTime = Time.time;
-		yield return new WaitUntil(() => Time.time - startJumpTime >= 0.5f || m_currentTopCollisionCount > 0);
+		yield return new WaitUntil(() => Time.time - startJumpTime >= 0.5f || m_currentTopCollisionCount > 0 || !GetIsJumping);
 		EnableGravity(true);
 
 		if (m_isAirborne)
@@ -166,48 +217,6 @@ public class PlayerController : MonoBehaviour
 		transform.position = targetPos;
 
 		m_isDashing = false;
-	}
-
-	public bool GetIsMoving
-	{
-		get
-		{
-			return Mathf.Abs(horizontalInput) > EPSILON;
-		}
-	}
-
-	public bool GetIsTryingToDash
-	{
-		get
-		{
-			return Mathf.Abs(dashInput) > EPSILON;
-		}
-	}
-
-	public bool GetIsGrounded
-	{
-		get
-		{
-			for (int i = 0; i < m_currentDownCollisionCount; i++)
-			{
-				if (m_currentDownCollisions[i] && (m_groundLayers & 1 << m_currentDownCollisions[i].collider.gameObject.layer) != 0)
-					return true;
-			}
-			return false;
-		}
-	}
-
-	public bool GetIsStandingOnEnemy
-	{
-		get
-		{
-			for (int i = 0; i < m_currentDownCollisionCount; i++)
-			{
-				if (m_currentDownCollisions[i] && (m_enemiesLayers & 1 << m_currentDownCollisions[i].collider.gameObject.layer) != 0)
-					return true;
-			}
-			return false;
-		}
 	}
 
 	public Health Health { get => m_health; }
@@ -291,7 +300,7 @@ public class PlayerController : MonoBehaviour
 			horizontalInput = Input.GetAxis("Horizontal");
 			dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetAxis("Dash") : 0.0f;
 
-			if (GetIsGrounded || !jump)
+			if (GetIsGrounded || !GetIsJumping)
 			{
 				if (horizontalInput != 0)
 				{
@@ -310,13 +319,12 @@ public class PlayerController : MonoBehaviour
 			if (m_playerSprite != null)
 				m_playerSprite.flipX = horizontalInput < 0;
 
-			jump = Input.GetButton("Jump");
+			m_jumpInput = Input.GetAxis("Jump");
 
-			if (jump)
+			if (m_jumpInput > EPSILON)
 			{
 				AudioManager.Instance.PlaySFX(GameManager.Instance.JumpSFX);
 			}
-
 
 			m_animator.SetBool("bJumping", !GetIsGrounded);
 		}
@@ -360,6 +368,9 @@ public class PlayerController : MonoBehaviour
 					accelToUse = m_controlAccelerationWhenGrounded;
 					decelToUse = m_controlDecelerationWhenGrounded;
 					maxSpeedToUse = m_maxMoveSpeedOnGround;
+
+					m_isAirborne = false;
+					m_animator.SetBool("bFalling", m_isAirborne);
 				}
 				else
 				{
@@ -383,12 +394,13 @@ public class PlayerController : MonoBehaviour
 				{
 					m_velocity.y = 0.0f;
 
-					if (jump)
+					if (GetIsJumping)
 					{
 						m_velocity.y += m_jumpVelocity;
 
 						if (!m_isAirborne)
 						{
+							Debug.Log(123);
 							m_animator.SetTrigger("tJump");
 							m_isAirborne = true;
 							m_animator.SetBool("bFalling", m_isAirborne);
