@@ -22,6 +22,7 @@ public class LevelInstance : MonoBehaviour
 
     public Vector3 PlayerStartLocation { get => m_playerSpawn.position; }
     public float TimeToAscend { get => m_timeToAscend; }
+    public bool IsDescending { get => m_descendPlatformParent.gameObject.activeSelf; }
 
     private void OnEnable()
     {

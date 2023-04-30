@@ -40,6 +40,9 @@ public class GameManager : SingletonBase<GameManager>
     private GameObject m_gameUI;
 
     [SerializeField]
+    private GameObject m_postGameUI;
+
+    [SerializeField]
     private float m_loadingScreenDelayTime = 0.5f;
 
     [Header("Dialogue")]
@@ -66,6 +69,12 @@ public class GameManager : SingletonBase<GameManager>
 
     [SerializeField]
     private AudioClip m_ascentMusic;
+
+    [SerializeField]
+    private AudioClip m_winMusic;
+
+    [SerializeField]
+    private AudioClip m_lostMusic;
 
     [SerializeField]
     private AudioClip m_playerHitSFX;
@@ -111,6 +120,9 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip JumpSFX { get => m_jumpSFX; }
     public AudioClip LandSFX { get => m_landSFX; }
     public AudioClip GrabSFX { get => m_grabSFX; }
+    public AudioClip WinMusic { get => m_winMusic; }
+    public AudioClip LoseMusic { get => m_lostMusic; }
+    public GameObject PostGameUI { get => m_postGameUI; }
 
     protected override void Awake()
     {

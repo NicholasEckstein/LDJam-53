@@ -331,6 +331,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
+      propertyPath: m_postGameUI
+      value: 
+      objectReference: {fileID: 312652919677441327, guid: 80107f54ea0f5204fab0575e4a2dcf0b, type: 3}
+    - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
       propertyPath: m_dialogueRunner
       value: 
       objectReference: {fileID: 1537363362}
@@ -338,6 +342,10 @@ PrefabInstance:
       propertyPath: m_cameraController
       value: 
       objectReference: {fileID: 2062543408}
+    - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
+      propertyPath: m_loadingScreenDelayTime
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 936008533854177151, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
       propertyPath: m_Name
       value: GameManager

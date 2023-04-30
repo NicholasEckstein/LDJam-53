@@ -388,8 +388,22 @@ public class PlayerController : MonoBehaviour
 
 	void OnDead()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		var level = GameManager.Instance.CurrentLevel;
+		if (level != null && !level.IsDescending)
+			StartCoroutine(LoseCR());
 	}
+
+	private IEnumerator LoseCR()
+	{
+		yield return new WaitForSeconds(.25f);
+		var c = m_playerSprite.color;
+		c.a = 0;
+		m_playerSprite.color = c;
+		yield return new WaitForSeconds(1f);
+		LoadingUI.ShowLoadingScreen();
+		GameManager.Instance.SetNextPhase(new PostGamePhase(false));
+	}
+
 
 	private void OnTakeDamage()
 	{

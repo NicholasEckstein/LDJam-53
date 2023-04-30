@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class GameUI : UIPrefab
     [SerializeField]
     private Sprite m_damagedHeartSprite;
     private bool m_timerActive;
+    private Coroutine m_loseCR;
     private float m_timer;
 
     private void OnEnable()
@@ -28,6 +30,9 @@ public class GameUI : UIPrefab
 
     private void Update()
     {
+        if (m_loseCR != null)
+            return;
+
         if (m_timerActive)
         {
             if (m_timer > 0)
@@ -39,8 +44,9 @@ public class GameUI : UIPrefab
             else
             {
                 m_timerActive = false;
-
-                //TODO: LOSE STATE HERE
+                
+                if(m_loseCR == null)
+                    m_loseCR = StartCoroutine(LoseCR());
             }
         }
     }
@@ -73,5 +79,12 @@ public class GameUI : UIPrefab
         m_timerText.gameObject.SetActive(a_enable);
         m_timer = GameManager.Instance.CurrentLevel.TimeToAscend;
         m_timerActive = true;
+    }
+
+    private IEnumerator LoseCR()
+    {
+        yield return new WaitForSeconds(1.5f);
+        LoadingUI.ShowLoadingScreen();
+        GameManager.Instance.SetNextPhase(new PostGamePhase(false));
     }
 }
