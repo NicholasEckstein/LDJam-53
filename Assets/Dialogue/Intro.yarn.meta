@@ -8,55 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 94073015eacc34c1d8fc6786e43d60ca, type: 3}
-  LastImportHadImplicitStringIDs: 0
-  LastImportHadAnyStrings: 0
-  isSuccessfullyParsed: 0
-  parseErrorMessages:
-  - 'Assets/Dialogue/Intro.yarn: 5:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 9:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 13:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 17:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 21:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 25:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 29:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
-  - 'Assets/Dialogue/Intro.yarn: 33:0: Error: More than one node is named Note Cont.
-
-    title:
-    Note Cont.
-
-'
+  LastImportHadImplicitStringIDs: 1
+  LastImportHadAnyStrings: 1
+  isSuccessfullyParsed: 1
+  parseErrorMessages: []

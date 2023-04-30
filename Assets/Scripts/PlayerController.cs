@@ -1,11 +1,5 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using Yarn.Unity.Editor;
 
 public class PlayerController : MonoBehaviour
 {
