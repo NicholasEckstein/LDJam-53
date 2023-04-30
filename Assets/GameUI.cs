@@ -52,14 +52,18 @@ public class GameUI : UIPrefab
 
     public void OnTakeDamage()
     {
-        for (int i = m_hearts.Count - 1; i >= 0; i--)
+        var currHealth = GameManager.Instance.PlayerController.Health.CurrentHealth - 1;
+        for (int i = 0; i < m_hearts.Count; i++)
         {
             if (m_hearts[i] == null)
                 continue;
 
-            if (m_hearts[i].sprite != m_damagedHeartSprite)
+            if(i >= currHealth)
             {
-                m_hearts[i].sprite = m_damagedHeartSprite;
+                m_hearts[i].sprite = null;
+                var c = m_hearts[i].color;
+                c.a = 0;
+                m_hearts[i].color = c;
             }
         }
     }

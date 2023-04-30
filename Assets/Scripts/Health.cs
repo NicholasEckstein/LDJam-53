@@ -16,8 +16,9 @@ public class Health : MonoBehaviour
 
 	public float MaxHealth { get => m_maxHealth; }
 	public float CurrentHealth { get => m_currentHealth; }
+    public float SecondsOfInvincibleAfterHurt { get => m_secondsOfInvincibleAfterHurt; }
 
-	bool m_canTakeDamage = true;
+    bool m_canTakeDamage = true;
 	Coroutine m_currentInvinceRoutine = null;
 
 	private void Awake()

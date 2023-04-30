@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -71,8 +72,9 @@ public class PlayerController : MonoBehaviour
 	bool m_isRunning = false;
 	bool m_isAirborne = false;
 	bool m_inputEnabled = true;
+    private Coroutine m_damageCR;
 
-	private void Awake()
+    private void Awake()
 	{
 		m_currHorizontalSpeed = 0.0f;
 	}
@@ -80,14 +82,16 @@ public class PlayerController : MonoBehaviour
 	private void OnEnable()
 	{
 		Health.OnDead += OnDead;
+		Health.OnTakeDamage += OnTakeDamage;
 	}
 
 	private void OnDisable()
 	{
 		Health.OnDead -= OnDead;
+		Health.OnTakeDamage -= OnTakeDamage;
 	}
 
-	IEnumerator DoJumpRoutine()
+    IEnumerator DoJumpRoutine()
 	{
 		EnableGravity(false);
 		yield return new WaitForSeconds(0.5f);
@@ -150,7 +154,9 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
+    public Health Health { get => m_health; }
+
+    public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
 	{
 		Vector2 castOrigin =
 			(Vector2)transform.position +
@@ -383,6 +389,25 @@ public class PlayerController : MonoBehaviour
 	void OnDead()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	private void OnTakeDamage()
+	{
+		if(m_damageCR != null)
+        {
+			StopCoroutine(m_damageCR);
+			m_damageCR = null;
+			m_playerSprite.color = Color.white;
+		}
+		m_damageCR = StartCoroutine(TakeDamageCR());
+	}
+
+    private IEnumerator TakeDamageCR()
+    {
+		var c = m_playerSprite.color;
+		m_playerSprite.color = Color.red;
+		yield return new WaitForSeconds(m_health.SecondsOfInvincibleAfterHurt * 0.15f);
+		m_playerSprite.color = c;
 	}
 
 	public void EnableGravity(bool a_enable)
