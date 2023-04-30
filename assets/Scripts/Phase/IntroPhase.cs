@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class IntroPhase : GamePhase
 {
+    private GameIntroUI m_introUI;
+
     public override bool Initialize()
     {
-        GameManager.OpenUI<GameIntroUI>(GameManager.Instance.IntroUI);
+        m_introUI = GameManager.OpenUI<GameIntroUI>(GameManager.Instance.IntroUI);
         return true;
     }
 
@@ -16,6 +18,12 @@ public class IntroPhase : GamePhase
 
     public override bool Uninitialize()
     {
+        if(m_introUI != null)
+        { 
+            GameManager.CloseUI(m_introUI);
+            m_introUI = null;
+        }
+        
         return true;
     }
 
