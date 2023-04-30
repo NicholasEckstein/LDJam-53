@@ -12,20 +12,24 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] Animator m_animator;
 	[SerializeField] SpriteRenderer m_playerSprite;
 
-	[Header("Control Settings")]
+	[Header("Acceleration Settings")]
 	[SerializeField] float m_controlAccelerationWhenFalling;
 	[SerializeField] float m_controlAccelerationWhenGrounded;
-	[Space]
+
+	[Header("Deceleration Settings")]
 	[SerializeField] float m_controlDecelerationWhenFalling;
 	[SerializeField] float m_controlDecelerationWhenGrounded;
-	[Space]
+
+	[Header("Run Speed Settings")]
 	[SerializeField] float m_maxMoveSpeedInAir;
 	[SerializeField] float m_maxMoveSpeedOnGround;
-	[Space]
+
+	[Header("Jump Settings")]
 	[SerializeField] float m_jumpVelocity = 10.0f;
-	[Space]
-	[SerializeField] float m_dashVelocity = 10.0f;
-	[Space]
+
+	[Header("Dash Settings")]
+	[SerializeField] float m_dashTimeLength = 0.2f;
+	[SerializeField] float m_dashDistance = 5.0f;
 	[SerializeField] float m_dashCooldown = 1.0f;
 
 	[Header("Physics Settings")]
@@ -43,17 +47,20 @@ public class PlayerController : MonoBehaviour
 	//Data
 	float m_currHorizontalSpeed;
 
-	[SerializeField] RaycastHit2D[] m_currentDownCollisions = new RaycastHit2D[3];
-	[SerializeField] int m_currentDownCollisionCount;
+	RaycastHit2D[] m_currentDownCollisions = new RaycastHit2D[3];
+	int m_currentDownCollisionCount;
 
-	[SerializeField] RaycastHit2D[] m_currentRightCollisions = new RaycastHit2D[3];
-	[SerializeField] int m_currentRightCollisionCount;
+	RaycastHit2D[] m_currentRightCollisions = new RaycastHit2D[3];
+	int m_currentRightCollisionCount;
 
-	[SerializeField] RaycastHit2D[] m_currentLeftCollisions = new RaycastHit2D[3];
-	[SerializeField] int m_currentLeftCollisionCount;
+	RaycastHit2D[] m_currentLeftCollisions = new RaycastHit2D[3];
+	int m_currentLeftCollisionCount;
 
-	[SerializeField] RaycastHit2D[] m_currentTopCollisions = new RaycastHit2D[3];
-	[SerializeField] int m_currentTopCollisionCount;
+	RaycastHit2D[] m_currentTopCollisions = new RaycastHit2D[3];
+	int m_currentTopCollisionCount;
+
+	RaycastHit2D[] m_dashCollisionsAlloc = new RaycastHit2D[3];
+	int m_dashCollisionsAllocCount;
 
 	Vector2 m_velocity = Vector2.zero;
 
@@ -105,10 +112,49 @@ public class PlayerController : MonoBehaviour
 		yield return null;
 	}
 
-	IEnumerator DoDashRoutine()
+	IEnumerator DoDashRoutine(float direction)
 	{
 		m_isDashing = true;
-		yield return new WaitForSeconds(0.5f);
+
+		m_velocity = Vector2.zero;
+
+		Vector3 targetPos = (Vector2)m_collider.bounds.center + new Vector2(direction * m_dashDistance, 0f);
+
+		float colliderHalfWidth = m_collider.bounds.size.x * 0.5f;
+
+		m_dashCollisionsAllocCount = GetCollisionsInDirection(new Vector2(direction, 0.0f), m_dashDistance, m_dashCollisionsAlloc);
+
+		if (m_dashCollisionsAllocCount > 0)
+		{
+			//get nearest collision
+			float lastNearestDistance = Mathf.Abs(targetPos.x - transform.position.x);
+			for (int i = 0; i < m_dashCollisionsAllocCount; ++i)
+			{
+				Vector2 pos = m_dashCollisionsAlloc[0].point - new Vector2(System.Math.Sign(direction) * colliderHalfWidth, 0.0f);
+				float distance = Mathf.Abs(pos.x - transform.position.x);
+				if (distance < lastNearestDistance)
+				{
+					targetPos = pos;
+					lastNearestDistance = distance;
+				}
+			}
+		}
+
+		Vector3 startPos = transform.position;
+		float startTime = Time.time;
+		float percent;
+		do
+		{
+			float timeSinceStart = Time.time - startTime;
+			percent = timeSinceStart / m_dashTimeLength;
+
+			transform.position = Vector3.Lerp(startPos, targetPos, percent);
+
+			yield return null;
+		}
+		while (percent <= 1.0f);
+		transform.position = targetPos;
+
 		m_isDashing = false;
 	}
 
@@ -156,7 +202,7 @@ public class PlayerController : MonoBehaviour
 
 	public Health Health { get => m_health; }
 
-	public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
+	public int GetCollisionsInDirection(Vector2 direction, float distance, RaycastHit2D[] hits)
 	{
 		Vector2 castOrigin =
 			(Vector2)transform.position +
@@ -168,7 +214,7 @@ public class PlayerController : MonoBehaviour
 			m_collider.bounds.size * new Vector2(unsignedDir.y, unsignedDir.x) * 0.8f +
 			new Vector2(m_boxcastWidth, m_boxcastWidth) * unsignedDir;
 
-		int hitCount = Physics2D.BoxCastNonAlloc(castOrigin, boxCastSize, 0f, direction, hits, m_groundCheckDistance);
+		int hitCount = Physics2D.BoxCastNonAlloc(castOrigin, boxCastSize, 0f, direction, hits, distance);
 
 		//Filter any hit who's normal is not opposite direction
 		for (int i = hitCount - 1; i >= 0; i--)
@@ -268,10 +314,10 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		m_currentDownCollisionCount = GetCollisionsInDirection(Vector2.down, m_currentDownCollisions);
-		m_currentTopCollisionCount = GetCollisionsInDirection(Vector2.up, m_currentTopCollisions);
-		m_currentLeftCollisionCount = GetCollisionsInDirection(Vector2.left, m_currentLeftCollisions);
-		m_currentRightCollisionCount = GetCollisionsInDirection(Vector2.right, m_currentRightCollisions);
+		m_currentDownCollisionCount = GetCollisionsInDirection(Vector2.down, m_groundCheckDistance, m_currentDownCollisions);
+		m_currentTopCollisionCount = GetCollisionsInDirection(Vector2.up, m_groundCheckDistance, m_currentTopCollisions);
+		m_currentLeftCollisionCount = GetCollisionsInDirection(Vector2.left, m_groundCheckDistance, m_currentLeftCollisions);
+		m_currentRightCollisionCount = GetCollisionsInDirection(Vector2.right, m_groundCheckDistance, m_currentRightCollisions);
 
 		bool grounded = GetIsGrounded;
 		bool standingOnEnemy = GetIsStandingOnEnemy;
@@ -289,9 +335,8 @@ public class PlayerController : MonoBehaviour
 				if (m_currentDashRoutine != null)
 					StopCoroutine(m_currentDashRoutine);
 
-				m_currentDashRoutine = StartCoroutine(DoDashRoutine());
+				m_currentDashRoutine = StartCoroutine(DoDashRoutine(dashInput));
 
-				m_velocity.x = m_dashVelocity * dashInput;
 				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
 				maxSpeedToUse = float.MaxValue;
 
