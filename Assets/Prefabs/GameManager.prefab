@@ -59,7 +59,10 @@ MonoBehaviour:
   m_sfxVolume: 0.5
   m_mainMenuMusic: {fileID: 8300000, guid: 36ac1aa9f4bcb514ca21ad40788ce288, type: 3}
   m_descentMusic: {fileID: 8300000, guid: 40008c942c1644d448ac2b48181f5d6e, type: 3}
+  m_ascentMusic: {fileID: 8300000, guid: 097ef424f0a125e478aa63bbba10dcbf, type: 3}
   m_playerHitSFX: {fileID: 8300000, guid: eb5cdc0956858d340a5e6e6a5877b918, type: 3}
   m_playerDeadSFX: {fileID: 8300000, guid: 4d02d318d838b984eac872cbed5ff5f4, type: 3}
   m_dashSFX: {fileID: 8300000, guid: adc0cdfc52e52844e86860a753030316, type: 3}
   m_jumpSFX: {fileID: 8300000, guid: cf50f00594e7d6c4c94887fa49509a35, type: 3}
+  m_grabSFX: {fileID: 8300000, guid: 4cd7763221faf8040b20971e09c6b0fa, type: 3}
+  m_landSFX: {fileID: 8300000, guid: 38b7ae0d41e98a0469401b832706e8d5, type: 3}

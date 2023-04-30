@@ -80,12 +80,15 @@ public class GameManager : SingletonBase<GameManager>
     private AudioClip m_jumpSFX;
 
     [SerializeField]
+    private AudioClip m_grabSFX;
+
+    [SerializeField]
     private AudioClip m_landSFX;
 
     private PhaseSubSection m_currentSubPhase;
     private PlayerController m_playerController;
     private LevelInstance m_currentLevel;
-
+    
     public AudioClip MainMenuMusic { get => m_mainMenuMusic; }
     public GamePhase CurrentPhase { get; private set; }
     public GamePhase NextPhase { get; private set; }
@@ -107,6 +110,7 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip DashSFX { get => m_dashSFX; }
     public AudioClip JumpSFX { get => m_jumpSFX; }
     public AudioClip LandSFX { get => m_landSFX; }
+    public AudioClip GrabSFX { get => m_grabSFX; }
 
     protected override void Awake()
     {
