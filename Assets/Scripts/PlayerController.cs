@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
 
-    public bool GetIsMoving
+	public bool GetIsMoving
 	{
 		get
 		{
@@ -187,31 +187,33 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		if (targetDistance < m_dashDistance)
-			Debug.Log("Distance: " + targetDistance);
-		//Shorten dash time if the player is going to hit something and not do a complete dash
-		float percentOfFullDash = targetDistance / m_dashDistance;
-		float dashTime = m_dashTimeLength * percentOfFullDash;
-
-		Vector3 startPos = transform.position;
-		float startTime = Time.time;
-		float timeSinceStart;
-		do
+		if (targetDistance > EPSILON)
 		{
-			timeSinceStart = Time.time - startTime;
+			if (targetDistance < m_dashDistance)
+				Debug.Log("Distance: " + targetDistance);
+			//Shorten dash time if the player is going to hit something and not do a complete dash
+			float percentOfFullDash = targetDistance / m_dashDistance;
+			float dashTime = m_dashTimeLength * percentOfFullDash;
 
-			float percent = timeSinceStart / dashTime;
+			Vector3 startPos = transform.position;
+			float startTime = Time.time;
+			float timeSinceStart;
+			do
+			{
+				timeSinceStart = Time.time - startTime;
 
-			//Smooth out acceleration and deceleration while still 
-			if (m_smoothDash)
-				percent = Mathf.SmoothStep(0.0f, 1.0f, percent);
+				float percent = timeSinceStart / dashTime;
 
-			transform.position = Vector3.Lerp(startPos, targetPos, percent);
+				//Smooth out acceleration and deceleration while still 
+				if (m_smoothDash)
+					percent = Mathf.SmoothStep(0.0f, 1.0f, percent);
+				transform.position = Vector3.Lerp(startPos, targetPos, percent);
 
-			yield return null;
+				yield return null;
+			}
+			while (timeSinceStart < dashTime);
+			transform.position = targetPos;
 		}
-		while (timeSinceStart < dashTime);
-		transform.position = targetPos;
 
 		m_isDashing = false;
 	}
