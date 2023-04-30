@@ -34,10 +34,9 @@ public class GameIntroUI : UIPrefab
                 m_fadeInCR = StartCoroutine(FadeInCR());
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !running)
         {
             StopAllCoroutines();
-            m_gameManager.DialogueRunner.Clear();
             m_gameManager.DialogueRunner.Stop();
             GameManager.Instance.SetNextPhase(new MainMenuPhase(GameManager.Instance.CurrentPhase));
         }

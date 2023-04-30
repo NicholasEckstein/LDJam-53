@@ -296,15 +296,10 @@ public class PlayerController : MonoBehaviour
 		{
 			m_horizontalInput = Input.GetAxis("Horizontal");
 			m_dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetButton("Dash") : false;
-			m_facingDirection = m_horizontalInput < 0.0f ? -1.0f : 1.0f;
-
-			if(m_facingDirection < 0)
-            {
-				m_leftDashAnimatior.SetTrigger("tDash");
-            }
-            else
-            {
-				m_rightDashAnimatior.SetTrigger("tDash");
+			if (Mathf.Abs(m_horizontalInput) > EPSILON)
+			{
+				m_facingDirection = m_horizontalInput < 0.0f ? -1.0f : 1.0f;
+				m_playerSprite.flipX = m_facingDirection > 0 ? false : true;
 			}
 
 			if (GetIsGrounded || !GetIsJumping)
@@ -323,16 +318,7 @@ public class PlayerController : MonoBehaviour
 				m_animator.SetBool("bRunning", m_isRunning);
 			}
 
-			if (m_playerSprite != null)
-				m_playerSprite.flipX = m_horizontalInput < 0;
-
 			m_jumpInput = Input.GetAxis("Jump");
-
-			if (m_jumpInput > EPSILON)
-			{
-				AudioManager.Instance.PlaySFX(GameManager.Instance.JumpSFX);
-			}
-
 			m_animator.SetBool("bJumping", !GetIsGrounded);
 		}
 	}
@@ -364,6 +350,11 @@ public class PlayerController : MonoBehaviour
 
 				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
 				GameManager.Instance.CameraController.AddTrauma(.125f, .125f);
+				if (m_facingDirection < 0)
+					m_rightDashAnimatior.SetTrigger("tDash");
+				else
+					m_leftDashAnimatior.SetTrigger("tDash");
+
 				maxSpeedToUse = float.MaxValue;
 
 				m_timeUntilNextDash = m_dashCooldown;
@@ -411,6 +402,8 @@ public class PlayerController : MonoBehaviour
 							m_isAirborne = true;
 							m_animator.SetBool("bFalling", m_isAirborne);
 						}
+
+						AudioManager.Instance.PlaySFX(GameManager.Instance.JumpSFX);
 
 						if (m_currentJumpRoutine != null)
 							StopCoroutine(m_currentJumpRoutine);

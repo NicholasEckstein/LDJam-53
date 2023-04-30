@@ -181,7 +181,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.4583333, y: 1.75}
@@ -200,7 +200,7 @@ Animator:
   m_GameObject: {fileID: 5039382354845708484}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ea7e6161b03d805478962e98a5de9087, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0e70a4b20f4b65247b074e3ac70c4cdf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -340,7 +340,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7916667, y: 1.7876222}
+  m_Size: {x: 0.7916667, y: 1.8333334}
   m_EdgeRadius: 0
 --- !u!1 &7297869902177789384
 GameObject:
@@ -475,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 8378621006104947618}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3090248857543139520}
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_smoothDash: 1
   m_dashTimeLength: 0.1
   m_dashDistance: 5
-  m_dashCooldown: 0.2
+  m_dashCooldown: 0.5
   m_maxFallSpeed: 25
   m_gravityScale: 8
   m_boxcastWidth: 0.05
