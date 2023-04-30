@@ -44,6 +44,15 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private GameObject m_postGameUI;
 
+    public static void CloseUI(Type t)
+    {
+        var obj = GameObject.FindObjectOfType(t);
+        if(obj != null && obj is UIPrefab)
+        {
+            CloseUI(obj as UIPrefab);
+        }
+    }
+
     [SerializeField]
     private GameObject m_pauseMenuUI;
 

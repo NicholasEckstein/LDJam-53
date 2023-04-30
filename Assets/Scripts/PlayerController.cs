@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] Health m_health;
 	[SerializeField] BoxCollider2D m_collider;
 	[SerializeField] Animator m_animator;
+	[SerializeField] Animator m_rightDashAnimatior;
+	[SerializeField] Animator m_leftDashAnimatior;
 	[SerializeField] SpriteRenderer m_playerSprite;
 
 	[Header("Acceleration Settings")]
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
 
-	public bool GetIsMoving
+    public bool GetIsMoving
 	{
 		get
 		{
@@ -295,6 +297,15 @@ public class PlayerController : MonoBehaviour
 			m_horizontalInput = Input.GetAxis("Horizontal");
 			m_dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetButton("Dash") : false;
 			m_facingDirection = m_horizontalInput < 0.0f ? -1.0f : 1.0f;
+
+			if(m_facingDirection < 0)
+            {
+				m_leftDashAnimatior.SetTrigger("tDash");
+            }
+            else
+            {
+				m_rightDashAnimatior.SetTrigger("tDash");
+			}
 
 			if (GetIsGrounded || !GetIsJumping)
 			{

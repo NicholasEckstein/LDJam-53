@@ -517,8 +517,8 @@ MonoBehaviour:
   m_health: {fileID: 6879709919321891675}
   m_collider: {fileID: 7845397022366856195}
   m_animator: {fileID: 670717800578488635}
-  m_rightDashAnimator: {fileID: 5455020076615344685}
-  m_leftDashAnimator: {fileID: 7692685271669444092}
+  m_rightDashAnimatior: {fileID: 5455020076615344685}
+  m_leftDashAnimatior: {fileID: 7692685271669444092}
   m_playerSprite: {fileID: 227404585433187652}
   m_controlAccelerationWhenFalling: 10
   m_controlAccelerationWhenGrounded: 10

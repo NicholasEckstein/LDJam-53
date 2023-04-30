@@ -16,19 +16,30 @@ public class GameIntroUI : UIPrefab
 
     private Coroutine m_fadeInCR;
     private bool m_fadeOutDone = false;
+    private GameManager m_gameManager;
 
     private void Start()
     {
+        m_gameManager = GameManager.Instance;
         StartCoroutine(FadeOutCR());
     }
 
 
     private void Update()
     {
-        if (m_fadeOutDone && !GameManager.Instance.DialogueRunner.IsDialogueRunning)
+        var running = m_gameManager.DialogueRunner.IsDialogueRunning;
+        if (m_fadeOutDone && !running)
         {
             if (m_fadeInCR == null)
                 m_fadeInCR = StartCoroutine(FadeInCR());
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            StopAllCoroutines();
+            m_gameManager.DialogueRunner.Clear();
+            m_gameManager.DialogueRunner.Stop();
+            GameManager.Instance.SetNextPhase(new MainMenuPhase(GameManager.Instance.CurrentPhase));
         }
     }
 

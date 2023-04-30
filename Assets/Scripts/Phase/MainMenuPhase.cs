@@ -36,6 +36,8 @@ public class MainMenuPhase : GamePhase
 
     private void InitMainMenu()
     {
+        GameManager.CloseUI(typeof(GameIntroUI));
+
         if (m_mainMenuUI == null)
             m_mainMenuUI = GameManager.OpenUI<MainMenuUI>(GameManager.Instance.MainMenuUI);
 
