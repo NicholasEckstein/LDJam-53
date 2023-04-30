@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Yarn.Unity.Editor;
 
@@ -27,10 +28,13 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float m_maxMoveSpeedOnGround;
 	[Space]
 	[SerializeField] float m_jumpVelocity = 10.0f;
+	[Space]
+	[SerializeField] float m_dashVelocity = 10.0f;
 
 	[Header("Physics Settings")]
 	[SerializeField] float m_maxFallSpeed;
 	[SerializeField] float m_gravityScale = 3.0f;
+	[SerializeField] float m_boxcastWidth = 0.05f;
 
 	[Header("Ground Settings")]
 	[SerializeField] float m_groundCheckDistance;
@@ -56,9 +60,13 @@ public class PlayerController : MonoBehaviour
 
 	Vector2 m_velocity = Vector2.zero;
 
+	bool m_isDashing = false;
+
 	Coroutine m_currentJumpRoutine = null;
+	Coroutine m_currentDashRoutine = null;
 
 	float horizontalInput = 0.0f;
+	float dashInput = 0.0f;
 	bool jump = false;
 	bool m_isRunning = false;
 	bool m_isAirborne = false;
@@ -85,11 +93,18 @@ public class PlayerController : MonoBehaviour
 		EnableGravity(true);
 
 		if (m_isAirborne)
-        {
+		{
 			m_animator.SetTrigger("tFall");
 		}
 
 		yield return null;
+	}
+
+	IEnumerator DoDashRoutine()
+	{
+		m_isDashing = true;
+		yield return new WaitForSeconds(0.5f);
+		m_isDashing = false;
 	}
 
 	public bool GetIsMoving
@@ -97,6 +112,14 @@ public class PlayerController : MonoBehaviour
 		get
 		{
 			return Mathf.Abs(horizontalInput) > EPSILON;
+		}
+	}
+
+	public bool GetIsTryingToDash
+	{
+		get
+		{
+			return Mathf.Abs(dashInput) > EPSILON;
 		}
 	}
 
@@ -148,7 +171,7 @@ public class PlayerController : MonoBehaviour
 
 		if (m_playerSprite != null)
 			m_playerSprite.flipX = horizontalInput < 0;
-		
+
 		jump = Input.GetButton("Jump");
 		m_animator.SetBool("bJumping", !GetIsGrounded);
 	}
@@ -162,8 +185,8 @@ public class PlayerController : MonoBehaviour
 
 		Vector2 unsignedDir = new Vector2(Mathf.Abs(direction.x), Mathf.Abs(direction.y));
 		Vector2 boxCastSize =
-			m_collider.bounds.size * new Vector2(unsignedDir.y, unsignedDir.x) +
-			new Vector2(0.1f, 0.1f) * unsignedDir;
+			m_collider.bounds.size * new Vector2(unsignedDir.y, unsignedDir.x) * 0.8f +
+			new Vector2(m_boxcastWidth, m_boxcastWidth) * unsignedDir;
 
 		int hitCount = Physics2D.BoxCastNonAlloc(castOrigin, boxCastSize, 0f, direction, hits, m_groundCheckDistance);
 
@@ -172,7 +195,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (hits[i].collider.isTrigger ||
 				Vector2.Dot(hits[i].normal, direction) > -1.0f + EPSILON ||
-				hits[i].collider.gameObject == gameObject)
+				hits[i].collider.transform.root == transform.root)
 			{
 				hitCount--;
 				hits[i] = hits[hitCount];
@@ -182,6 +205,7 @@ public class PlayerController : MonoBehaviour
 		return hitCount;
 	}
 
+#if UNITY_EDITOR
 	void OnDrawGizmos()
 	{
 		Vector2[] directions = {
@@ -200,7 +224,7 @@ public class PlayerController : MonoBehaviour
 			Vector2 unsignedDir = new Vector2(Mathf.Abs(direction.x), Mathf.Abs(direction.y));
 			Vector2 boxCastSize =
 				m_collider.bounds.size * new Vector2(unsignedDir.y, unsignedDir.x) * 0.8f +
-				new Vector2(0.1f, 0.1f) * unsignedDir;
+				new Vector2(m_boxcastWidth, m_boxcastWidth) * unsignedDir;
 
 			Color cachedCol = Gizmos.color;
 			Gizmos.color = Color.red;
@@ -210,6 +234,7 @@ public class PlayerController : MonoBehaviour
 			Gizmos.color = cachedCol;
 		}
 	}
+#endif
 
 	void FixedUpdate()
 	{
@@ -221,62 +246,84 @@ public class PlayerController : MonoBehaviour
 		bool grounded = GetIsGrounded;
 		bool standingOnEnemy = GetIsStandingOnEnemy;
 		bool isMoving = GetIsMoving;
+		bool tryDash = GetIsTryingToDash;
 
 		float accelToUse;
 		float decelToUse;
 		float maxSpeedToUse;
-		if (grounded)
+
+		if (!m_isDashing)
 		{
-			accelToUse = m_controlAccelerationWhenGrounded;
-			decelToUse = m_controlDecelerationWhenGrounded;
-			maxSpeedToUse = m_maxMoveSpeedOnGround;
+			if (tryDash)
+			{
+				if (m_currentDashRoutine != null)
+					StopCoroutine(m_currentDashRoutine);
+
+				m_currentDashRoutine = StartCoroutine(DoDashRoutine());
+
+				m_velocity.x = m_dashVelocity * dashInput;
+				maxSpeedToUse = float.MaxValue;
+			}
+			else
+			{
+				if (grounded)
+				{
+					accelToUse = m_controlAccelerationWhenGrounded;
+					decelToUse = m_controlDecelerationWhenGrounded;
+					maxSpeedToUse = m_maxMoveSpeedOnGround;
+				}
+				else
+				{
+					accelToUse = m_controlAccelerationWhenFalling;
+					decelToUse = m_controlDecelerationWhenFalling;
+					maxSpeedToUse = m_maxMoveSpeedInAir;
+				}
+
+				if (isMoving)
+				{
+					m_velocity.x = Mathf.MoveTowards(m_velocity.x, m_maxMoveSpeedInAir * horizontalInput, accelToUse);
+				}
+				else // not moving. Decelerate speed to zero
+				{
+					m_velocity.x = Mathf.MoveTowards(m_velocity.x, 0.0f, decelToUse);
+				}
+
+				float jumpForce = 0.0f;
+
+				if (grounded)
+				{
+					m_velocity.y = 0.0f;
+
+					if (jump)
+					{
+						m_velocity.y += m_jumpVelocity;
+
+						if (!m_isAirborne)
+						{
+							m_animator.SetTrigger("tJump");
+							m_isAirborne = true;
+							m_animator.SetBool("bFalling", m_isAirborne);
+						}
+
+						if (m_currentJumpRoutine != null)
+							StopCoroutine(m_currentJumpRoutine);
+						StartCoroutine(DoJumpRoutine());
+					}
+				}
+				else if (standingOnEnemy)
+				{
+					//force player to jump
+					jumpForce = -m_rigidbody.velocity.y + m_jumpVelocity;
+				}
+				else // else if falling
+				{
+					m_velocity.y = m_rigidbody.velocity.y;
+				}
+			}
 		}
 		else
 		{
-			accelToUse = m_controlAccelerationWhenFalling;
-			decelToUse = m_controlDecelerationWhenFalling;
-			maxSpeedToUse = m_maxMoveSpeedInAir;
-		}
-
-		if (isMoving)
-		{
-			m_velocity.x = Mathf.MoveTowards(m_velocity.x, m_maxMoveSpeedInAir * horizontalInput, accelToUse);
-		}
-		else // not moving. Decelerate speed to zero
-		{
-			m_velocity.x = Mathf.MoveTowards(m_velocity.x, 0.0f, decelToUse);
-		}
-
-		float jumpForce = 0.0f;
-
-		if (grounded)
-		{
-			m_velocity.y = 0.0f;
-
-			if (jump)
-			{
-				m_velocity.y += m_jumpVelocity;
-
-				if (!m_isAirborne)
-				{
-					m_animator.SetTrigger("tJump");
-					m_isAirborne = true;
-					m_animator.SetBool("bFalling", m_isAirborne);
-				}
-
-				if (m_currentJumpRoutine != null)
-					StopCoroutine(m_currentJumpRoutine);
-				StartCoroutine(DoJumpRoutine());
-			}
-		}
-		else if (standingOnEnemy)
-		{
-			//force player to jump
-			jumpForce = -m_rigidbody.velocity.y + m_jumpVelocity;
-		}
-		else // else if falling
-		{
-			m_velocity.y = m_rigidbody.velocity.y;		
+			maxSpeedToUse = float.MaxValue;
 		}
 
 		// Clamp the velocity to the maximum speed
