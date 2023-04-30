@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
 	bool jump = false;
 	bool m_isRunning = false;
 	bool m_isAirborne = false;
+	bool m_inputEnabled = true;
 
 	private void Awake()
 	{
@@ -149,41 +150,6 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void Update()
-	{
-		horizontalInput = Input.GetAxis("Horizontal");
-		dashInput = Input.GetAxis("Dash");
-
-		if (GetIsGrounded || !jump)
-		{
-			if (horizontalInput != 0)
-			{
-				m_isRunning = true;
-				m_animator.SetTrigger("tRunStart");
-			}
-			else if (horizontalInput == 0)
-			{
-				m_isRunning = false;
-				m_animator.SetTrigger("tIdle");
-			}
-
-			m_animator.SetBool("bRunning", m_isRunning);
-		}
-
-		if (m_playerSprite != null)
-			m_playerSprite.flipX = horizontalInput < 0;
-
-		jump = Input.GetButton("Jump");
-
-		if(jump)
-        {
-			AudioManager.Instance.PlaySFX(GameManager.Instance.JumpSFX);
-        }
-
-
-		m_animator.SetBool("bJumping", !GetIsGrounded);
-	}
-
 	public int GetCollisionsInDirection(Vector2 direction, RaycastHit2D[] hits)
 	{
 		Vector2 castOrigin =
@@ -243,6 +209,49 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 #endif
+
+	void Update()
+	{
+		UpdateInput();
+	}
+
+	void UpdateInput()
+	{
+		if (m_inputEnabled)
+		{
+			horizontalInput = Input.GetAxis("Horizontal");
+			dashInput = Input.GetAxis("Dash");
+
+			if (GetIsGrounded || !jump)
+			{
+				if (horizontalInput != 0)
+				{
+					m_isRunning = true;
+					m_animator.SetTrigger("tRunStart");
+				}
+				else if (horizontalInput == 0)
+				{
+					m_isRunning = false;
+					m_animator.SetTrigger("tIdle");
+				}
+
+				m_animator.SetBool("bRunning", m_isRunning);
+			}
+
+			if (m_playerSprite != null)
+				m_playerSprite.flipX = horizontalInput < 0;
+
+			jump = Input.GetButton("Jump");
+
+			if (jump)
+			{
+				AudioManager.Instance.PlaySFX(GameManager.Instance.JumpSFX);
+			}
+
+
+			m_animator.SetBool("bJumping", !GetIsGrounded);
+		}
+	}
 
 	void FixedUpdate()
 	{
@@ -386,5 +395,10 @@ public class PlayerController : MonoBehaviour
 		{
 			m_rigidbody.gravityScale = 0.0f;
 		}
+	}
+
+	public void EnableInput(bool a_enable)
+	{
+		m_inputEnabled = a_enable;
 	}
 }
