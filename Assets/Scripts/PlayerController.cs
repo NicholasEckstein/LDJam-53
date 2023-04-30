@@ -356,7 +356,7 @@ public class PlayerController : MonoBehaviour
 				m_currentDashRoutine = StartCoroutine(DoDashRoutine(dashInput));
 
 				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
-				GameManager.Instance.CameraShake.AddTrauma(.125f, .125f);
+				GameManager.Instance.CameraController.AddTrauma(.125f, .125f);
 				maxSpeedToUse = float.MaxValue;
 
 				m_timeUntilNextDash = m_dashCooldown;
@@ -400,7 +400,6 @@ public class PlayerController : MonoBehaviour
 
 						if (!m_isAirborne)
 						{
-							Debug.Log(123);
 							m_animator.SetTrigger("tJump");
 							m_isAirborne = true;
 							m_animator.SetBool("bFalling", m_isAirborne);
