@@ -19175,6 +19175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reaper
       objectReference: {fileID: 0}
+    - target: {fileID: 8730656496654162107, guid: 2f6ad08010e48e143b285ef4d8bba2d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f6ad08010e48e143b285ef4d8bba2d1, type: 3}
 --- !u!4 &516774151576684472 stripped
