@@ -17875,6 +17875,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6699503678784164677}
     m_Modifications:
+    - target: {fileID: 2854918805344613577, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2854918805344613577, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2854918805344613577, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3117248083335971518, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
       propertyPath: m_Name
       value: WIN_VOLUME
@@ -17922,6 +17934,22 @@ PrefabInstance:
     - target: {fileID: 4204640058845876022, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723536227573233431, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723536227573233431, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723536227573233431, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723536227573233431, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff196f315ac15bb4d80f8b1030488f18, type: 3}
@@ -18382,14 +18410,6 @@ PrefabInstance:
     - target: {fileID: 1583660866466809915, guid: bcfac495c2c85094e8b1cb98e8390cba, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583660866466809915, guid: bcfac495c2c85094e8b1cb98e8390cba, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583660866466809915, guid: bcfac495c2c85094e8b1cb98e8390cba, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1583660866466809915, guid: bcfac495c2c85094e8b1cb98e8390cba, type: 3}
       propertyPath: m_LocalPosition.x

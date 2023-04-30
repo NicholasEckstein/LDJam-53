@@ -58,7 +58,9 @@ public class PlayPhase : GamePhase
             GameManager.Instance.DestroyLevel();
 
         GameManager.CloseUI(m_gameUI);
-
+        m_gameUI = null;
+        GameManager.CloseUI(m_pauseMenuUI);
+        m_pauseMenuUI = null;
         return true;
     }
 
