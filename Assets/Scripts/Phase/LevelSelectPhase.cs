@@ -15,6 +15,12 @@ public class LevelSelectPhase : GamePhase
             {
                 m_levelSelectUI = GameManager.OpenUI<LevelSelectUI>(GameManager.Instance.LevelSelect);
                 m_initialized = true;
+
+                if (!GameManager.Instance.HasSeenIntro())
+                {
+                    GameManager.Instance.DialogueRunner.StartDialogue(GameManager.Instance.IntroDialogue);
+                    //TODO: block interaction until dialogue is skipped
+                }
             });
         }
 
@@ -23,11 +29,6 @@ public class LevelSelectPhase : GamePhase
 
     public override void Start()
     {
-        if (!GameManager.Instance.HasSeenIntro())
-        {
-            GameManager.Instance.DialogueRunner.StartDialogue(GameManager.Instance.IntroDialogue);
-            //TODO: block interaction until dialogue is skipped
-        }
     }
 
     public override bool Uninitialize()

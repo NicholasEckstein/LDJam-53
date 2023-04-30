@@ -32,7 +32,6 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private GameObject m_levelSelect;
 
-
     [SerializeField]
     private GameObject m_loadingUI;
 
@@ -41,6 +40,9 @@ public class GameManager : SingletonBase<GameManager>
 
     [SerializeField]
     private GameObject m_postGameUI;
+
+    [SerializeField]
+    private GameObject m_pauseMenuUI;
 
     [SerializeField]
     private float m_loadingScreenDelayTime = 0.5f;
@@ -97,7 +99,8 @@ public class GameManager : SingletonBase<GameManager>
     private PhaseSubSection m_currentSubPhase;
     private PlayerController m_playerController;
     private LevelInstance m_currentLevel;
-    
+    private bool m_paused = false;
+
     public AudioClip MainMenuMusic { get => m_mainMenuMusic; }
     public GamePhase CurrentPhase { get; private set; }
     public GamePhase NextPhase { get; private set; }
@@ -123,6 +126,7 @@ public class GameManager : SingletonBase<GameManager>
     public AudioClip WinMusic { get => m_winMusic; }
     public AudioClip LoseMusic { get => m_lostMusic; }
     public GameObject PostGameUI { get => m_postGameUI; }
+    public GameObject PauseMenuUI { get => m_pauseMenuUI; }
 
     protected override void Awake()
     {
@@ -226,6 +230,22 @@ public class GameManager : SingletonBase<GameManager>
         {
             m_cameraController.enabled = false;
         }
+    }
+
+    public bool TogglePaused()
+    {
+        m_paused = !m_paused;
+        m_playerController.EnableInput(!m_paused, true);
+        if(m_paused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+        return m_paused;
     }
 
     public void LoadLevel(int a_index)

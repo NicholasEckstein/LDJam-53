@@ -458,7 +458,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void EnableInput(bool a_enable)
+	public void EnableInput(bool a_enable, bool a_pausing = false)
 	{
 		if (a_enable)
 		{
@@ -468,12 +468,16 @@ public class PlayerController : MonoBehaviour
 		else
 		{
 			m_inputEnabled = false;
-			m_rigidbody.velocity = Vector3.zero;
-			m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-			m_animator.SetTrigger("tIdle");
-			m_animator.SetBool("bJumping", false);
-			m_animator.SetBool("bRunning", false);
-			m_animator.SetBool("bFalling", false);
+
+			if (!a_pausing)
+			{
+				m_rigidbody.velocity = Vector3.zero;
+				m_rigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+				m_animator.SetTrigger("tIdle");
+				m_animator.SetBool("bJumping", false);
+				m_animator.SetBool("bRunning", false);
+				m_animator.SetBool("bFalling", false);
+			}
 		}
 	}
 }

@@ -52,7 +52,9 @@ MonoBehaviour:
   m_levelSelect: {fileID: 312652919677441327, guid: 1fc8108f89690ba4cb73d750ada9cd88, type: 3}
   m_loadingUI: {fileID: 312652919677441327, guid: 656220be229a58745af7ced50b842d47, type: 3}
   m_gameUI: {fileID: 312652919677441327, guid: 593c9334870182946a827fbe235f7b09, type: 3}
-  m_loadingScreenDelayTime: 0.5
+  m_postGameUI: {fileID: 312652919677441327, guid: 80107f54ea0f5204fab0575e4a2dcf0b, type: 3}
+  m_pauseMenuUI: {fileID: 312652919677441327, guid: fcbaeae09e6cfde4d82a0e2114d10b55, type: 3}
+  m_loadingScreenDelayTime: 0.45
   m_dialogueRunner: {fileID: 0}
   m_introDialogueNode: Note
   m_musicVolume: 0.5
@@ -60,6 +62,8 @@ MonoBehaviour:
   m_mainMenuMusic: {fileID: 8300000, guid: 36ac1aa9f4bcb514ca21ad40788ce288, type: 3}
   m_descentMusic: {fileID: 8300000, guid: 40008c942c1644d448ac2b48181f5d6e, type: 3}
   m_ascentMusic: {fileID: 8300000, guid: 097ef424f0a125e478aa63bbba10dcbf, type: 3}
+  m_winMusic: {fileID: 8300000, guid: b84ec32cd8d7a61408a6930152956d03, type: 3}
+  m_lostMusic: {fileID: 8300000, guid: 98d7ae26b6532234f80bf8c5aaf1ad5f, type: 3}
   m_playerHitSFX: {fileID: 8300000, guid: eb5cdc0956858d340a5e6e6a5877b918, type: 3}
   m_playerDeadSFX: {fileID: 8300000, guid: 4d02d318d838b984eac872cbed5ff5f4, type: 3}
   m_dashSFX: {fileID: 8300000, guid: adc0cdfc52e52844e86860a753030316, type: 3}

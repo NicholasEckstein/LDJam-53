@@ -8,6 +8,7 @@ public class PlayPhase : GamePhase
     private bool m_initialized;
     private GameUI m_gameUI;
     private int m_levelIndex;
+    private PauseMenuUI m_pauseMenuUI;
 
     public PlayPhase(int a_levelIndex)
     {
@@ -63,6 +64,14 @@ public class PlayPhase : GamePhase
 
     public override void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameManager.Instance.TogglePaused())
+            {
+                if (m_pauseMenuUI == null)
+                    m_pauseMenuUI = GameManager.OpenUI<PauseMenuUI>(GameManager.Instance.PauseMenuUI);
+            }
+        }
     }
 
     public void EnableTimer()

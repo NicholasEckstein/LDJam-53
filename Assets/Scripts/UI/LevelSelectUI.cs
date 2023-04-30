@@ -23,7 +23,7 @@ public class LevelSelectUI : UIPrefab
 
     private void HandleInput()
     {
-        if (GameManager.Instance.DialogueRunner.IsDialogueRunning)
+        if (GameManager.Instance.DialogueRunner.IsDialogueRunning || LoadingUI.IsOpen)
             return;
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))

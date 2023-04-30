@@ -7,8 +7,10 @@ public class LoadingUI : UIPrefab
     static LoadingUI m_inst;
     Action OnLoadingScreenClosed;
     private bool m_isClosing;
+    private bool m_isOpen;
 
     public static bool IsClosing { get => m_inst != null ? m_inst.m_isClosing : false; }
+    public static bool IsOpen { get => m_inst != null ? m_inst.m_isOpen : false; }
 
     private void CloseLoadingScreenImpl(float a_delay)
     {
@@ -48,6 +50,8 @@ public class LoadingUI : UIPrefab
             parent = overlayCanvas.transform;
 
         m_inst = GameManager.OpenUI<LoadingUI>(GameManager.Instance.LoadingUI, parent);
+        if (m_inst != null)
+            m_inst.m_isOpen = true;
     }
 
     public static void CloseLoadingScreen(float a_delay = 0, Action a_onLoadingScreenClose = null)
