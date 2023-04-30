@@ -77,8 +77,12 @@ public class GameUI : UIPrefab
     public void EnableTimer(bool a_enable)
     {
         m_timerText.gameObject.SetActive(a_enable);
-        m_timer = GameManager.Instance.CurrentLevel.TimeToAscend;
-        m_timerActive = true;
+
+        m_timerActive = a_enable;
+        if (m_timerActive)
+        {
+            m_timer = GameManager.Instance.CurrentLevel.TimeToAscend;
+        }
     }
 
     public void ResetHeartUI()
