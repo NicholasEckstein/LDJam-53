@@ -71,8 +71,9 @@ public class PlayerController : MonoBehaviour
 	Coroutine m_currentJumpRoutine = null;
 	Coroutine m_currentDashRoutine = null;
 
-	float horizontalInput = 0.0f;
-	float dashInput = 0.0f;
+	float m_facingDirection = 1.0f;
+	float m_horizontalInput = 0.0f;
+	bool m_dashInput = false;
 	float m_jumpInput = 0.0f;
 	bool m_isRunning = false;
 	bool m_isAirborne = false;
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
 	{
 		get
 		{
-			return Mathf.Abs(horizontalInput) > EPSILON;
+			return Mathf.Abs(m_horizontalInput) > EPSILON;
 		}
 	}
 
@@ -95,14 +96,6 @@ public class PlayerController : MonoBehaviour
 		get
 		{
 			return Mathf.Abs(m_jumpInput) > EPSILON;
-		}
-	}
-
-	public bool GetIsTryingToDash
-	{
-		get
-		{
-			return Mathf.Abs(dashInput) > EPSILON;
 		}
 	}
 
@@ -192,6 +185,8 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+		if (targetDistance < m_dashDistance)
+			Debug.Log("Distance: " + targetDistance);
 		//Shorten dash time if the player is going to hit something and not do a complete dash
 		float percentOfFullDash = targetDistance / m_dashDistance;
 		float dashTime = m_dashTimeLength * percentOfFullDash;
@@ -297,17 +292,18 @@ public class PlayerController : MonoBehaviour
 	{
 		if (m_inputEnabled)
 		{
-			horizontalInput = Input.GetAxis("Horizontal");
-			dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetAxis("Dash") : 0.0f;
+			m_horizontalInput = Input.GetAxis("Horizontal");
+			m_dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetButton("Dash") : false;
+			m_facingDirection = m_horizontalInput < 0.0f ? -1.0f : 1.0f;
 
 			if (GetIsGrounded || !GetIsJumping)
 			{
-				if (horizontalInput != 0)
+				if (m_horizontalInput != 0)
 				{
 					m_isRunning = true;
 					m_animator.SetTrigger("tRunStart");
 				}
-				else if (horizontalInput == 0)
+				else if (m_horizontalInput == 0)
 				{
 					m_isRunning = false;
 					m_animator.SetTrigger("tIdle");
@@ -317,7 +313,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			if (m_playerSprite != null)
-				m_playerSprite.flipX = horizontalInput < 0;
+				m_playerSprite.flipX = m_horizontalInput < 0;
 
 			m_jumpInput = Input.GetAxis("Jump");
 
@@ -340,7 +336,7 @@ public class PlayerController : MonoBehaviour
 		bool grounded = GetIsGrounded;
 		bool standingOnEnemy = GetIsStandingOnEnemy;
 		bool isMoving = GetIsMoving;
-		bool tryDash = GetIsTryingToDash;
+		bool tryDash = m_dashInput;
 
 		float accelToUse;
 		float decelToUse;
@@ -353,7 +349,7 @@ public class PlayerController : MonoBehaviour
 				if (m_currentDashRoutine != null)
 					StopCoroutine(m_currentDashRoutine);
 
-				m_currentDashRoutine = StartCoroutine(DoDashRoutine(dashInput));
+				m_currentDashRoutine = StartCoroutine(DoDashRoutine(m_facingDirection));
 
 				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
 				GameManager.Instance.CameraController.AddTrauma(.125f, .125f);
@@ -381,7 +377,7 @@ public class PlayerController : MonoBehaviour
 
 				if (isMoving)
 				{
-					m_velocity.x = Mathf.MoveTowards(m_velocity.x, m_maxMoveSpeedInAir * horizontalInput, accelToUse);
+					m_velocity.x = Mathf.MoveTowards(m_velocity.x, m_maxMoveSpeedInAir * m_horizontalInput, accelToUse);
 				}
 				else // not moving. Decelerate speed to zero
 				{
