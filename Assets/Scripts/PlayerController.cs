@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
 	bool m_inputEnabled = true;
     private Coroutine m_damageCR;
 
+	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
+
     private void Awake()
 	{
 		m_currHorizontalSpeed = 0.0f;
@@ -350,6 +352,9 @@ public class PlayerController : MonoBehaviour
 			maxSpeedToUse = float.MaxValue;
 		}
 
+		m_velocity += m_outsideForcesToApplyNextUpdate;
+		m_outsideForcesToApplyNextUpdate = Vector2.zero;
+
 		// Clamp the velocity to the maximum speed
 		m_velocity.x = Mathf.Clamp(m_velocity.x, -maxSpeedToUse, maxSpeedToUse);
 		m_velocity.y = Mathf.Clamp(m_velocity.y, -m_maxFallSpeed, float.MaxValue);//dont clamp up velocity to allow for faster jumps
@@ -438,7 +443,13 @@ public class PlayerController : MonoBehaviour
 		m_damageCR = StartCoroutine(TakeDamageCR());
 	}
 
-    private IEnumerator TakeDamageCR()
+	private void OnKnockback(Vector2 knockback)
+	{
+		m_outsideForcesToApplyNextUpdate += knockback;
+	}
+
+
+	private IEnumerator TakeDamageCR()
     {
 		var c = m_playerSprite.color;
 		m_playerSprite.color = Color.red;
