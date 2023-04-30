@@ -44,11 +44,10 @@ public class PostGamePhase : GamePhase
 
     public override bool Uninitialize()
     {
-        throw new System.NotImplementedException();
+        return true;
     }
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
     }
 }
