@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		horizontalInput = Input.GetAxis("Horizontal");
+		dashInput = Input.GetAxis("Dash");
 
 		if (GetIsGrounded || !jump)
 		{
