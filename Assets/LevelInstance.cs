@@ -70,9 +70,6 @@ public class LevelInstance : MonoBehaviour
 		yield return new WaitUntil(() => !GameManager.Instance.DialogueRunner.IsDialogueRunning);
 
 		SwapLevel();
-
-		//TODO: screen shake
-
 		AudioManager.Instance.PlayMusic(GameManager.Instance.AscentMusic);
 
 		GameManager.Instance.PlayerController.EnableInput(true);

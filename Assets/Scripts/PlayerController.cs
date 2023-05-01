@@ -500,7 +500,7 @@ public class PlayerController : MonoBehaviour
 				AudioManager.Instance.PlaySFX(GameManager.Instance.LandSFX);
 
 				if(!platform.Breakable)
-					GameManager.Instance.CameraController.AddTrauma(0.2f, 0.1f);
+					GameManager.Instance.CameraController.AddTrauma(0.1f, 0.1f);
 			}
 		}
 	}
