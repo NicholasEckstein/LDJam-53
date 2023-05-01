@@ -6,6 +6,9 @@ using UnityEngine;
 public class LevelInstance : MonoBehaviour
 {
 	[SerializeField]
+	private int m_levelNum;
+
+	[SerializeField]
 	private Transform m_playerSpawn;
 
 	[SerializeField]
@@ -25,12 +28,13 @@ public class LevelInstance : MonoBehaviour
 
 	[SerializeField]
 	Reaper m_reaper;
-
-	public Vector3 PlayerStartLocation { get => m_playerSpawn.position; }
+	
+    public Vector3 PlayerStartLocation { get => m_playerSpawn.position; }
 	public float TimeToAscend { get => m_timeToAscend; }
 	public bool IsDescending { get => m_descendPlatformParent.gameObject.activeSelf; }
+    public int LevelNum { get => m_levelNum; }
 
-	private void OnEnable()
+    private void OnEnable()
 	{
 		m_collectable.OnPLayerPickup += OnCollectableObtained;
 		EnableAscentPlatformParent(false);
@@ -71,16 +75,17 @@ public class LevelInstance : MonoBehaviour
 
 		AudioManager.Instance.PlayMusic(GameManager.Instance.AscentMusic);
 
-		yield return new WaitForSeconds(2);
-
 		GameManager.Instance.PlayerController.EnableInput(true);
-
-		//Activate timer
 		var phase = GameManager.Instance.CurrentPhase as PlayPhase;
 		if (phase != null)
-		{
-			phase.EnableTimer();
-		}
+			phase.EnableTimerText();
+
+		GameManager.Instance.CameraController.AddTrauma(0.3f, 0.35f);
+
+		yield return new WaitForSeconds(1f);
+
+		if (phase != null)
+			phase.StartTimer();
 
 		if (m_timeToSpawnReaper > 0.0f && m_reaper)
 		{

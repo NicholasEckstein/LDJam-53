@@ -21,8 +21,17 @@ public class WinVolume : MonoBehaviour
     private IEnumerator WinCR()
     {
         yield return new WaitForSeconds(1.5f);
-        PlayerPrefs.SetInt(GameManager.Level1Str, GameManager.LevelComplete);
-        PlayerPrefs.SetInt(GameManager.Level2Str, GameManager.LevelUnlocked);
+
+        if(GameManager.Instance.CurrentLevel.LevelNum == 1)
+        {
+            PlayerPrefs.SetInt(GameManager.Level1Str, GameManager.LevelComplete);
+            PlayerPrefs.SetInt(GameManager.Level2Str, GameManager.LevelUnlocked);
+        }
+        else if(GameManager.Instance.CurrentLevel.LevelNum == 2)
+        {
+            PlayerPrefs.SetInt(GameManager.Level2Str, GameManager.LevelComplete);
+        }
+
         LoadingUI.ShowLoadingScreen();
         GameManager.Instance.SetNextPhase(new PostGamePhase(win));
     }

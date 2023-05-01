@@ -76,9 +76,14 @@ public class PlayPhase : GamePhase
         }
     }
 
-    public void EnableTimer()
+    public void EnableTimerText()
     {
         m_gameUI.EnableTimer(true);
+    }
+
+    public void StartTimer()
+    {
+        m_gameUI.StartTimer();
     }
 
     public void ReloadLevel()

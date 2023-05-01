@@ -15,7 +15,9 @@ public class Platform : MonoBehaviour
 
 	Vector2[] m_colliderPoints = new Vector2[4];
 
-	private void Start()
+    public bool Breakable { get => m_breakable; }
+
+    private void Start()
 	{
 		UpdateCollider();
 	}

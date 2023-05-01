@@ -24,6 +24,7 @@ public class PostGameUI : UIPrefab
     private Transform m_exitText;
 
     bool m_win;
+    bool m_playFinalDialgue = false;
     private bool m_canExit;
 
     public void Init(bool a_win)
@@ -31,6 +32,14 @@ public class PostGameUI : UIPrefab
         m_exitText.gameObject.SetActive(false);
         m_canExit = false;
         m_win = a_win;
+
+        var l1 = PlayerPrefs.GetInt(GameManager.Level1Str, -1);
+        var l2 = PlayerPrefs.GetInt(GameManager.Level2Str, -1);
+        if(l1 == GameManager.LevelComplete && l2 == GameManager.LevelComplete)
+        {
+            m_playFinalDialgue = true;
+        }
+
         m_headerText.text = m_win ? m_winHeader : m_loseHeader;
 
         if(m_win)
@@ -42,6 +51,11 @@ public class PostGameUI : UIPrefab
         {
             m_loseBG.gameObject.SetActive(true);
             m_winBG.gameObject.SetActive(false);
+        }
+
+        if (m_playFinalDialgue)
+        {
+            GameManager.Instance.DialogueRunner.StartDialogue("Intro");
         }
 
         StartCoroutine(ExitCR());
@@ -61,7 +75,12 @@ public class PostGameUI : UIPrefab
 
     private IEnumerator ExitCR()
     {
-        yield return new WaitForSeconds(2f);
+        yield return null;
+        var gameMan = GameManager.Instance;
+        yield return new WaitUntil(() => gameMan.DialogueRunner.IsDialogueRunning);
+
+        yield return new WaitForSeconds(1f);
+
         m_canExit = true;
         m_exitText.gameObject.SetActive(true);
     }

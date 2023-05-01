@@ -39,7 +39,10 @@ public class GameUI : UIPrefab
             {
                 m_timer -= Time.deltaTime;
                 var span = TimeSpan.FromSeconds(m_timer);
-                m_timerText.text = span.TotalSeconds.ToString();
+
+                var str = span.TotalSeconds.ToString();
+                var strArr = str.Split(".");
+                m_timerText.text = strArr[0];
             }
             else
             {
@@ -54,6 +57,7 @@ public class GameUI : UIPrefab
     public void Init()
     {
         EnableTimer(false);
+        StopTimer();
     }
 
     public void OnTakeDamage()
@@ -77,13 +81,22 @@ public class GameUI : UIPrefab
     public void EnableTimer(bool a_enable)
     {
         m_timerText.gameObject.SetActive(a_enable);
+    }
 
-        m_timerActive = a_enable;
+    public void StartTimer()
+    {
+        m_timerActive = true;
         if (m_timerActive)
         {
             m_timer = GameManager.Instance.CurrentLevel.TimeToAscend;
         }
     }
+
+    public void StopTimer()
+    {
+        m_timerActive = false;
+    }
+
 
     public void ResetHeartUI()
     {

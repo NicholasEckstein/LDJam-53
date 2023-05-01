@@ -8341,6 +8341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b1faa5b6e8d19418b62c24386fec4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_levelNum: 1
   m_playerSpawn: {fileID: 1687557253833535219}
   m_ascendPlatformParent: {fileID: 6699503678784164677}
   m_descendPlatformParent: {fileID: 6041322947609978251}

@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
 				m_currentDashRoutine = StartCoroutine(DoDashRoutine(m_facingDirection));
 
 				AudioManager.Instance.PlaySFX(GameManager.Instance.DashSFX);
-				GameManager.Instance.CameraController.AddTrauma(.125f, .125f);
+				GameManager.Instance.CameraController.AddTrauma(.125f, .15f);
 				if (m_facingDirection < 0)
 					m_rightDashAnimatior.SetTrigger("tDash");
 				else
@@ -433,7 +433,8 @@ public class PlayerController : MonoBehaviour
 				{
 					//force player to jump
 					jumpForce = -m_rigidbody.velocity.y + m_jumpVelocity;
-				}
+					GameManager.Instance.CameraController.AddTrauma(0.2f, 0.2f);
+					}
 				else // else if falling
 				{
 					m_velocity.y = m_rigidbody.velocity.y;
@@ -481,6 +482,9 @@ public class PlayerController : MonoBehaviour
 				m_isAirborne = false;
 				m_animator.SetBool("bFalling", m_isAirborne);
 				AudioManager.Instance.PlaySFX(GameManager.Instance.LandSFX);
+
+				if(!platform.Breakable)
+					GameManager.Instance.CameraController.AddTrauma(0.2f, 0.1f);
 			}
 		}
 	}
