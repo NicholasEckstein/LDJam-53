@@ -23,6 +23,7 @@ public class Reaper : MonoBehaviour
 	private void OnEnable()
 	{
 		GameManager.Instance.CameraController.AddTrauma(m_spawnScreenShakeDuration, m_spawnScreenShakeIntensity);
+		AudioManager.Instance.PlaySFX(GameManager.Instance.ReaperHowlSFX);
 	}
 
 	private void Update()
