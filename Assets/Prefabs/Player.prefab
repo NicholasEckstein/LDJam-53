@@ -652,6 +652,39 @@ MonoBehaviour:
   m_maxMoveSpeedInAir: 10
   m_maxMoveSpeedOnGround: 10
   m_jumpVelocity: 21
+  m_cameraShakeIntensityByTimeInAir:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 3
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   m_smoothDash: 1
   m_dashTimeLength: 0.1
   m_dashDistance: 5
@@ -673,6 +706,8 @@ MonoBehaviour:
   m_currentLeftCollisionCount: 0
   m_currentTopCollisionCount: 0
   m_dashCollisionsAllocCount: 0
+  m_timeUntilNextDash: 0.5
+  m_timeOfLastGroundedFrame: 3.4028235e+38
 --- !u!50 &2236449949622054620
 Rigidbody2D:
   serializedVersion: 4
