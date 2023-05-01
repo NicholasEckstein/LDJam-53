@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] Animator m_animator;
 	[SerializeField] Animator m_rightDashAnimatior;
 	[SerializeField] Animator m_leftDashAnimatior;
+	[SerializeField] Animator m_dashReadyAnimator;
 	[SerializeField] SpriteRenderer m_playerSprite;
 
 	[Header("Acceleration Settings")]
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
 	Coroutine m_currentJumpRoutine = null;
 	Coroutine m_currentDashRoutine = null;
 
+	bool m_dashTimeReady = false;
 	float m_facingDirection = 1.0f;
 	float m_horizontalInput = 0.0f;
 	bool m_dashInput = false;
@@ -84,10 +86,11 @@ public class PlayerController : MonoBehaviour
 	bool m_inputEnabled = true;
 	private Coroutine m_damageCR;
 	float m_timeUntilNextDash = 0.5f;
-
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
+    bool m_dashAnimReady = true;
+    private bool m_readyAnimationActive = true;
 
-	public bool GetIsMoving
+    public bool GetIsMoving
 	{
 		get
 		{
@@ -221,6 +224,8 @@ public class PlayerController : MonoBehaviour
 		m_animator.SetBool("bDashing", false);
 
 		m_isDashing = false;
+		m_dashAnimReady = false;
+		m_readyAnimationActive = false;
 	}
 
 	public Health Health { get => m_health; }
@@ -288,13 +293,17 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		UpdateCooldowns();
-
 		UpdateInput();
 	}
 
 	void UpdateCooldowns()
 	{
 		m_timeUntilNextDash -= Time.deltaTime;
+		if (m_timeUntilNextDash <= 0 && !m_readyAnimationActive)
+		{
+			m_dashReadyAnimator.SetTrigger("tDashReady");
+			m_readyAnimationActive = true;
+		}
 	}
 
 	void UpdateInput()
@@ -302,7 +311,9 @@ public class PlayerController : MonoBehaviour
 		if (m_inputEnabled)
 		{
 			m_horizontalInput = Input.GetAxis("Horizontal");
-			m_dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetButton("Dash") : false;
+
+			m_dashTimeReady = m_timeUntilNextDash <= 0.0f;
+			m_dashInput = m_dashTimeReady && m_dashAnimReady ? Input.GetButton("Dash") : false;
 			if (Mathf.Abs(m_horizontalInput) > EPSILON)
 			{
 				m_facingDirection = m_horizontalInput < 0.0f ? -1.0f : 1.0f;
@@ -523,6 +534,12 @@ public class PlayerController : MonoBehaviour
 		m_damageCR = StartCoroutine(TakeDamageCR());
 	}
 
+	public void OnDashReady()
+    {
+		m_dashAnimReady = true;
+		StartCoroutine(DashReadyCR());
+	}
+
 	private void OnKnockback(Vector2 knockback)
 	{
 		m_outsideForcesToApplyNextUpdate += knockback;
@@ -534,6 +551,15 @@ public class PlayerController : MonoBehaviour
 		m_playerSprite.color = Color.red;
 		const float bloodAnimTime = 0.15f;
 		yield return new WaitForSeconds(bloodAnimTime);
+		m_playerSprite.color = c;
+	}
+
+	private IEnumerator DashReadyCR()
+	{
+		var c = Color.white;
+		m_playerSprite.color = Color.cyan;
+		const float dashReadyAnimTime = 0.1f;
+		yield return new WaitForSeconds(dashReadyAnimTime);
 		m_playerSprite.color = c;
 	}
 
