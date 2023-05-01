@@ -77,7 +77,7 @@ public class PostGameUI : UIPrefab
     {
         yield return null;
         var gameMan = GameManager.Instance;
-        yield return new WaitUntil(() => gameMan.DialogueRunner.IsDialogueRunning);
+        yield return new WaitUntil(() => !gameMan.DialogueRunner.IsDialogueRunning);
 
         yield return new WaitForSeconds(1f);
 
