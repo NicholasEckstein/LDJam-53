@@ -72,6 +72,7 @@ MonoBehaviour:
   m_lostMusic: {fileID: 8300000, guid: 98d7ae26b6532234f80bf8c5aaf1ad5f, type: 3}
   m_playerHitSFX: {fileID: 8300000, guid: eb5cdc0956858d340a5e6e6a5877b918, type: 3}
   m_playerDeadSFX: {fileID: 8300000, guid: 4d02d318d838b984eac872cbed5ff5f4, type: 3}
+  m_reaperHowlSFX: {fileID: 8300000, guid: 3d7d86a066d93ab47ab400427e6e2c8c, type: 3}
   m_dashSFX: {fileID: 8300000, guid: adc0cdfc52e52844e86860a753030316, type: 3}
   m_jumpSFX: {fileID: 8300000, guid: cf50f00594e7d6c4c94887fa49509a35, type: 3}
   m_grabSFX: {fileID: 8300000, guid: 4cd7763221faf8040b20971e09c6b0fa, type: 3}

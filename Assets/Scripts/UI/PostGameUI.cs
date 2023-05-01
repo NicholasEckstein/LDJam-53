@@ -21,6 +21,9 @@ public class PostGameUI : UIPrefab
     private Transform m_loseBG;
 
     [SerializeField]
+    private Transform m_continueText;
+
+    [SerializeField]
     private Transform m_exitText;
 
     bool m_win;
@@ -30,6 +33,7 @@ public class PostGameUI : UIPrefab
     public void Init(bool a_win)
     {
         m_exitText.gameObject.SetActive(false);
+        m_continueText.gameObject.SetActive(false);
         m_canExit = false;
         m_win = a_win;
 
@@ -71,6 +75,13 @@ public class PostGameUI : UIPrefab
             LoadingUI.ShowLoadingScreen();
             GameManager.Instance.SetNextPhase(new MainMenuPhase(GameManager.Instance.CurrentPhase));
         }
+
+        if (!m_playFinalDialgue && Input.GetKeyDown(KeyCode.Return))
+        {
+            //Enter loads level 2
+            LoadingUI.ShowLoadingScreen();
+            GameManager.Instance.SetNextPhase(new PlayPhase(1));
+        }
     }
 
     private IEnumerator ExitCR()
@@ -83,5 +94,8 @@ public class PostGameUI : UIPrefab
 
         m_canExit = true;
         m_exitText.gameObject.SetActive(true);
+
+        if(!m_playFinalDialgue)
+            m_continueText.gameObject.SetActive(true);
     }
 }
