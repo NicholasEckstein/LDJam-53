@@ -19,7 +19,7 @@ public class GameManager : SingletonBase<GameManager>
     private GameObject m_playerPrefab;
 
     [SerializeField]
-    private List<GameObject> m_levels;
+    private List<GameObject> m_levels = new List<GameObject>();
 
     [SerializeField]
     private CameraController m_cameraController;
@@ -70,10 +70,24 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private string m_introDialogueNode;
 
+    [SerializeField]
+    private List<string> m_levelDialogueNodes = new List<string>();
+
+    [SerializeField]
+    private string m_finaleDialogueNode;
+
     [Header("Audio")]
 
     [SerializeField, Range(0, 1)]
     private float m_musicVolume = 0.5f;
+
+    public string GetDialogueForLevel(int a_index)
+    {
+        if (!IsValidLevelIndex(a_index))
+            return string.Empty;
+
+        return m_levelDialogueNodes[a_index];
+    }
 
     [SerializeField, Range(0, 1)]
     private float m_sfxVolume = 0.5f;
@@ -151,6 +165,8 @@ public class GameManager : SingletonBase<GameManager>
     //public ShakeCamera CameraShake { get => m_cameraShake; }
     public CameraController CameraController { get => m_cameraController; }
     public GameObject IntroUI { get => m_introUI; }
+    public List<string> LevelDialogueNodes { get => m_levelDialogueNodes; }
+    public string FinaleDialogueNode { get => m_finaleDialogueNode; }
 
     protected override void Awake()
     {
@@ -313,9 +329,14 @@ public class GameManager : SingletonBase<GameManager>
         m_currentLevel = null;
     }
 
+    private bool IsValidLevelIndex(int a_index)
+    {
+        return a_index >= 0 && a_index < m_levels.Count;
+    }
+
     public bool IsValidLevel(int a_index)
     {
-        bool validIndex = a_index >= 0 && a_index < m_levels.Count;
+        bool validIndex = IsValidLevelIndex(a_index);
         bool levelUnlocked = true;
 
         if(a_index == 1)    //level 2

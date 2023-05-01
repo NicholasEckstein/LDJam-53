@@ -58,10 +58,13 @@ public class LevelInstance : MonoBehaviour
 
 	private void OnCollectableObtained()
 	{
-		AudioManager.Instance.PlaySFX(GameManager.Instance.GrabSFX);
+		var gameMan = GameManager.Instance;
+		AudioManager.Instance.PlaySFX(gameMan.GrabSFX);
 		Destroy(m_collectable.transform.parent.gameObject);
-		GameManager.Instance.PlayerController.EnableInput(false);
-		GameManager.Instance.DialogueRunner.StartDialogue("Intro");
+		gameMan.PlayerController.EnableInput(false);
+
+		gameMan.DialogueRunner.StartDialogue(gameMan.GetDialogueForLevel(m_levelNum - 1));
+
 		StartCoroutine(DialogueWaitCR());
 	}
 
@@ -70,9 +73,6 @@ public class LevelInstance : MonoBehaviour
 		yield return new WaitUntil(() => !GameManager.Instance.DialogueRunner.IsDialogueRunning);
 
 		SwapLevel();
-
-		//TODO: screen shake
-
 		AudioManager.Instance.PlayMusic(GameManager.Instance.AscentMusic);
 
 		GameManager.Instance.PlayerController.EnableInput(true);
