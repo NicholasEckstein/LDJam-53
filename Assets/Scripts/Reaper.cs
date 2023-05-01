@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Reaper : MonoBehaviour
@@ -10,12 +11,20 @@ public class Reaper : MonoBehaviour
 	[SerializeField] float m_damage;
 	[SerializeField] float m_knockback;
 	[SerializeField] float m_knockbackExtraUpward;
+	[SerializeField] float m_spawnScreenShakeDuration = 2.0f;
+	[SerializeField] float m_spawnScreenShakeIntensity = 0.75f;
 
 	Vector3 scythOffsetPos = new Vector3(1.0f, 0.0f);
 
 	float m_timeUntilNextAttack = 0.0f;
 
 	List<Collider2D> m_colsHitThisSwing = new List<Collider2D>();
+
+	private void OnEnable()
+	{
+		GameManager.Instance.CameraController.AddTrauma(m_spawnScreenShakeDuration, m_spawnScreenShakeIntensity);
+		AudioManager.Instance.PlaySFX(GameManager.Instance.ReaperHowlSFX);
+	}
 
 	private void Update()
 	{
