@@ -11,8 +11,18 @@ ScriptedImporter:
   sourceScripts:
   - {fileID: 6391573757903218779, guid: 4ed17f042f32bd24381d0e7c75aa160f, type: 3}
   - {fileID: 6391573757903218779, guid: da057aa0e1cb6fa4ab9a38c346b0717d, type: 3}
+  - {fileID: 6391573757903218779, guid: 133c2a77afc4170448a3a2d2c583f840, type: 3}
+  - {fileID: 6391573757903218779, guid: 4100b97bab5445a4aa287beab81533b1, type: 3}
   compileErrors: []
-  serializedDeclarations: []
+  serializedDeclarations:
+  - name: $seenIntro
+    typeName: Bool
+    defaultValueBool: 0
+    defaultValueNumber: 0
+    defaultValueString: 
+    description: Implicitly declared in TestYarn.yarn, node Intro
+    isImplicit: 1
+    sourceYarnAsset: {fileID: 6391573757903218779, guid: 4ed17f042f32bd24381d0e7c75aa160f, type: 3}
   defaultLanguage: en-US
   languagesToSourceAssets: []
   useAddressableAssets: 0

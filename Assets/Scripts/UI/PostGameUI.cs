@@ -55,7 +55,7 @@ public class PostGameUI : UIPrefab
 
         if (m_playFinalDialgue)
         {
-            GameManager.Instance.DialogueRunner.StartDialogue("Intro");
+            GameManager.Instance.DialogueRunner.StartDialogue(GameManager.Instance.FinaleDialogueNode);
         }
 
         StartCoroutine(ExitCR());

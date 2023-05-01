@@ -1,24 +1,47 @@
 	ART
 --------------------
-Loading Screen: https://rare-gallery.com/422285-digital-art-pixel-art-pixelated-pixels-fantasy-city.html
+<<UI>>
+https://rare-gallery.com/422285-digital-art-pixel-art-pixelated-pixels-fantasy-city.html
+https://ansimuz.itch.io/gothicvania-patreon-collection
+https://admurin.itch.io/parallax-backgrounds-caves	
 
+<<Environments>>
+https://maaot.itch.io/mossy-cavern
+https://brullov.itch.io/oak-woods
+https://trixelized.itch.io/starstring-fields
+https://anokolisa.itch.io/moon-graveyard
+https://ansimuz.itch.io/gothicvania-cemetery
+https://www.kenney.nl/assets/simplified-platformer-pack 
+https://1juancarlos.itch.io/simple-pixel-art-spikes 
 
+<<Player Character (and baby)>>
+https://sventhole.itch.io/prototype-hero-demo
 
+<<Enemies>>
+https://astrobob.itch.io/animated-pixel-art-skeleton
+https://luizmelo.itch.io/huntress
+https://darkpixel-kronovi.itch.io/undead-executioner
 
+<<Font>>
+https://vrtxrry.itch.io/dungeonfont 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<<FX>>
+Win volume - https://pimen.itch.io/holy-spell-effect 
+Book FX - https://ansimuz.itch.io/gothicvania-magic-pack-9 
+Blood - https://jasontomlee.itch.io/blood-fx 
 
 
 	AUDIO
 --------------------
+Menu Music: https://freesound.org/people/PaynesBeats/sounds/249730/
+Menu Music: https://freesound.org/people/dekstromoramid/sounds/454586/
+Going Down: https://freesound.org/people/Victor_Natas/sounds/636429/
+Going Up: https://freesound.org/people/NightWolfCFM/sounds/439277/ 
+Win: https://freesound.org/people/Setuniman/sounds/159566/ 
+Lose: https://freesound.org/people/BooGaGo/sounds/262565/ 
+
+Player Hit: https://freesound.org/people/tonsil5/sounds/416839/ 
+Land: https://freesound.org/people/_stubb/sounds/389636/ 
+Jump: https://freesound.org/people/felixyadomi/sounds/456367/ 
+Dash: https://freesound.org/people/Atomic-Potato/sounds/646166/ 
+Death: https://freesound.org/people/tonsil5/sounds/416838/ 

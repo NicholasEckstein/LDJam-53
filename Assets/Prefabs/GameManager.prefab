@@ -59,8 +59,12 @@ MonoBehaviour:
   m_loadingScreenDelayTime: 0.45
   m_dialogueRunner: {fileID: 0}
   m_introDialogueNode: Note
-  m_musicVolume: 0.5
-  m_sfxVolume: 0.5
+  m_levelDialogueNodes:
+  - BookScribbling
+  - baby
+  m_finaleDialogueNode: Christopher
+  m_musicVolume: 0.35
+  m_sfxVolume: 0.55
   m_mainMenuMusic: {fileID: 8300000, guid: 36ac1aa9f4bcb514ca21ad40788ce288, type: 3}
   m_descentMusic: {fileID: 8300000, guid: 40008c942c1644d448ac2b48181f5d6e, type: 3}
   m_ascentMusic: {fileID: 8300000, guid: 097ef424f0a125e478aa63bbba10dcbf, type: 3}
