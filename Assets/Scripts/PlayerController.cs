@@ -328,25 +328,32 @@ public class PlayerController : MonoBehaviour
 				m_playerSprite.flipX = m_facingDirection > 0 ? false : true;
 			}
 
-			if (GetIsGrounded || !GetIsJumping)
-			{
-				if (m_horizontalInput != 0)
-				{
-					m_isRunning = true;
-					m_animator.SetTrigger("tRunStart");
-				}
-				else if (m_horizontalInput == 0)
-				{
-					m_isRunning = false;
-					m_animator.SetTrigger("tIdle");
-				}
+			m_jumpInput = Input.GetAxis("Jump");
+		}
+		else
+		{
+			m_horizontalInput = 0.0f;
+			m_dashInput = false;
+			m_jumpInput = 0.0f;
+		}
 
-				m_animator.SetBool("bRunning", m_isRunning);
+		if (GetIsGrounded || !GetIsJumping)
+		{
+			if (m_horizontalInput != 0)
+			{
+				m_isRunning = true;
+				m_animator.SetTrigger("tRunStart");
+			}
+			else if (m_horizontalInput == 0)
+			{
+				m_isRunning = false;
+				m_animator.SetTrigger("tIdle");
 			}
 
-			m_jumpInput = Input.GetAxis("Jump");
-			m_animator.SetBool("bJumping", !GetIsGrounded);
+			m_animator.SetBool("bRunning", m_isRunning);
 		}
+
+		m_animator.SetBool("bJumping", !GetIsGrounded);
 	}
 
 	void FixedUpdate()
@@ -452,7 +459,7 @@ public class PlayerController : MonoBehaviour
 					//force player to jump
 					jumpForce = -m_rigidbody.velocity.y + m_jumpVelocity;
 					GameManager.Instance.CameraController.AddTrauma(0.2f, 0.2f);
-					}
+				}
 				else // else if falling
 				{
 					m_velocity.y = m_rigidbody.velocity.y;
@@ -501,7 +508,7 @@ public class PlayerController : MonoBehaviour
 				m_animator.SetBool("bFalling", m_isAirborne);
 				AudioManager.Instance.PlaySFX(GameManager.Instance.LandSFX);
 
-				if(!platform.Breakable)
+				if (!platform.Breakable)
 					GameManager.Instance.CameraController.AddTrauma(0.1f, 0.1f);
 			}
 		}
