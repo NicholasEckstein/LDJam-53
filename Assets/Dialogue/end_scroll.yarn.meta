@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+guid: 4100b97bab5445a4aa287beab81533b1
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 94073015eacc34c1d8fc6786e43d60ca, type: 3}
+  LastImportHadImplicitStringIDs: 0
+  LastImportHadAnyStrings: 0
+  isSuccessfullyParsed: 0
+  parseErrorMessages:
+  - 'Assets/Dialogue/end_scroll(1).yarn: 1:0: Error: More than one node is named
+    Christopher
+
+    title: Christopher
+
+'
+  - 'Assets/Dialogue/end_scroll(1).yarn: 5:0: Error: More than one node is named
+    Christopher
+
+    title: Christopher
+
+'
+  - 'Assets/Dialogue/end_scroll(1).yarn: 9:0: Error: More than one node is named
+    Christopher
+
+    title: Christopher
+
+'
