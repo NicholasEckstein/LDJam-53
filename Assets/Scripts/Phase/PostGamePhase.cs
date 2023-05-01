@@ -44,6 +44,11 @@ public class PostGamePhase : GamePhase
 
     public override bool Uninitialize()
     {
+        if(m_postGameUI != null)
+        {
+            GameManager.CloseUI(m_postGameUI);
+            m_postGameUI = null;
+        }
         return true;
     }
 
