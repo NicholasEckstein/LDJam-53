@@ -115,6 +115,12 @@ public class GameManager : SingletonBase<GameManager>
     private PlayerController m_playerController;
     private LevelInstance m_currentLevel;
     private bool m_paused = false;
+    
+    public static string Level1Str = "l1";
+    public static string Level2Str = "l2";
+    public static int LevelLocked = 0;
+    public static int LevelUnlocked = 1;
+    public static int LevelComplete = 2;
 
     public AudioClip MainMenuMusic { get => m_mainMenuMusic; }
     public GamePhase CurrentPhase { get; private set; }
@@ -156,6 +162,14 @@ public class GameManager : SingletonBase<GameManager>
         NextPhase = null;
         m_currentSubPhase = PhaseSubSection.None;
 
+        //init level save data
+        if(PlayerPrefs.GetInt(Level1Str, -1) == -1)
+        {
+            // 1 means unlcocked, 2 means complete
+            PlayerPrefs.SetInt(Level1Str, LevelUnlocked);
+            PlayerPrefs.SetInt(Level2Str, LevelLocked);
+        }
+
         SetCurrentPhase(new IntroPhase());
     }
 
@@ -196,6 +210,15 @@ public class GameManager : SingletonBase<GameManager>
             default:
                 break;
         }
+
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.Tilde))
+        {
+            Debug.Log("Reset Player Prefs");
+            PlayerPrefs.SetInt(Level1Str, LevelUnlocked);
+            PlayerPrefs.SetInt(Level2Str, LevelLocked);
+        }
+#endif
     }
 
     public void SetNextPhase(GamePhase a_phase)
@@ -292,7 +315,15 @@ public class GameManager : SingletonBase<GameManager>
 
     public bool IsValidLevel(int a_index)
     {
-        return a_index >= 0 && a_index < m_levels.Count;
+        bool validIndex = a_index >= 0 && a_index < m_levels.Count;
+        bool levelUnlocked = true;
+
+        if(a_index == 1)    //level 2
+        {
+            int i = PlayerPrefs.GetInt(Level2Str, -1);
+            levelUnlocked = i == LevelUnlocked;
+        }
+        return validIndex && levelUnlocked;
     }
 
 

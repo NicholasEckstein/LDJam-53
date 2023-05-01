@@ -11,10 +11,11 @@ public class PlayerController : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Rigidbody2D m_rigidbody;
 	[SerializeField] Health m_health;
-	[SerializeField] BoxCollider2D m_collider;
+	[SerializeField] CapsuleCollider2D m_collider;
 	[SerializeField] Animator m_animator;
 	[SerializeField] Animator m_rightDashAnimatior;
 	[SerializeField] Animator m_leftDashAnimatior;
+	[SerializeField] Animator m_dashReadyAnimator;
 	[SerializeField] SpriteRenderer m_playerSprite;
 
 	[Header("Acceleration Settings")]
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Jump Settings")]
 	[SerializeField] float m_jumpVelocity = 10.0f;
+
+	[Header("Camera Settings")]
+	[SerializeField] AnimationCurve m_cameraShakeIntensityByTimeInAir;
 
 	[Header("Dash Settings")]
 	[SerializeField] bool m_smoothDash = true;
@@ -68,6 +72,10 @@ public class PlayerController : MonoBehaviour
 	RaycastHit2D[] m_dashCollisionsAlloc = new RaycastHit2D[3];
 	[SerializeField, ReadOnly] int m_dashCollisionsAllocCount;
 
+	[SerializeField, Fillbar("m_dashCooldown")] float m_timeUntilNextDash = 0.5f;
+
+	[SerializeField] float m_timeOfLastGroundedFrame = float.MaxValue;
+
 	Vector2 m_velocity = Vector2.zero;
 
 	bool m_isDashing = false;
@@ -75,6 +83,7 @@ public class PlayerController : MonoBehaviour
 	Coroutine m_currentJumpRoutine = null;
 	Coroutine m_currentDashRoutine = null;
 
+	bool m_dashTimeReady = false;
 	float m_facingDirection = 1.0f;
 	float m_horizontalInput = 0.0f;
 	bool m_dashInput = false;
@@ -83,9 +92,9 @@ public class PlayerController : MonoBehaviour
 	bool m_isAirborne = false;
 	bool m_inputEnabled = true;
 	private Coroutine m_damageCR;
-	float m_timeUntilNextDash = 0.5f;
-
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
+	bool m_dashAnimReady = true;
+	private bool m_readyAnimationActive = true;
 
 	public bool GetIsMoving
 	{
@@ -221,6 +230,8 @@ public class PlayerController : MonoBehaviour
 		m_animator.SetBool("bDashing", false);
 
 		m_isDashing = false;
+		m_dashAnimReady = false;
+		m_readyAnimationActive = false;
 	}
 
 	public Health Health { get => m_health; }
@@ -288,13 +299,17 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		UpdateCooldowns();
-
 		UpdateInput();
 	}
 
 	void UpdateCooldowns()
 	{
 		m_timeUntilNextDash -= Time.deltaTime;
+		if (m_timeUntilNextDash <= 0 && !m_readyAnimationActive)
+		{
+			m_dashReadyAnimator.SetTrigger("tDashReady");
+			m_readyAnimationActive = true;
+		}
 	}
 
 	void UpdateInput()
@@ -302,7 +317,9 @@ public class PlayerController : MonoBehaviour
 		if (m_inputEnabled)
 		{
 			m_horizontalInput = Input.GetAxis("Horizontal");
-			m_dashInput = m_timeUntilNextDash <= 0.0f ? Input.GetButton("Dash") : false;
+
+			m_dashTimeReady = m_timeUntilNextDash <= 0.0f;
+			m_dashInput = m_dashTimeReady && m_dashAnimReady ? Input.GetButton("Dash") : false;
 			if (Mathf.Abs(m_horizontalInput) > EPSILON)
 			{
 				m_facingDirection = m_horizontalInput < 0.0f ? -1.0f : 1.0f;
@@ -345,6 +362,17 @@ public class PlayerController : MonoBehaviour
 		float accelToUse;
 		float decelToUse;
 		float maxSpeedToUse;
+
+		if (grounded)
+		{
+			m_timeOfLastGroundedFrame = Time.time;
+		}
+		else
+		{
+			float timeInAir = Time.time - m_timeOfLastGroundedFrame;
+
+			GameManager.Instance.CameraController.AddTrauma(.125f, m_cameraShakeIntensityByTimeInAir.Evaluate(timeInAir));
+		}
 
 		if (!m_isDashing)
 		{
@@ -432,6 +460,7 @@ public class PlayerController : MonoBehaviour
 		{
 			maxSpeedToUse = float.MaxValue;
 		}
+		m_animator.SetBool("bFalling", !grounded);
 
 		m_velocity += m_outsideForcesToApplyNextUpdate;
 		m_outsideForcesToApplyNextUpdate = Vector2.zero;
@@ -523,6 +552,12 @@ public class PlayerController : MonoBehaviour
 		m_damageCR = StartCoroutine(TakeDamageCR());
 	}
 
+	public void OnDashReady()
+	{
+		m_dashAnimReady = true;
+		StartCoroutine(DashReadyCR());
+	}
+
 	private void OnKnockback(Vector2 knockback)
 	{
 		m_outsideForcesToApplyNextUpdate += knockback;
@@ -534,6 +569,15 @@ public class PlayerController : MonoBehaviour
 		m_playerSprite.color = Color.red;
 		const float bloodAnimTime = 0.15f;
 		yield return new WaitForSeconds(bloodAnimTime);
+		m_playerSprite.color = c;
+	}
+
+	private IEnumerator DashReadyCR()
+	{
+		var c = Color.white;
+		m_playerSprite.color = Color.cyan;
+		const float dashReadyAnimTime = 0.1f;
+		yield return new WaitForSeconds(dashReadyAnimTime);
 		m_playerSprite.color = c;
 	}
 
