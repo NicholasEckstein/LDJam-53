@@ -7531,6 +7531,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (2)
@@ -7779,6 +7783,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (16)
@@ -9579,6 +9587,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (4)
@@ -9711,6 +9723,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (6)
@@ -9897,6 +9913,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: 4e9f7248e261bca409652aa9e3e152b7, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: 4e9f7248e261bca409652aa9e3e152b7, type: 3}
       propertyPath: m_Name
       value: Platform_Spike_Vertical_Right
@@ -9959,6 +9979,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: 4e9f7248e261bca409652aa9e3e152b7, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: 4e9f7248e261bca409652aa9e3e152b7, type: 3}
       propertyPath: m_Name
       value: Platform_Spike_Vertical_Right (2)
@@ -10207,6 +10231,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (10)
@@ -10975,6 +11003,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (13)
@@ -11037,6 +11069,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes
@@ -11665,6 +11701,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (15)
@@ -11983,6 +12023,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: 4e9f7248e261bca409652aa9e3e152b7, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: 4e9f7248e261bca409652aa9e3e152b7, type: 3}
       propertyPath: m_Name
       value: Platform_Spike_Vertical_Right (1)
@@ -12107,6 +12151,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (11)
@@ -12759,6 +12807,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (9)
@@ -14659,6 +14711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: 18b609c3d9b757d498218a964901886f, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: 18b609c3d9b757d498218a964901886f, type: 3}
       propertyPath: m_Name
       value: Platform_Spike_Vertical_Left
@@ -14721,6 +14777,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: 18b609c3d9b757d498218a964901886f, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: 18b609c3d9b757d498218a964901886f, type: 3}
       propertyPath: m_Name
       value: Platform_Spike_Vertical_Left (2)
@@ -14977,6 +15037,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (14)
@@ -15605,6 +15669,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (12)
@@ -15923,6 +15991,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (5)
@@ -16443,6 +16515,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (1)
@@ -16505,6 +16581,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes
@@ -16947,6 +17027,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (7)
@@ -17521,6 +17605,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: 18b609c3d9b757d498218a964901886f, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: 18b609c3d9b757d498218a964901886f, type: 3}
       propertyPath: m_Name
       value: Platform_Spike_Vertical_Left (1)
@@ -18363,6 +18451,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (17)
@@ -18560,6 +18652,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (8)
@@ -18622,6 +18718,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6041322947609978251}
     m_Modifications:
+    - target: {fileID: 3106877977138156967, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
+      propertyPath: m_breakable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7346746486955390947, guid: e1a567ae0be193b41a9ab5783d2bfca8, type: 3}
       propertyPath: m_Name
       value: Platform_Spikes (3)
