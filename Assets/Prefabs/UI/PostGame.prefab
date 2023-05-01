@@ -99,6 +99,7 @@ MonoBehaviour:
   m_loseHeader: <color=red>DESPAIR</color>
   m_winBG: {fileID: 8427906541666608889}
   m_loseBG: {fileID: 6895432620360206422}
+  m_continueText: {fileID: 8352453289737802713}
   m_exitText: {fileID: 5177998011900263112}
 --- !u!1 &312652920313012351
 GameObject:
