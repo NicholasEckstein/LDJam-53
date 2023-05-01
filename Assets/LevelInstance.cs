@@ -73,8 +73,6 @@ public class LevelInstance : MonoBehaviour
 		yield return new WaitUntil(() => !GameManager.Instance.DialogueRunner.IsDialogueRunning);
 
 		SwapLevel();
-		AudioManager.Instance.PlayMusic(GameManager.Instance.AscentMusic);
-
 		GameManager.Instance.PlayerController.EnableInput(true);
 		var phase = GameManager.Instance.CurrentPhase as PlayPhase;
 		if (phase != null)
@@ -83,6 +81,8 @@ public class LevelInstance : MonoBehaviour
 		GameManager.Instance.CameraController.AddTrauma(0.3f, 0.35f);
 
 		yield return new WaitForSeconds(1f);
+
+		AudioManager.Instance.PlayMusic(GameManager.Instance.AscentMusic);
 
 		if (phase != null)
 			phase.StartTimer();
