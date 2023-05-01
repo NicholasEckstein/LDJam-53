@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
 	[Header("Jump Settings")]
 	[SerializeField] float m_jumpVelocity = 10.0f;
 
+	[Header("Camera Settings")]
+	[SerializeField] AnimationCurve m_cameraShakeIntensityByTimeInAir;
+
 	[Header("Dash Settings")]
 	[SerializeField] bool m_smoothDash = true;
 	[SerializeField] float m_dashTimeLength = 0.2f;
@@ -68,8 +71,10 @@ public class PlayerController : MonoBehaviour
 
 	RaycastHit2D[] m_dashCollisionsAlloc = new RaycastHit2D[3];
 	[SerializeField, ReadOnly] int m_dashCollisionsAllocCount;
-	
+
 	[SerializeField, Fillbar("m_dashCooldown")] float m_timeUntilNextDash = 0.5f;
+
+	[SerializeField] float m_timeOfLastGroundedFrame = float.MaxValue;
 
 	Vector2 m_velocity = Vector2.zero;
 
@@ -88,10 +93,10 @@ public class PlayerController : MonoBehaviour
 	bool m_inputEnabled = true;
 	private Coroutine m_damageCR;
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
-    bool m_dashAnimReady = true;
-    private bool m_readyAnimationActive = true;
+	bool m_dashAnimReady = true;
+	private bool m_readyAnimationActive = true;
 
-    public bool GetIsMoving
+	public bool GetIsMoving
 	{
 		get
 		{
@@ -358,6 +363,17 @@ public class PlayerController : MonoBehaviour
 		float decelToUse;
 		float maxSpeedToUse;
 
+		if (grounded)
+		{
+			m_timeOfLastGroundedFrame = Time.time;
+		}
+		else
+		{
+			float timeInAir = Time.time - m_timeOfLastGroundedFrame;
+
+			GameManager.Instance.CameraController.AddTrauma(.125f, m_cameraShakeIntensityByTimeInAir.Evaluate(timeInAir));
+		}
+
 		if (!m_isDashing)
 		{
 			if (tryDash)
@@ -537,7 +553,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void OnDashReady()
-    {
+	{
 		m_dashAnimReady = true;
 		StartCoroutine(DashReadyCR());
 	}
