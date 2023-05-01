@@ -76,7 +76,7 @@ public class PostGameUI : UIPrefab
             GameManager.Instance.SetNextPhase(new MainMenuPhase(GameManager.Instance.CurrentPhase));
         }
 
-        if (!m_playFinalDialgue && Input.GetKeyDown(KeyCode.Return))
+        if (!m_playFinalDialgue && m_win && Input.GetKeyDown(KeyCode.Return))
         {
             //Enter loads level 2
             LoadingUI.ShowLoadingScreen();
@@ -95,7 +95,7 @@ public class PostGameUI : UIPrefab
         m_canExit = true;
         m_exitText.gameObject.SetActive(true);
 
-        if(!m_playFinalDialgue)
+        if(!m_playFinalDialgue && m_win)
             m_continueText.gameObject.SetActive(true);
     }
 }
