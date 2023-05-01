@@ -36,14 +36,16 @@ public class LevelInstance : MonoBehaviour
 
     private void OnEnable()
 	{
-		m_collectable.OnPLayerPickup += OnCollectableObtained;
+		if(m_collectable != null)
+			m_collectable.OnPLayerPickup += OnCollectableObtained;
 		EnableAscentPlatformParent(false);
 		EnableDescentPlatformParent(true);
 	}
 
 	private void OnDisable()
 	{
-		m_collectable.OnPLayerPickup -= OnCollectableObtained;
+		if (m_collectable != null)
+			m_collectable.OnPLayerPickup -= OnCollectableObtained;
 	}
 
 	public void EnableAscentPlatformParent(bool a_enable)
