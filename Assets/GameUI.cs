@@ -38,6 +38,9 @@ public class GameUI : UIPrefab
             if (m_timer > 0)
             {
                 m_timer -= Time.deltaTime;
+                if (m_timer < 0)
+                    m_timer = 0;
+
                 var span = TimeSpan.FromSeconds(m_timer);
 
                 var str = span.TotalSeconds.ToString();
@@ -111,7 +114,7 @@ public class GameUI : UIPrefab
 
     private IEnumerator LoseCR()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         LoadingUI.ShowLoadingScreen();
         GameManager.Instance.SetNextPhase(new PostGamePhase(false));
     }
