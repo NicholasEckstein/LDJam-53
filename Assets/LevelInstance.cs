@@ -82,7 +82,7 @@ public class LevelInstance : MonoBehaviour
 			phase.EnableTimer();
 		}
 
-		if (m_timeToSpawnReaper < 0.0f && m_reaper)
+		if (m_timeToSpawnReaper > 0.0f && m_reaper)
 		{
 			yield return new WaitForSeconds(m_timeToSpawnReaper);
 			m_reaper.gameObject.SetActive(true);

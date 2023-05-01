@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
 
 	RaycastHit2D[] m_dashCollisionsAlloc = new RaycastHit2D[3];
 	[SerializeField, ReadOnly] int m_dashCollisionsAllocCount;
+	
+	[SerializeField, Fillbar("m_dashCooldown")] float m_timeUntilNextDash = 0.5f;
 
 	Vector2 m_velocity = Vector2.zero;
 
@@ -85,7 +87,6 @@ public class PlayerController : MonoBehaviour
 	bool m_isAirborne = false;
 	bool m_inputEnabled = true;
 	private Coroutine m_damageCR;
-	float m_timeUntilNextDash = 0.5f;
 	Vector2 m_outsideForcesToApplyNextUpdate = Vector2.zero;
     bool m_dashAnimReady = true;
     private bool m_readyAnimationActive = true;
@@ -443,6 +444,7 @@ public class PlayerController : MonoBehaviour
 		{
 			maxSpeedToUse = float.MaxValue;
 		}
+		m_animator.SetBool("bFalling", !grounded);
 
 		m_velocity += m_outsideForcesToApplyNextUpdate;
 		m_outsideForcesToApplyNextUpdate = Vector2.zero;

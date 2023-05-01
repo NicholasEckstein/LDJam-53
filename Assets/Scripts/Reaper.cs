@@ -19,7 +19,11 @@ public class Reaper : MonoBehaviour
 
 	private void Update()
 	{
-		Vector2 goalPos = GameManager.Instance.PlayerController.transform.position - scythOffsetPos;
+		Vector3 playerPos = GameManager.Instance.PlayerController.transform.position;
+
+		float flip = playerPos.x - transform.position.x < 0.0f ? -1.0f : 1.0f;
+
+		Vector2 goalPos = playerPos - scythOffsetPos * flip;
 		transform.position = Vector3.MoveTowards(transform.position, goalPos, m_speed * Time.deltaTime);
 
 		if (m_timeUntilNextAttack <= 0.0f && Vector2.Distance(transform.position, goalPos) < 1.0f)
@@ -33,6 +37,11 @@ public class Reaper : MonoBehaviour
 		{
 			m_timeUntilNextAttack -= Time.deltaTime;
 		}
+
+		transform.localScale = new Vector3(
+			Mathf.Abs(transform.localScale.x) * flip,
+			transform.localScale.y,
+			transform.localScale.z);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +49,7 @@ public class Reaper : MonoBehaviour
 		if (!m_colsHitThisSwing.Contains(collision))
 		{
 			m_colsHitThisSwing.Add(collision);
-			collision.transform.root.BroadcastMessage("OnChangeHealthBy", -m_damage, SendMessageOptions.DontRequireReceiver);
+			collision.transform.root.BroadcastMessage("ChangeHealthBy", -m_damage, SendMessageOptions.DontRequireReceiver);
 
 			Vector2 colPos = transform.position + (Vector3)m_collider.offset;
 			Vector2 baseKnockback = ((Vector2)collision.transform.position - colPos).normalized * m_knockback;
