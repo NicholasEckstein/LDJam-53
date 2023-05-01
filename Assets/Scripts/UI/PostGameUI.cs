@@ -53,7 +53,7 @@ public class PostGameUI : UIPrefab
             m_winBG.gameObject.SetActive(false);
         }
 
-        if (m_playFinalDialgue)
+        if (m_playFinalDialgue && m_win)
         {
             GameManager.Instance.DialogueRunner.StartDialogue(GameManager.Instance.FinaleDialogueNode);
         }

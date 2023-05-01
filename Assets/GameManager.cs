@@ -114,6 +114,9 @@ public class GameManager : SingletonBase<GameManager>
     private AudioClip m_playerDeadSFX;
 
     [SerializeField]
+    private AudioClip m_reaperHowlSFX;
+
+    [SerializeField]
     private AudioClip m_dashSFX;
 
     [SerializeField]
@@ -167,6 +170,7 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject IntroUI { get => m_introUI; }
     public List<string> LevelDialogueNodes { get => m_levelDialogueNodes; }
     public string FinaleDialogueNode { get => m_finaleDialogueNode; }
+    public AudioClip ReaperHowlSFX { get => m_reaperHowlSFX; }
 
     protected override void Awake()
     {
