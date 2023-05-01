@@ -174,6 +174,8 @@ public class PlayerController : MonoBehaviour
 	{
 		m_isDashing = true;
 
+		m_timeOfLastGroundedFrame = Time.time;
+
 		m_velocity = Vector2.zero;
 
 		Vector3 targetPos = (Vector2)m_collider.bounds.center + new Vector2(direction * m_dashDistance, 0f);
