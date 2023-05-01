@@ -47,6 +47,7 @@ MonoBehaviour:
   m_playerPrefab: {fileID: 8378621006104947618, guid: 45ffda5a37b7a124cba00b5f9f97740b, type: 3}
   m_levels:
   - {fileID: 6611741264320714174, guid: 36cba6e72d325fc43807e1c1db7fe013, type: 3}
+  - {fileID: 6611741264320714174, guid: 96b70269d9e15d2418b6a2770444ff56, type: 3}
   m_cameraController: {fileID: 0}
   m_mainMenu: {fileID: 312652919677441327, guid: 87c74c91de34c174db3bbbf9196d6931, type: 3}
   m_levelSelect: {fileID: 312652919677441327, guid: 1fc8108f89690ba4cb73d750ada9cd88, type: 3}
