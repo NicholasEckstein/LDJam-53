@@ -27588,6 +27588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniMapCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7112089132232445150, guid: ae75aeba89c89394597c23d476f756fc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae75aeba89c89394597c23d476f756fc, type: 3}
 --- !u!224 &6108320226760584723 stripped
