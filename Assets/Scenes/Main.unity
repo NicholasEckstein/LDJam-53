@@ -379,6 +379,10 @@ PrefabInstance:
       value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
+      propertyPath: m_ascentMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: e748638cee63474449d644fcd42e79fa, type: 3}
+    - target: {fileID: -7710961827940765877, guid: 6bd8327b1351db047b087a2e8fbff459, type: 3}
       propertyPath: m_cameraShake
       value: 
       objectReference: {fileID: 500659406}
